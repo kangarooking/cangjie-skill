@@ -6,9 +6,7 @@ Distill a book into a set of executable AI skills.
 
 There's a recent viral idea: distilling colleagues into AI skills. Even after someone leaves, their experience, tone, and work style can be partially replicated by AI. [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) does exactly this — creating "human skills" like an Elon Musk skill or a Warren Buffett skill. The companion [darwin-skill](https://github.com/alchaincyf/darwin-skill) handles automatic skill evolution.
 
-These human skills are interesting, but they have a limitation: distilling a person may capture off-the-cuff opinions that aren't necessarily reliable or useful.
-
-Distilling what a person has **written** is different. A book represents years of deliberate thinking — the distilled essence of careful reflection. Rather than imitating how someone talks, extracting their methodologies into tools that help people solve real problems is what's truly valuable.
+Distilling people is valuable — nuwa-skill has already proven this. Distilling what people have **written** is a complementary dimension: a book represents years of deliberate thinking — the distilled essence of careful reflection. Rather than imitating someone's expression style, extracting their systematically produced methodologies into tools that help people solve real problems is equally valuable.
 
 There's also a real pain point: you might read many books but struggle to apply them. Knowledge stays at the "I've read it" level and never gets activated in real decisions. Once a book is distilled into skills, an AI agent can invoke that knowledge in real scenarios — instead of letting it gather dust in your notes.
 
