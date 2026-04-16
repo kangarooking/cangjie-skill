@@ -1,0 +1,52 @@
+{
+  "skill": "{{skill-slug}}",
+  "version": "0.1.0",
+  "source_book": "{{BOOK_TITLE}} — {{AUTHOR}}",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "{{用户的典型话语 1 — 正面场景}}",
+      "expected_behavior": "应激活 {{skill-slug}}, 并 {{期望的具体动作}}",
+      "notes": "{{为什么这是正面场景}}"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "{{用户的典型话语 2}}",
+      "expected_behavior": "...",
+      "notes": "..."
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "{{用户的典型话语 3}}",
+      "expected_behavior": "...",
+      "notes": "..."
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "{{诱饵 1 — 看似相关但实际不该调用}}",
+      "expected_behavior": "不应激活本 skill, 因为 {{理由}}",
+      "notes": "诱饵: {{这是什么类型的诱饵}}"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "{{诱饵 2 — 另一种不该调用的情况}}",
+      "expected_behavior": "...",
+      "notes": "..."
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "{{边界模糊场景}}",
+      "expected_behavior": "{{期望的合理判断 — 可能是调用, 可能是不调用, 但要说清为什么}}",
+      "notes": "边界: {{为什么这是边界}}"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0)。"
+}
