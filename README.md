@@ -74,10 +74,12 @@ RIA-TV++ 这个名字拆开看：
 | 仓库 | 来源 | Skills 数 |
 |------|------|-----------|
 | [buffett-letters-skill](https://github.com/kangarooking/buffett-letters-skill) | 巴菲特致股东的信（1957-2023） | 20 |
+| [cognitive-dividend-skill](https://github.com/kangarooking/cognitive-dividend-skill) | 《认知红利》 | 15 |
+| [duan-yongping-skill](https://github.com/kangarooking/duan-yongping-skill) | 段永平投资问答录（商业逻辑+投资逻辑） | 15 |
 | [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | 《穷查理宝典》 | 12 |
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | 《不拘一格：网飞的自由与责任工作法》 | 10 |
 
-后续计划蒸馏更多高价值书籍。候选书单包括但不限于：段永平投资问答录、毛选、君主论、黄帝内经。
+后续计划蒸馏更多高价值书籍。候选书单包括但不限于：毛选、君主论、黄帝内经。
 
 ## 仓库结构
 

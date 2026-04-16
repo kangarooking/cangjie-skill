@@ -74,6 +74,8 @@ RIA-TV++ の名前の由来：
 | リポジトリ | 元資料 | スキル数 |
 |------------|--------|----------|
 | [buffett-letters-skill](https://github.com/kangarooking/buffett-letters-skill) | バフェットの株主への手紙（1957-2023） | 20 |
+| [cognitive-dividend-skill](https://github.com/kangarooking/cognitive-dividend-skill) | 認知の红利 | 15 |
+| [duan-yongping-skill](https://github.com/kangarooking/duan-yongping-skill) | 段永平の投資Q&A（ビジネス+投資ロジック） | 15 |
 | [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | 貧しきチャーリーの格言 | 12 |
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | No Rules Rules | 10 |
 
