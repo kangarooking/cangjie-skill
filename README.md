@@ -1,6 +1,6 @@
 # Cangjie Skill
 
-把一本书蒸馏成一组可执行的 AI skills。
+把一本书蒸馏成一组可执行的 Agent Skills。
 
 ## 为什么做这件事
 
