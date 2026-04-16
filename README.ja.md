@@ -1,87 +1,116 @@
 # Cangjie Skill
 
-本を再利用可能な AI skill に変換するための生成ワークフローです。
+本を実行可能な AI スキルのセットに蒸留します。
 
-`cangjie-skill` は、このワークスペース内の skill pack リポジトリを生み出す上流システムです。主にエンドユーザー向けの単体 skill ではなく、長文の材料から構造化された skill を生成するための制作ワークフローです。
+## なぜこれを作ったのか
 
-## できること
+最近バズったアイデアがあります：同僚を AI スキルに蒸留する。人が離職しても、その人の経験、口調、仕事のスタイルが AI によってある程度再現できる。[nuwa-skill](https://github.com/alchaincyf/nuwa-skill) はまさにこれを行う——イーロン・マスク skill やウォーレン・バフェット skill のような「人間 skill」を生成します。コンパニオンの [darwin-skill](https://github.com/alchaincyf/darwin-skill) はスキルの自動進化を担当します。
 
-- 原則、フレームワーク、事例、反例、用語を抽出する
-- standalone skill にする前に候補を絞り込む
-- 選ばれた単位を統一された `SKILL.md` 形式へ変換する
-- 関連 skill をグラフとして接続する
-- `BOOK_OVERVIEW.md`、`INDEX.md`、`test-prompts.json` を生成する
+これらの人間 skill は面白いですが、限界があります：人を蒸留しても、その場しのぎの意見を拾うだけで、必ずしも信頼性や有用性があるとは限りません。
 
-## パイプライン
+その人が**書いたもの**を蒸留するのは違います。本は長年の熟考の結晶——慎重な反省の後に抽出された真のエッセンスです。人の話し方を真似するよりも、その人の方法論を人々の実問題を解決するツールとして抽出することこそが真に価値のあることです。
 
-1. Stage 0: 本全体の理解
-2. Stage 1: 並列抽出
-3. Stage 1.5: 検証と絞り込み
-4. Stage 2: RIA++ skill 構築
-5. Stage 3: グラフ連結
-6. Stage 4: 圧力テスト
+また、リアルなペインポイントもあります：多くの本を読んでいても、それを活用できない。知識は「読んだ」レベルに留まり、実際の意思決定で活性化されることがない。本がスキルに蒸留されれば、AIエージェントが実際のシナリオでその知識を呼び出してくれる——ノートに埃をかぶせる代わりに。
 
-## すでに生成したもの
+だから cangjie-skill の目標は一つ：**蒸留する価値のあるすべての本を蒸留し**、それぞれの高価値な本を、独立して呼び出し可能、組み合わせ可能、ストレステスト可能な AI スキルパックに変えること。
 
-- `poor-charlies-almanack-skill`
-- `no-rules-rules-skill`
+## 解決する問題
+
+- 多くの本を読んでいるが活用できない——知識が「読んだ」レベルに留まり、実際の意思決定で活性化されない
+- 本の要約や読書メモは圧縮であって、構造化された再利用ではない——「いつ何を使うべきか」が分からないまま
+- 本の中で本当にツールになる価値のある内容はごく一部——厳格なフィルタリングが必要で、全部入りではない
+- 既存の読書方法論は人間の読者向けで、エージェントの実行者向けではない——実行志向の蒸留が必要
+
+## どう動くか
+
+cangjie-skill は **RIA-TV++** パイプラインを使用して、本を生のテキストから構造化されたスキルのセットに変換します。6段階のプロセスです：
+
+1. **全書理解（Adler分析）** — モーティマー・アドラーの分析方法で、全書を構造・解釈・批判・応用の4ステップで分解し、`BOOK_OVERVIEW.md` を生成
+2. **並行抽出** — 5つの専門エクストラクター（フレームワーク、原則、事例、反例、用語）が同時に実行され、原文から候補ユニットを抽出
+3. **三重検証** — 各候補は3つのチェックを通過する必要があります：書中に少なくとも2つの独立した裏付けがあるか（クロスドメイン）、新しい質問に答えられるか（予測力）、常識ではないか（独自性）。合格率は通常25〜50%
+4. **RIA++ 構築** — 検証済みの内容を6つの次元に構造化：R（原文引用）/ I（自分の言葉での再構築）/ A1（書中の事例）/ A2（将来のトリガーシーン）/ E（実行可能ステップ）/ B（境界と盲点）
+5. **ツェッテルカステン連携** — スキル間の依存、対比、構成関係を特定し、参照グラフ付きの `INDEX.md` を生成
+6. **ストレステスト** — 各スキルに囮問題を含むテストプロンプトを設計。不合格は全面的に再構築
+
+RIA-TV++ の名前の由来：
+- **RIA**：趙周のブックマーク法（Reading / Interpretation / Appropriation）
+- **TV**：Triple Verification（三重検証）
+- **++**：エージェント実行向けの拡張——E（Execution）+ B（Boundary）
 
 ## 効果例
 
-### 例 1
+### 例1：本からスキルパックへ
 
 **ユーザーの要望**
 
-「本を長い要約ではなく、再利用可能な AI skill にしたい」
+「本のコア方法論を再利用可能な AI スキルにしたい。読書要約ではなく。」
 
-**cangjie-skill がどう判断するか**
+**cangjie-skill の判断**
 
-- 元資料に再利用できる方法論単位があるか確認する
-- standalone にすべき skill と背景情報を分ける
-- 単一の要約ではなく構造化された skill リポジトリを出力する
+- 元資料に再利用可能な方法論ユニットがあるか確認
+- スタンドアロンのスキルに値するものと背景情報を区別
+- 単一の要約ではなく、構造化されたスキルリポジトリを出力
 
-**最終出力の例**
+**出力例**
 
-「結果は 1 つの要約ファイルではなく、`BOOK_OVERVIEW.md`、`INDEX.md`、複数の `*/SKILL.md`、そしてトリガー検証用の `test-prompts.json` を含む multi-skill repository になります。」
+> 結果は1つの要約ファイルではなく、`BOOK_OVERVIEW.md`、`INDEX.md`、複数の `*/SKILL.md`、トリガー検証用の `test-prompts.json` を含む multi-skill リポジトリになります。
 
-### 例 2
+### 例2：圧縮ではなく、構造化再利用
 
 **ユーザーの要望**
 
-「agent が何度も再利用できるものがほしい」
+「長い説明文が欲しいのではなく、エージェントが再利用できるスキルパックが欲しい。」
 
-**cangjie-skill がどう判断するか**
+**cangjie-skill の判断**
 
-- 説明文の圧縮ではなく構造化再利用を優先する
-- trigger 可能で、組み合わせ可能で、テスト可能な unit を優先する
-- 独立 skill に値しない材料は落とす
+- 目標は構造化再利用であり、物語の圧縮ではない
+- トリガー可能、組み合わせ可能、テスト可能なスキルユニットを優先
+- スタンドアロンのスキルに値しない素材は落とす
 
-**最終出力の例**
+**出力例**
 
-「システムは trigger 条件、適用境界、実行パターン、関連 skill リンクを持つ複数の skill module を生成し、1 本の汎用的な要約にはしません。」
+> システムはトリガー条件、境界、実行パターン、関連スキルリンクを持つ複数のスキルモジュールを生成します——全体を1つの汎用的なノートに平坦化するのではなく。
 
-## リポジトリ構成
+## 生成済みスキルパック
+
+| リポジトリ | 元資料 | スキル数 |
+|------------|--------|----------|
+| [buffett-letters-skill](https://github.com/kangarooking/buffett-letters-skill) | バフェットの株主への手紙（1957-2023） | 20 |
+| [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | 貧しきチャーリーの格言 | 12 |
+| [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | No Rules Rules | 10 |
+
+より多くの高価値な本の蒸留を計画中。
+
+## リポジトリ構造
 
 ```text
 cangjie-skill/
-├── README.md
-├── README.en.md
-├── README.ja.md
-├── LICENSE
-├── GITHUB_REPO.md
-├── SKILL.md
-├── methodology/
-├── extractors/
-└── templates/
+├── README.md              ← 今見ているファイル
+├── README.en.md           ← 英語版
+├── README.ja.md           ← 日本語版
+├── LICENSE                ← MIT
+├── SKILL.md               ← メタスキル定義（book2skill の完全な実行仕様）
+├── methodology/           ← RIA-TV++ の段階別方法論ドキュメント
+├── extractors/            ← 5つの並行エクストラクターのプロンプト定義
+└── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md テンプレート
 ```
+
+## エコシステム
+
+cangjie-skill はより大きなスキルエコシステムの一部です：
+
+- [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) — 人を蒸留する（思考スタイル、表現 DNA）
+- **cangjie-skill**（このリポジトリ）— 本を蒸留する（方法論、フレームワーク、原則）
+- [darwin-skill](https://github.com/alchaincyf/darwin-skill) — 任意のスキルを進化させる
+
+これらは連携しています：nuwa は人を蒸留し、cangjie は本を蒸留し、darwin はそれらを進化させ続けます。
 
 ## More Skills
 
-- `poor-charlies-almanack-skill`
-  `https://github.com/kangarooking/poor-charlies-almanack-skill`
-- `no-rules-rules-skill`
-  `https://github.com/kangarooking/no-rules-rules-skill`
+- [Buffett Letters Skill](https://github.com/kangarooking/buffett-letters-skill) — バフェットの60年以上の株主への手紙から抽出した20個の投資判断スキル
+- [Poor Charlie's Almanack Skill](https://github.com/kangarooking/poor-charlies-almanack-skill) — チャーリー・マンガーのコア思考法から抽出した12個の意思決定・判断スキル
+- [No Rules Rules Skill](https://github.com/kangarooking/no-rules-rules-skill) — ネットフリックスの自由と責任の文化から抽出した10個の組織設計スキル
 
 ## License
 
-MIT. 詳しくは [LICENSE](./LICENSE) を参照してください。
+MIT. See [LICENSE](./LICENSE).

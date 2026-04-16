@@ -1,86 +1,115 @@
 # Cangjie Skill
 
-A generator workflow for turning books into reusable AI skills.
+Distill a book into a set of executable AI skills.
 
-`cangjie-skill` is the upstream system behind the published skill-pack repositories in this workspace. It is not mainly an end-user skill. It is a production workflow for generating structured, reusable skills from long-form material.
+## Why This Exists
 
-## What It Does
+There's a recent viral idea: distilling colleagues into AI skills. Even after someone leaves, their experience, tone, and work style can be partially replicated by AI. [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) does exactly this — creating "human skills" like an Elon Musk skill or a Warren Buffett skill. The companion [darwin-skill](https://github.com/alchaincyf/darwin-skill) handles automatic skill evolution.
 
-- extracts principles, frameworks, cases, counter-examples, and glossary items
-- filters candidate units before they become standalone skills
-- converts selected units into a consistent `SKILL.md` format
-- links related skills into a navigable graph
-- generates supporting files such as `BOOK_OVERVIEW.md`, `INDEX.md`, and `test-prompts.json`
+These human skills are interesting, but they have a limitation: distilling a person may capture off-the-cuff opinions that aren't necessarily reliable or useful.
 
-## Pipeline
+Distilling what a person has **written** is different. A book represents years of deliberate thinking — the distilled essence of careful reflection. Rather than imitating how someone talks, extracting their methodologies into tools that help people solve real problems is what's truly valuable.
 
-1. Stage 0: whole-book understanding
-2. Stage 1: parallel extraction
-3. Stage 1.5: validation and filtering
-4. Stage 2: RIA++ skill construction
-5. Stage 3: graph linking
-6. Stage 4: pressure testing
+There's also a real pain point: you might read many books but struggle to apply them. Knowledge stays at the "I've read it" level and never gets activated in real decisions. Once a book is distilled into skills, an AI agent can invoke that knowledge in real scenarios — instead of letting it gather dust in your notes.
 
-## What It Has Already Generated
+So cangjie-skill has one clear goal: **distill every book worth distilling**, turning each high-value book into a set of independently callable, composable, and pressure-testable AI skill packs.
 
-- `poor-charlies-almanack-skill`
-- `no-rules-rules-skill`
+## What Problems It Solves
 
-## Example Outcomes
+- Reading many books but never applying them — knowledge stays at "I've read it" and never activates in real decisions
+- Book summaries and reading notes are compression, not structured reuse — you still don't know "when to use what"
+- Only a small fraction of a book deserves to become a tool — strict filtering is needed, not wholesale inclusion
+- Existing reading methodologies are designed for human readers, not agent executors — distillation must be execution-oriented, not reading-oriented
 
-### Example 1
+## How It Works
 
-**User need**
+cangjie-skill uses the **RIA-TV++** pipeline to transform a book from raw text into a set of structured skills. The process has six stages:
 
-"I want to turn a book into reusable AI skills, not just a long reading summary."
+1. **Whole-Book Comprehension (Adler Analysis)** — Structural, interpretive, critical, and applicability analysis using Mortimer Adler's method, producing `BOOK_OVERVIEW.md`
+2. **Parallel Extraction** — Five specialized extractors (frameworks, principles, cases, counter-examples, glossary) run simultaneously to pull candidate units from the source text
+3. **Triple Verification** — Each candidate must pass three checks: at least 2 independent supporting passages (cross-domain), ability to answer a novel question (predictive power), and non-commonsense uniqueness. Pass rate is typically 25-50%
+4. **RIA++ Construction** — Verified content is structured into six dimensions: R (original quote) / I (own-words reconstruction) / A1 (book cases) / A2 (future trigger scenarios) / E (executable steps) / B (boundaries & blind spots)
+5. **Zettelkasten Linking** — Dependency, contrast, and composition relationships between skills are identified, producing `INDEX.md` with a reference graph
+6. **Pressure Testing** — Test prompts including bait questions are designed for each skill; failures go back for full reconstruction
 
-**How cangjie-skill reasons**
+The name RIA-TV++ breaks down as:
+- **RIA**: From Zhao Zhou's bookmark method (Reading / Interpretation / Appropriation)
+- **TV**: Triple Verification
+- **++**: Agent-oriented extensions — E (Execution) + B (Boundary)
 
-- checks whether the source has reusable methodological units
-- separates standalone skills from background-only material
-- outputs a structured skill repository instead of a single summary file
+## Effect Examples
 
-**Example output**
+### Example 1: From a Book to a Skill Pack
 
-"The result will not be one summary document. It will be a multi-skill repository with `BOOK_OVERVIEW.md`, `INDEX.md`, multiple `*/SKILL.md` files, and `test-prompts.json` for trigger testing."
+**User Need**
 
-### Example 2
-
-**User need**
-
-"I want something my agent can repeatedly use, not a long explanatory article."
+"I want to turn a book's core methodologies into reusable AI skills, not just a reading summary."
 
 **How cangjie-skill reasons**
 
-- optimizes for structured reuse rather than narrative compression
-- prefers triggerable, composable, testable skill units
-- rejects material that does not deserve to become a standalone skill
+- Check whether the source material has reusable methodological units
+- Distinguish what deserves to be a standalone skill vs. background material
+- Output a structured skill repository, not a single summary document
 
-**Example output**
+**Example Output**
 
-"The system produces multiple skill modules with trigger conditions, boundaries, execution patterns, and related-skill links, rather than flattening the source into one generalized note."
+> The result will not be one summary document. It will be a multi-skill repository with `BOOK_OVERVIEW.md`, `INDEX.md`, multiple `*/SKILL.md` files, and `test-prompts.json` for trigger testing.
+
+### Example 2: Structured Reuse, Not Compression
+
+**User Need**
+
+"I don't want a long explanatory article. I want a skill pack my agent can reuse."
+
+**How cangjie-skill reasons**
+
+- Target is structured reuse, not narrative compression
+- Prioritize triggerable, composable, testable skill units
+- Reject material that doesn't deserve standalone skill status
+
+**Example Output**
+
+> The system produces multiple skill modules with trigger conditions, boundaries, execution patterns, and related-skill links — rather than flattening the source into one generalized note.
+
+## Generated Skill Packs
+
+| Repository | Source | Skills |
+|------------|--------|--------|
+| [buffett-letters-skill](https://github.com/kangarooking/buffett-letters-skill) | Buffett's shareholder letters (1957-2023) | 20 |
+| [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | Poor Charlie's Almanack | 12 |
+| [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | No Rules Rules | 10 |
+
+More high-value books are planned for distillation.
 
 ## Repository Structure
 
 ```text
 cangjie-skill/
-├── README.md
-├── README.en.md
-├── README.ja.md
-├── LICENSE
-├── GITHUB_REPO.md
-├── SKILL.md
-├── methodology/
-├── extractors/
-└── templates/
+├── README.md              ← You are here
+├── README.en.md           ← English version
+├── README.ja.md           ← Japanese version
+├── LICENSE                ← MIT
+├── SKILL.md               ← Meta-skill definition (full execution spec for book2skill)
+├── methodology/           ← RIA-TV++ stage-by-stage methodology docs
+├── extractors/            ← Prompt definitions for the 5 parallel extractors
+└── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md templates
 ```
+
+## Ecosystem
+
+cangjie-skill is part of a larger skill ecosystem:
+
+- [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) — Distills people (thinking styles, expression DNA)
+- **cangjie-skill** (this repo) — Distills books (methodologies, frameworks, principles)
+- [darwin-skill](https://github.com/alchaincyf/darwin-skill) — Evolves any skill
+
+They interlock: nuwa distills people, cangjie distills books, darwin keeps them evolving.
 
 ## More Skills
 
-- `poor-charlies-almanack-skill`
-  `https://github.com/kangarooking/poor-charlies-almanack-skill`
-- `no-rules-rules-skill`
-  `https://github.com/kangarooking/no-rules-rules-skill`
+- [Buffett Letters Skill](https://github.com/kangarooking/buffett-letters-skill) — 20 investment reasoning skills from Buffett's 60+ years of shareholder letters
+- [Poor Charlie's Almanack Skill](https://github.com/kangarooking/poor-charlies-almanack-skill) — 12 decision-making and judgment skills from Charlie Munger's core thinking methods
+- [No Rules Rules Skill](https://github.com/kangarooking/no-rules-rules-skill) — 10 organizational design skills from Netflix's culture of freedom and responsibility
 
 ## License
 
