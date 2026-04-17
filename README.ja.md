@@ -113,6 +113,20 @@ cangjie-skill はより大きなスキルエコシステムの一部です：
 - [Cognitive Dividend Skill](https://github.com/kangarooking/cognitive-dividend-skill) — 『認知の红利』から抽出した15個の認知ツールスキル
 - [Duan Yongping Skill](https://github.com/kangarooking/duan-yongping-skill) — 段永平の投資Q&Aから抽出した15個のビジネス・投資スキル
 
+## 作者について
+
+**袋鼠帝 kangarooking** — AI ブロガー、インディー開発者。AI Top 公式アカウント「袋鼠帝 AI 客栈」主宰
+
+Volcengine ナビゲーション KOL、Baidu Qianfan 開発者アンバサダー、GLM エバンジェリスト、Trae 昆明初代 Fellow
+
+| プラットフォーム | リンク |
+|------------------|--------|
+| 𝕏 Twitter | https://x.com/aikangarooking |
+| 小紅書 | https://xhslink.com/m/5YejKvIDBbL |
+| 抖音 | https://v.douyin.com/hYpsjphuuKc |
+| WeChat 公式アカウント | 袋鼠帝 AI 客栈 |
+| WeChat ビデオチャンネル | AI 袋鼠帝 |
+
 ## License
 
 MIT. See [LICENSE](./LICENSE).
