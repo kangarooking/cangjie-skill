@@ -127,6 +127,10 @@ Volcengine Navigation KOL, Baidu Qianfan Developer Ambassador, GLM Evangelist, T
 | WeChat Official Account | 袋鼠帝 AI 客栈 |
 | WeChat Video Channel | AI 袋鼠帝 |
 
+WeChat Official Account「袋鼠帝 AI 客栈」QR code:
+
+![](https://raw.githubusercontent.com/kangarooking/cangjie-skill/main/assets/kangarooking-gzh.jpg)
+
 ## License
 
 MIT. See [LICENSE](./LICENSE).

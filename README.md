@@ -127,6 +127,10 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 | 公众号 | 袋鼠帝 AI 客栈 |
 | 视频号 | AI 袋鼠帝 |
 
+微信公众号「袋鼠帝 AI 客栈」二维码：
+
+![](https://raw.githubusercontent.com/kangarooking/cangjie-skill/main/assets/kangarooking-gzh.jpg)
+
 ## License
 
 MIT. See [LICENSE](./LICENSE).

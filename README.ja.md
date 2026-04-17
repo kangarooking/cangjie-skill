@@ -127,6 +127,10 @@ Volcengine ナビゲーション KOL、Baidu Qianfan 開発者アンバサダー
 | WeChat 公式アカウント | 袋鼠帝 AI 客栈 |
 | WeChat ビデオチャンネル | AI 袋鼠帝 |
 
+WeChat 公式アカウント「袋鼠帝 AI 客栈」QR コード:
+
+![](https://raw.githubusercontent.com/kangarooking/cangjie-skill/main/assets/kangarooking-gzh.jpg)
+
 ## License
 
 MIT. See [LICENSE](./LICENSE).
