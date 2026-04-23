@@ -80,6 +80,7 @@ RIA-TV++ の名前の由来：
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | No Rules Rules | 10 |
 | 黄帝内経・素問（本プロジェクト内） | 『黄帝内経・素問』 | 10 |
 | 黄帝内経・霊枢（本プロジェクト内） | 『黄帝内経・霊枢』 | 8 |
+| [first-principles-skill](https://github.com/kangarooking/first-principles-skill) | 『第一性原理』 | 10 |
 
 より多くの高価値な本の蒸留を計画中。
 
@@ -121,6 +122,7 @@ cangjie-skill はより大きなスキルエコシステムの一部です：
 - [Duan Yongping Skill](https://github.com/kangarooking/duan-yongping-skill) — 段永平の投資Q&Aから抽出した15個のビジネス・投資スキル
 - Huangdi Neijing Suwen Skill（本プロジェクト内）— 『黄帝内経・素問』から抽出した10個の中医観察・調整スキル
 - Huangdi Neijing Lingshu Skill（本プロジェクト内）— 『黄帝内経・霊枢』から抽出した8個の心身調整・弁証スキル
+- [First Principles Skill](https://github.com/kangarooking/first-principles-skill) — 『第一性原理』から抽出した10個の公理化思考・破界イノベーション・組織刷新スキル
 
 External Source（著者本人の許可を得て掲載）:
 

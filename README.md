@@ -1,6 +1,17 @@
+<div align="center">
+
 # Cangjie Skill
 
-把一本书蒸馏成一组可执行的 Agent Skills。
+### 把一本书的方法论，蒸馏成可调用的 AI Skills
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-f5c542.svg)](./LICENSE)
+[![Method: RIA--TV++](https://img.shields.io/badge/Method-RIA--TV++-2ea44f.svg)](./SKILL.md)
+[![Platform: OpenClaw](https://img.shields.io/badge/Platform-OpenClaw-1677ff.svg)](https://github.com/openclaw/openclaw)
+[![Platform: Claude Code](https://img.shields.io/badge/Platform-Claude%20Code-f97316.svg)](https://code.claude.com/)
+
+**读一本到位，带走一套能调用的方法论。**
+
+</div>
 
 ## 为什么做这件事
 
@@ -79,6 +90,7 @@ RIA-TV++ 这个名字拆开看：
 | [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | 《穷查理宝典》 | 12 |
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | 《不拘一格：网飞的自由与责任工作法》 | 10 |
 | [huangdi-neijing-skill](https://github.com/kangarooking/huangdi-neijing-skill) | 《黄帝内经》（素问+灵枢） | 22 |
+| [first-principles-skill](https://github.com/kangarooking/first-principles-skill) | 《第一性原理》 | 10 |
 
 后续计划蒸馏更多高价值书籍。候选书单包括但不限于：毛选、君主论。
 
@@ -119,6 +131,7 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 - [Cognitive Dividend Skill](https://github.com/kangarooking/cognitive-dividend-skill) — 《认知红利》思维升级的 15 个认知工具 skill
 - [Duan Yongping Skill](https://github.com/kangarooking/duan-yongping-skill) — 段永平投资问答录的 15 个商业与投资 skill
 - [Huangdi Neijing Skill](https://github.com/kangarooking/huangdi-neijing-skill) — 《黄帝内经》素问12+灵枢10共22个思维方法 skill
+- [First Principles Skill](https://github.com/kangarooking/first-principles-skill) — 《第一性原理》的 10 个认知拆解、破界创新与组织刷新 skill
 - [book2startup](https://github.com/ace3000chao/book2startup) — 经作者同意引入的外部来源，包含《精益创业》《孙子兵法》《庄子》《易经》相关 skills
 
 ## 关于作者
