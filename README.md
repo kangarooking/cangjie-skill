@@ -82,6 +82,11 @@ RIA-TV++ 这个名字拆开看：
 
 后续计划蒸馏更多高价值书籍。候选书单包括但不限于：毛选、君主论。
 
+补充外部来源（经对方作者同意引入）：
+
+- 来源仓库：[ace3000chao/book2startup](https://github.com/ace3000chao/book2startup)
+- 书目包括：《精益创业》《孙子兵法》《庄子》《易经》
+
 ## 仓库结构
 
 ```text
@@ -114,6 +119,7 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 - [Cognitive Dividend Skill](https://github.com/kangarooking/cognitive-dividend-skill) — 《认知红利》思维升级的 15 个认知工具 skill
 - [Duan Yongping Skill](https://github.com/kangarooking/duan-yongping-skill) — 段永平投资问答录的 15 个商业与投资 skill
 - [Huangdi Neijing Skill](https://github.com/kangarooking/huangdi-neijing-skill) — 《黄帝内经》素问12+灵枢10共22个思维方法 skill
+- [book2startup](https://github.com/ace3000chao/book2startup) — 经作者同意引入的外部来源，包含《精益创业》《孙子兵法》《庄子》《易经》相关 skills
 
 ## 关于作者
 

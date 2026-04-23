@@ -78,8 +78,15 @@ RIA-TV++ の名前の由来：
 | [duan-yongping-skill](https://github.com/kangarooking/duan-yongping-skill) | 段永平の投資Q&A（ビジネス+投資ロジック） | 15 |
 | [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | 貧しきチャーリーの格言 | 12 |
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | No Rules Rules | 10 |
+| 黄帝内経・素問（本プロジェクト内） | 『黄帝内経・素問』 | 10 |
+| 黄帝内経・霊枢（本プロジェクト内） | 『黄帝内経・霊枢』 | 8 |
 
 より多くの高価値な本の蒸留を計画中。
+
+追加の外部ソース（著者本人の許可を得て掲載）：
+
+- 元リポジトリ: [ace3000chao/book2startup](https://github.com/ace3000chao/book2startup)
+- 書目: 『リーン・スタートアップ』『孫子兵法』『荘子』『易経』
 
 ## リポジトリ構造
 
@@ -112,6 +119,12 @@ cangjie-skill はより大きなスキルエコシステムの一部です：
 - [No Rules Rules Skill](https://github.com/kangarooking/no-rules-rules-skill) — ネットフリックスの自由と責任の文化から抽出した10個の組織設計スキル
 - [Cognitive Dividend Skill](https://github.com/kangarooking/cognitive-dividend-skill) — 『認知の红利』から抽出した15個の認知ツールスキル
 - [Duan Yongping Skill](https://github.com/kangarooking/duan-yongping-skill) — 段永平の投資Q&Aから抽出した15個のビジネス・投資スキル
+- Huangdi Neijing Suwen Skill（本プロジェクト内）— 『黄帝内経・素問』から抽出した10個の中医観察・調整スキル
+- Huangdi Neijing Lingshu Skill（本プロジェクト内）— 『黄帝内経・霊枢』から抽出した8個の心身調整・弁証スキル
+
+External Source（著者本人の許可を得て掲載）:
+
+- [book2startup](https://github.com/ace3000chao/book2startup) — 『リーン・スタートアップ』『孫子兵法』『荘子』『易経』を蒸留した skills を含む
 
 ## 作者について
 

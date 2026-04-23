@@ -78,8 +78,15 @@ The name RIA-TV++ breaks down as:
 | [duan-yongping-skill](https://github.com/kangarooking/duan-yongping-skill) | Duan Yongping's Q&A (business + investment logic) | 15 |
 | [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | Poor Charlie's Almanack | 12 |
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | No Rules Rules | 10 |
+| Huangdi Neijing Suwen (in this project) | Huangdi Neijing: Suwen | 10 |
+| Huangdi Neijing Lingshu (in this project) | Huangdi Neijing: Lingshu | 8 |
 
 More high-value books are planned for distillation.
+
+Additional external source (included with the author's permission):
+
+- Source repository: [ace3000chao/book2startup](https://github.com/ace3000chao/book2startup)
+- Included books: *The Lean Startup*, *The Art of War*, *Zhuangzi*, and *I Ching*
 
 ## Repository Structure
 
@@ -112,6 +119,12 @@ They interlock: nuwa distills people, cangjie distills books, darwin keeps them 
 - [No Rules Rules Skill](https://github.com/kangarooking/no-rules-rules-skill) — 10 organizational design skills from Netflix's culture of freedom and responsibility
 - [Cognitive Dividend Skill](https://github.com/kangarooking/cognitive-dividend-skill) — 15 cognitive tool skills for thinking upgrades from Cognitive Dividend
 - [Duan Yongping Skill](https://github.com/kangarooking/duan-yongping-skill) — 15 business and investment skills from Duan Yongping's Q&A collection
+- Huangdi Neijing Suwen Skill (in this project) — 10 traditional Chinese medicine observation and regulation skills from *Huangdi Neijing: Suwen*
+- Huangdi Neijing Lingshu Skill (in this project) — 8 body-mind regulation and syndrome differentiation skills from *Huangdi Neijing: Lingshu*
+
+External Source (included with the author's permission):
+
+- [book2startup](https://github.com/ace3000chao/book2startup) — includes skills distilled from *The Lean Startup*, *The Art of War*, *Zhuangzi*, and *I Ching*
 
 ## About the Author
 
