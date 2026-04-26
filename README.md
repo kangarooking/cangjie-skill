@@ -91,6 +91,7 @@ RIA-TV++ 这个名字拆开看：
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | 《不拘一格：网飞的自由与责任工作法》 | 10 |
 | [huangdi-neijing-skill](https://github.com/kangarooking/huangdi-neijing-skill) | 《黄帝内经》（素问+灵枢） | 22 |
 | [first-principles-skill](https://github.com/kangarooking/first-principles-skill) | 《第一性原理》 | 10 |
+| [book2skill](https://github.com/shenqistart/book2skill) | 《缠论》/《缠中说禅教你炒股票》结构分析方法 | 5 |
 
 后续计划蒸馏更多高价值书籍。候选书单包括但不限于：毛选、君主论。
 
@@ -133,6 +134,7 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 - [Huangdi Neijing Skill](https://github.com/kangarooking/huangdi-neijing-skill) — 《黄帝内经》素问12+灵枢10共22个思维方法 skill
 - [First Principles Skill](https://github.com/kangarooking/first-principles-skill) — 《第一性原理》的 10 个认知拆解、破界创新与组织刷新 skill
 - [book2startup](https://github.com/ace3000chao/book2startup) — 经作者同意引入的外部来源，包含《精益创业》《孙子兵法》《庄子》《易经》相关 skills
+- [book2skill](https://github.com/shenqistart/book2skill) — 《缠论》结构分析方法的 5 个 AI-Agent skills，覆盖分型/笔/线段、中枢、背驰、买卖点与多级别情景推演
 
 ## 关于作者
 
