@@ -88,6 +88,8 @@ Additional external source (included with the author's permission):
 
 - Source repository: [ace3000chao/book2startup](https://github.com/ace3000chao/book2startup)
 - Included books: *The Lean Startup*, *The Art of War*, *Zhuangzi*, and *I Ching*
+- Source repository: [shenqistart/book2skill](https://github.com/shenqistart/book2skill)
+- Included books: *Chanlun* and *The Classic of Tea*
 
 ## Repository Structure
 
@@ -127,6 +129,7 @@ They interlock: nuwa distills people, cangjie distills books, darwin keeps them 
 External Source (included with the author's permission):
 
 - [book2startup](https://github.com/ace3000chao/book2startup) — includes skills distilled from *The Lean Startup*, *The Art of War*, *Zhuangzi*, and *I Ching*
+- [book2skill](https://github.com/shenqistart/book2skill) — includes AI-Agent skills distilled from *Chanlun* and *The Classic of Tea*
 
 ## About the Author
 

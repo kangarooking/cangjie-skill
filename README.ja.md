@@ -88,6 +88,8 @@ RIA-TV++ の名前の由来：
 
 - 元リポジトリ: [ace3000chao/book2startup](https://github.com/ace3000chao/book2startup)
 - 書目: 『リーン・スタートアップ』『孫子兵法』『荘子』『易経』
+- 元リポジトリ: [shenqistart/book2skill](https://github.com/shenqistart/book2skill)
+- 書目: 『纏論』『茶経』
 
 ## リポジトリ構造
 
@@ -127,6 +129,7 @@ cangjie-skill はより大きなスキルエコシステムの一部です：
 External Source（著者本人の許可を得て掲載）:
 
 - [book2startup](https://github.com/ace3000chao/book2startup) — 『リーン・スタートアップ』『孫子兵法』『荘子』『易経』を蒸留した skills を含む
+- [book2skill](https://github.com/shenqistart/book2skill) — 『纏論』『茶経』を蒸留した AI-Agent skills を含む
 
 ## 作者について
 
