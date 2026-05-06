@@ -15,9 +15,10 @@ description: Distill a book into a coherent set of executable skills. Use when t
 
 ## 核心方法论: RIA-TV++
 
-一个四阶段 + 并行提取 + 三重验证 + darwin 兼容测试的流水线。详见 `methodology/00-overview.md`。
+一个 Stage -1 适配判断 + 整书理解 + 并行提取 + 三重验证 + darwin 兼容测试的流水线。详见 `methodology/00-overview.md`。
 
 ```
+阶段 -1: 书籍适配判断     → BOOK_FIT.md
 阶段 0: Adler 整书理解     → BOOK_OVERVIEW.md
 阶段 1: 5 个 agent 并行提取 → 候选方法论单元池
 阶段 1.5: 三重验证筛选       → 通过的单元
@@ -39,12 +40,14 @@ description: Distill a book into a coherent set of executable skills. Use when t
 在开始前**必须**从用户处确认:
 1. **书的文本来源**: PDF / EPUB / TXT 文件路径, 或可访问的纯文本。**不要**在没有文本的情况下"凭记忆"拆书 — 宁可停下来问用户要。
 2. **书名 + 作者 + 出版年**: 用于目录命名和审计。
-3. **是否首次试点**: 如果用户是第一次用 book2skill,建议先拆 1 本验证流程再批量。
+3. **用户用途**: 想要完整 skill pack、少量可调用方法、人物/世界观/案例库,还是只是探索是否值得拆。
+4. **是否首次试点**: 如果用户是第一次用 book2skill,建议先拆 1 本验证流程再批量。
 
 ## 输出结构
 
 ```
 books/<book-slug>/
+├── BOOK_FIT.md                # 阶段 -1 产出: 是否适合 skill 化 + 替代产物建议
 ├── BOOK_OVERVIEW.md           # 阶段 0 产出: 主旨/骨架/术语/批判
 ├── INDEX.md                   # 阶段 3 产出: skill 总览 + 引用图
 ├── candidates/                # 阶段 1 产出: 原始候选池 (审计用)
@@ -58,9 +61,20 @@ books/<book-slug>/
 
 ## 执行流程 (严格按顺序)
 
+### 阶段 -1 — 书籍适配判断
+
+1. 读取书名、作者、出版年、目录、前言/导论和 1–2 个代表章节;如果文本很短可直接阅读全文。
+2. 执行 `methodology/-1-stage-book-fit.md` 的适配判断,按 `templates/BOOK_FIT.md.template` 写入 `books/<slug>/BOOK_FIT.md`。
+3. 给出四类结论之一:
+   - `full_skill_pack`: 适合完整 skill 化,继续阶段 0
+   - `partial_skill_pack`: 只适合抽取少量方法论,继续阶段 0 但预设低数量
+   - `alternate_artifact`: 不适合硬拆 skill,建议人物/世界观/案例库/术语库等替代产物
+   - `not_suitable`: 不建议继续,除非用户明确要求
+4. 如果结论不是 `full_skill_pack` 或 `partial_skill_pack`,必须先向用户说明原因和替代方案,得到确认后才继续。
+
 ### 阶段 0 — 整书理解
 
-1. 读取用户提供的书本文本。大文件分块阅读。
+1. 读取用户提供的书本文本。大文件分块阅读。必须带着 `BOOK_FIT.md` 的结论读,不要把不适合 skill 化的内容硬拆成 skill。
 2. 执行 `methodology/01-stage0-adler.md` 中的 Adler 四步 (结构 / 解释 / 批判 / 应用)。
 3. 按 `templates/BOOK_OVERVIEW.md.template` 填充,写入 `books/<slug>/BOOK_OVERVIEW.md`。
 4. 把产出展示给用户确认:"骨架我理解对了吗?有没有你希望重点突出的方向?" 得到确认再进入阶段 1。
@@ -124,6 +138,7 @@ books/<book-slug>/
 3. 原文引用 ≤150 字/段
 4. 每个 skill 必须有 `test-prompts.json`,且包含诱饵测试 (不应调用的场景)
 5. `description` 字段必须明确 trigger 条件,不能只是"一个关于 X 的 skill"
+6. 阶段 -1 判断为 `alternate_artifact` 或 `not_suitable` 的书,不得在未说明风险并获得用户确认前硬拆成完整 skill pack
 
 ## 与 nuwa-skill / darwin-skill 的生态定位
 
