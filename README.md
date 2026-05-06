@@ -32,8 +32,9 @@
 
 ## 它是怎么工作的
 
-cangjie-skill 使用 **RIA-TV++** 流水线，把一本书从原始文本变成一组结构化的 skill。整个过程分六个阶段：
+cangjie-skill 使用 **RIA-TV++** 流水线，把一本书从原始文本变成一组结构化的 skill。整个过程先做 Stage -1 适配判断,再进入六阶段蒸馏：
 
+0. **书籍适配判断**——先判断这本书适合完整 skill pack、少量 skill、替代产物，还是不建议继续，产出 `BOOK_FIT.md`
 1. **整书理解（Adler 分析）**——用 Mortimer Adler 的分析阅读法，对全书做结构、解释、批判、应用四步拆解，产出 `BOOK_OVERVIEW.md`
 2. **并行提取**——同时派 5 个专项提取器（框架、原则、案例、反例、术语），从原文中提取候选方法论单元
 3. **三重验证筛选**——每个候选必须通过三项检验：书中至少有 2 处独立佐证（跨域）、能回答书中未明说的新问题（预测力）、不是常识（独特性）。通过率通常只有 25-50%
@@ -62,7 +63,7 @@ RIA-TV++ 这个名字拆开看：
 
 **最终输出示例**
 
-> 输出将不是一个单文件摘要，而是一个多 skill 仓库：包含 `BOOK_OVERVIEW.md` 作为全局理解，`INDEX.md` 作为技能地图，若干 `*/SKILL.md` 作为独立模块，以及 `test-prompts.json` 用于验证触发场景。
+> 输出将不是一个单文件摘要，而是一个多 skill 仓库：包含 `BOOK_FIT.md` 作为适配判断，`BOOK_OVERVIEW.md` 作为全局理解，`INDEX.md` 作为技能地图，若干 `*/SKILL.md` 作为独立模块，以及 `test-prompts.json` 用于验证触发场景。
 
 ### 示例 2：不是压缩，是结构化复用
 
@@ -119,7 +120,7 @@ cangjie-skill/
 ├── SKILL.md               ← 元 skill 定义（book2skill 的完整执行规范）
 ├── methodology/           ← RIA-TV++ 各阶段的方法论文档
 ├── extractors/            ← 5 个并行提取器的 prompt 定义
-└── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md 模板
+└── templates/             ← SKILL.md / INDEX.md / BOOK_FIT.md / BOOK_OVERVIEW.md 模板
 ```
 
 ## 生态
