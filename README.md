@@ -178,3 +178,20 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 ## License
 
 MIT. See [LICENSE](./LICENSE).
+
+<!-- cangjie-book-skill-examples:start -->
+## Open Book Skill Examples
+
+The following repositories are public book or chapter skill packages distilled with the Cangjie Skill workflow. They can be used as ook2skill output examples:
+
+| Book | Skill Repository | Skill Count |
+|---|---|---:|
+| Buffett Shareholder Letters | [buffett-letters-skill](https://github.com/qbdx-hub/buffett-letters-skill) | 20 |
+| Wo Yu Di Tan | [wo-yu-di-tan-skill](https://github.com/qbdx-hub/wo-yu-di-tan-skill) | 6 |
+| Mingchao Those Things | [mingchao-those-things-skill](https://github.com/qbdx-hub/mingchao-those-things-skill) | 7 |
+| Sunzi Bingfa | [sunzi-bingfa-skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) | 8 |
+| Zhouyi | [zhouyi-skill](https://github.com/qbdx-hub/zhouyi-skill) | 8 |
+| High Math Vol. 1 Chapter 1 | [high-math-vol1-ch1-skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) | 8 |
+
+These repositories keep the distilled BOOK_OVERVIEW.md, INDEX.md, candidates/, */SKILL.md, and test prompts. Original PDFs, EPUBs, and full book source text are intentionally excluded.
+<!-- cangjie-book-skill-examples:end -->
