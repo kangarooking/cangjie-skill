@@ -179,19 +179,21 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 
 MIT. See [LICENSE](./LICENSE).
 
+
 <!-- cangjie-book-skill-examples:start -->
-## Open Book Skill Examples
+## qbdx-hub 整书 Skill 示例
 
-The following repositories are public book or chapter skill packages distilled with the Cangjie Skill workflow. They can be used as ook2skill output examples:
+下面这些仓库是使用 Cangjie Skill 流程蒸馏并开源的整书/章节 skill 包，可以作为 `book2skill` 输出示例参考：
 
-| Book | Skill Repository | Skill Count |
+| 书目 | Skill 仓库 | Skill 数量 |
 |---|---|---:|
-| Buffett Shareholder Letters | [buffett-letters-skill](https://github.com/qbdx-hub/buffett-letters-skill) | 20 |
-| Wo Yu Di Tan | [wo-yu-di-tan-skill](https://github.com/qbdx-hub/wo-yu-di-tan-skill) | 6 |
-| Mingchao Those Things | [mingchao-those-things-skill](https://github.com/qbdx-hub/mingchao-those-things-skill) | 7 |
-| Sunzi Bingfa | [sunzi-bingfa-skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) | 8 |
-| Zhouyi | [zhouyi-skill](https://github.com/qbdx-hub/zhouyi-skill) | 8 |
-| High Math Vol. 1 Chapter 1 | [high-math-vol1-ch1-skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) | 8 |
+| 沃伦·巴菲特 1957-2023 年致股东信 | [buffett-letters-skill](https://github.com/qbdx-hub/buffett-letters-skill) | 20 |
+| 史铁生《我与地坛》 | [wo-yu-di-tan-skill](https://github.com/qbdx-hub/wo-yu-di-tan-skill) | 6 |
+| 当年明月《明朝那些事儿》 | [mingchao-those-things-skill](https://github.com/qbdx-hub/mingchao-those-things-skill) | 7 |
+| 《孙子兵法》 | [sunzi-bingfa-skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) | 8 |
+| 《周易》 | [zhouyi-skill](https://github.com/qbdx-hub/zhouyi-skill) | 8 |
+| 高等数学上册第一章 | [high-math-vol1-ch1-skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) | 8 |
 
-These repositories keep the distilled BOOK_OVERVIEW.md, INDEX.md, candidates/, */SKILL.md, and test prompts. Original PDFs, EPUBs, and full book source text are intentionally excluded.
+这些仓库保留蒸馏后的 `BOOK_OVERVIEW.md`、`INDEX.md`、`candidates/`、`*/SKILL.md` 和测试提示；原书 PDF、EPUB 和全文源文件没有随仓库发布。
 <!-- cangjie-book-skill-examples:end -->
+
