@@ -168,6 +168,7 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 感谢以下贡献者对 cangjie-skill 生态的补充：
 
 - [shenqistart](https://github.com/shenqistart) — 贡献外部 [book2skill](https://github.com/shenqistart/book2skill) 引用，并补充中英日 README 更新
+- [qbdx-hub](https://github.com/qbdx-hub) — 贡献 6 个 Cangjie 整书/章节蒸馏示例仓库，并补充中英日 README 引用
 
 ## 关于作者
 

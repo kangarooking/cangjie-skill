@@ -88,6 +88,12 @@ RIA-TV++ の名前の由来：
 | 黄帝内経・霊枢（本プロジェクト内） | 『黄帝内経・霊枢』 | 8 |
 | [first-principles-skill](https://github.com/kangarooking/first-principles-skill) | 『第一性原理』 | 10 |
 | [mao-selected-works-skill](https://github.com/kangarooking/mao-selected-works-skill) | 『毛沢東選集』第1-5巻 | 25 |
+| [qbdx-hub/buffett-letters-skill](https://github.com/qbdx-hub/buffett-letters-skill) | バフェット株主への手紙（1957-2023） | 20 |
+| [qbdx-hub/wo-yu-di-tan-skill](https://github.com/qbdx-hub/wo-yu-di-tan-skill) | 『我与地坛』 | 6 |
+| [qbdx-hub/mingchao-those-things-skill](https://github.com/qbdx-hub/mingchao-those-things-skill) | 『明朝那些事儿』 | 7 |
+| [qbdx-hub/sunzi-bingfa-skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) | 『孫子兵法』 | 8 |
+| [qbdx-hub/zhouyi-skill](https://github.com/qbdx-hub/zhouyi-skill) | 『周易』 | 8 |
+| [qbdx-hub/high-math-vol1-ch1-skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) | 高等数学上冊第1章 | 8 |
 
 より多くの高価値な本の蒸留を計画中。
 
@@ -139,6 +145,12 @@ cangjie-skill はより大きなスキルエコシステムの一部です：
 - Huangdi Neijing Lingshu Skill（本プロジェクト内）— 『黄帝内経・霊枢』から抽出した8個の心身調整・弁証スキル
 - [First Principles Skill](https://github.com/kangarooking/first-principles-skill) — 『第一性原理』から抽出した10個の公理化思考・破界イノベーション・組織刷新スキル
 - [Mao Selected Works Skill](https://github.com/kangarooking/mao-selected-works-skill) — 『毛沢東選集』第1-5巻から抽出した25個の認知・戦略・組織・実行スキル
+- [qbdx-hub Buffett Letters Skill](https://github.com/qbdx-hub/buffett-letters-skill) — バフェット株主への手紙から抽出した20個の投資・資本配分スキル
+- [qbdx-hub Wo Yu Di Tan Skill](https://github.com/qbdx-hub/wo-yu-di-tan-skill) — 『我与地坛』から抽出した6個の制約・苦難・執筆・自己定位スキル
+- [qbdx-hub Mingchao Those Things Skill](https://github.com/qbdx-hub/mingchao-those-things-skill) — 『明朝那些事儿』から抽出した7個の権力構造・制度失敗・歴史説明スキル
+- [qbdx-hub Sunzi Bingfa Skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) — 『孫子兵法』から抽出した8個の戦略判断・資源制御・行動選択スキル
+- [qbdx-hub Zhouyi Skill](https://github.com/qbdx-hub/zhouyi-skill) — 『周易』から抽出した8個の状況診断・時機判断・進退境界スキル
+- [qbdx-hub High Math Vol. 1 Chapter 1 Skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) — 高等数学上冊第1章から抽出した8個の極限・無限小・連続性学習スキル
 
 External Source（著者本人の許可を得て掲載）:
 
