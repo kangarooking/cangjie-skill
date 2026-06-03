@@ -98,6 +98,12 @@ RIA-TV++ 这个名字拆开看：
 | [huangdi-neijing-skill](https://github.com/kangarooking/huangdi-neijing-skill) | 《黄帝内经》（素问+灵枢） | 22 |
 | [first-principles-skill](https://github.com/kangarooking/first-principles-skill) | 《第一性原理》 | 10 |
 | [mao-selected-works-skill](https://github.com/kangarooking/mao-selected-works-skill) | 《毛泽东选集》第 1-5 卷 | 25 |
+| [qbdx-hub/buffett-letters-skill](https://github.com/qbdx-hub/buffett-letters-skill) | 沃伦·巴菲特 1957-2023 年致股东信 | 20 |
+| [qbdx-hub/wo-yu-di-tan-skill](https://github.com/qbdx-hub/wo-yu-di-tan-skill) | 史铁生《我与地坛》 | 6 |
+| [qbdx-hub/mingchao-those-things-skill](https://github.com/qbdx-hub/mingchao-those-things-skill) | 当年明月《明朝那些事儿》 | 7 |
+| [qbdx-hub/sunzi-bingfa-skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) | 《孙子兵法》 | 8 |
+| [qbdx-hub/zhouyi-skill](https://github.com/qbdx-hub/zhouyi-skill) | 《周易》 | 8 |
+| [qbdx-hub/high-math-vol1-ch1-skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) | 高等数学上册第一章 | 8 |
 
 后续计划蒸馏更多高价值书籍。候选书单包括但不限于：君主论。
 
@@ -148,6 +154,12 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 - [Huangdi Neijing Skill](https://github.com/kangarooking/huangdi-neijing-skill) — 《黄帝内经》素问12+灵枢10共22个思维方法 skill
 - [First Principles Skill](https://github.com/kangarooking/first-principles-skill) — 《第一性原理》的 10 个认知拆解、破界创新与组织刷新 skill
 - [Mao Selected Works Skill](https://github.com/kangarooking/mao-selected-works-skill) — 《毛泽东选集》第 1-5 卷的 25 个认知、战略、组织与执行方法 skill
+- [qbdx-hub Buffett Letters Skill](https://github.com/qbdx-hub/buffett-letters-skill) — 沃伦·巴菲特 1957-2023 年致股东信的 20 个投资与资本配置 skill
+- [qbdx-hub Wo Yu Di Tan Skill](https://github.com/qbdx-hub/wo-yu-di-tan-skill) — 《我与地坛》的 6 个限制、苦难、写作与自我安放 skill
+- [qbdx-hub Mingchao Those Things Skill](https://github.com/qbdx-hub/mingchao-those-things-skill) — 《明朝那些事儿》的 7 个权力结构、制度失灵与历史表达 skill
+- [qbdx-hub Sunzi Bingfa Skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) — 《孙子兵法》的 8 个战略判断、资源控制与行动选择 skill
+- [qbdx-hub Zhouyi Skill](https://github.com/qbdx-hub/zhouyi-skill) — 《周易》的 8 个处境诊断、时位判断与进退边界 skill
+- [qbdx-hub High Math Vol. 1 Chapter 1 Skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) — 高等数学上册第一章的 8 个极限、无穷小与连续性学习 skill
 - [book2startup](https://github.com/ace3000chao/book2startup) — 经作者同意引入的外部来源，包含《精益创业》《孙子兵法》《庄子》《易经》相关 skills
 - [book2skill](https://github.com/shenqistart/book2skill) — 经作者同意引入的外部来源，包含《缠论》《茶经》相关 AI-Agent skills
 
@@ -178,22 +190,4 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 ## License
 
 MIT. See [LICENSE](./LICENSE).
-
-
-<!-- cangjie-book-skill-examples:start -->
-## qbdx-hub 整书 Skill 示例
-
-下面这些仓库是使用 Cangjie Skill 流程蒸馏并开源的整书/章节 skill 包，可以作为 `book2skill` 输出示例参考：
-
-| 书目 | Skill 仓库 | Skill 数量 |
-|---|---|---:|
-| 沃伦·巴菲特 1957-2023 年致股东信 | [buffett-letters-skill](https://github.com/qbdx-hub/buffett-letters-skill) | 20 |
-| 史铁生《我与地坛》 | [wo-yu-di-tan-skill](https://github.com/qbdx-hub/wo-yu-di-tan-skill) | 6 |
-| 当年明月《明朝那些事儿》 | [mingchao-those-things-skill](https://github.com/qbdx-hub/mingchao-those-things-skill) | 7 |
-| 《孙子兵法》 | [sunzi-bingfa-skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) | 8 |
-| 《周易》 | [zhouyi-skill](https://github.com/qbdx-hub/zhouyi-skill) | 8 |
-| 高等数学上册第一章 | [high-math-vol1-ch1-skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) | 8 |
-
-这些仓库保留蒸馏后的 `BOOK_OVERVIEW.md`、`INDEX.md`、`candidates/`、`*/SKILL.md` 和测试提示；原书 PDF、EPUB 和全文源文件没有随仓库发布。
-<!-- cangjie-book-skill-examples:end -->
 
