@@ -104,6 +104,7 @@ RIA-TV++ 这个名字拆开看：
 | [qbdx-hub/sunzi-bingfa-skill](https://github.com/qbdx-hub/sunzi-bingfa-skill) | 《孙子兵法》 | 8 |
 | [qbdx-hub/zhouyi-skill](https://github.com/qbdx-hub/zhouyi-skill) | 《周易》 | 8 |
 | [qbdx-hub/high-math-vol1-ch1-skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) | 高等数学上册第一章 | 8 |
+| [HoraceLuBFA/en-zh-translation-polish](https://github.com/HoraceLuBFA/en-zh-translation-polish) | 叶子南《高级英汉翻译理论与实践》(第4版) | 1 |
 
 后续计划蒸馏更多高价值书籍。候选书单包括但不限于：君主论。
 
@@ -162,6 +163,7 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 - [qbdx-hub High Math Vol. 1 Chapter 1 Skill](https://github.com/qbdx-hub/high-math-vol1-ch1-skill) — 高等数学上册第一章的 8 个极限、无穷小与连续性学习 skill
 - [book2startup](https://github.com/ace3000chao/book2startup) — 经作者同意引入的外部来源，包含《精益创业》《孙子兵法》《庄子》《易经》相关 skills
 - [book2skill](https://github.com/shenqistart/book2skill) — 经作者同意引入的外部来源，包含《缠论》《茶经》相关 AI-Agent skills
+- [en-zh-translation-polish](https://github.com/HoraceLuBFA/en-zh-translation-polish) — 叶子南《高级英汉翻译理论与实践》(第4版) 蒸馏的英译汉润色 + 英中对照 skill（社区贡献：1 个 skill + 3 张引擎参考表）
 
 ## 贡献者
 
