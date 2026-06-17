@@ -21,8 +21,9 @@ So cangjie-skill has one clear goal: **distill every book worth distilling**, tu
 
 ## How It Works
 
-cangjie-skill uses the **RIA-TV++** pipeline to transform a book from raw text into a set of structured skills. The process has six stages:
+cangjie-skill uses the **RIA-TV++** pipeline to transform a book from raw text into a set of structured skills. It now starts with Stage -1 fit assessment before the six-stage distillation flow:
 
+0. **Book Fit Assessment** — Decide whether the book deserves a full skill pack, a partial skill pack, an alternate artifact, or should stop; produces `BOOK_FIT.md`
 1. **Whole-Book Comprehension (Adler Analysis)** — Structural, interpretive, critical, and applicability analysis using Mortimer Adler's method, producing `BOOK_OVERVIEW.md`
 2. **Parallel Extraction** — Five specialized extractors (frameworks, principles, cases, counter-examples, glossary) run simultaneously to pull candidate units from the source text
 3. **Triple Verification** — Each candidate must pass three checks: at least 2 independent supporting passages (cross-domain), ability to answer a novel question (predictive power), and non-commonsense uniqueness. Pass rate is typically 25-50%
@@ -51,7 +52,7 @@ The name RIA-TV++ breaks down as:
 
 **Example Output**
 
-> The result will not be one summary document. It will be a multi-skill repository with `BOOK_OVERVIEW.md`, `INDEX.md`, multiple `*/SKILL.md` files, and `test-prompts.json` for trigger testing.
+> The result will not be one summary document. It will be a multi-skill repository with `BOOK_FIT.md`, `BOOK_OVERVIEW.md`, `INDEX.md`, multiple `*/SKILL.md` files, and `test-prompts.json` for trigger testing.
 
 ### Example 2: Structured Reuse, Not Compression
 
