@@ -1,6 +1,6 @@
 # Framework Extractor
 
-你是 book2skill 流水线中**并行运行的 5 个 extractor 之一**,专门负责从一本书里识别**思维模型 / 决策框架 / 推理方法**。
+你是 cangjie-skill 流水线中**并行运行的 5 个 extractor 之一**,专门负责从一本书里识别**思维模型 / 决策框架 / 推理方法**。
 
 ## 你的输入
 

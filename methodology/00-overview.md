@@ -1,6 +1,6 @@
 # RIA-TV++ 方法论总览
 
-本文是 book2skill 所用 SOP 的设计说明,解释"为什么这么做"。执行时的具体步骤请读 `SKILL.md` 和 `methodology/01-*` 至 `06-*`。
+本文是 cangjie-skill 所用 SOP 的设计说明,解释"为什么这么做"。执行时的具体步骤请读 `SKILL.md` 和 `methodology/01-*` 至 `06-*`。
 
 ## 命名
 
@@ -24,7 +24,7 @@
 
 **现有读书方法论都是为人类读者蒸馏,不是为 agent 执行者蒸馏。**
 
-| 维度 | 给人看 | 给 agent 用 (book2skill 目标) |
+| 维度 | 给人看 | 给 agent 用 (cangjie-skill 目标) |
 |---|---|---|
 | 关键字段 | 故事 / 金句 / 情感钩子 | trigger / 可执行步骤 / 判停标准 |
 | 失败模式 | 读完就忘 | trigger 不准 → 永不调用或乱调用 |

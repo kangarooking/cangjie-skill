@@ -1,9 +1,9 @@
 ---
-name: book2skill
+name: cangjie-skill
 description: Distill a book into a coherent set of executable skills. Use when the user asks to "拆书" / "蒸馏一本书" / "把 XX 书做成 skill" / "turn a book into skills" — i.e. wants a book's frameworks, principles, and methodologies extracted into atomic, reusable Claude skills that an agent can invoke in real-world situations. NOT for simple summarization, book reviews, or role-playing as the author (that is nuwa-skill's job).
 ---
 
-# book2skill — 把一本书蒸馏成一组可执行 skills 的元 skill
+# cangjie-skill — 把一本书蒸馏成一组可执行 skills 的元 skill
 
 ## 使命
 
@@ -39,7 +39,7 @@ description: Distill a book into a coherent set of executable skills. Use when t
 在开始前**必须**从用户处确认:
 1. **书的文本来源**: PDF / EPUB / TXT 文件路径, 或可访问的纯文本。**不要**在没有文本的情况下"凭记忆"拆书 — 宁可停下来问用户要。
 2. **书名 + 作者 + 出版年**: 用于目录命名和审计。
-3. **是否首次试点**: 如果用户是第一次用 book2skill,建议先拆 1 本验证流程再批量。
+3. **是否首次试点**: 如果用户是第一次用 cangjie-skill,建议先拆 1 本验证流程再批量。
 
 ## 输出结构
 
@@ -114,7 +114,7 @@ books/<book-slug>/
 对每个 skill 按 `methodology/06-stage4-pressure-test.md`:
 1. 设计 5–10 条测试 prompt,按 `templates/test-prompts.json.template` 写入 `test-prompts.json`
 2. 至少包括 3 类: **应调用** / **不应调用 (诱饵)** / **边界模糊**
-3. 本地跑一遍,**未过的回炉重做阶段 2** — 不做"表面修补"
+3. 优先用独立 sub-agent 盲测每条 prompt,由主流程对照预期统计结果,**未过的回炉重做阶段 2** — 不做"表面修补"
 4. 全部通过后通知用户: "已完成,可一键喂给 darwin-skill 自动进化"
 
 ## 质量红线 (违反则阻止输出)
@@ -128,7 +128,7 @@ books/<book-slug>/
 ## 与 nuwa-skill / darwin-skill 的生态定位
 
 - **nuwa-skill**: 蒸馏人 (思维方式 / 表达 DNA)
-- **book2skill** (本 skill): 蒸馏书 (方法论 / 框架 / 原则)
+- **cangjie-skill** (本 skill): 蒸馏书 (方法论 / 框架 / 原则)
 - **darwin-skill**: 进化任意 skill
 
 三者咬合: 本 skill 输出的 `test-prompts.json` 严格遵循 darwin-skill 格式,以便产出的 skill 可直接接入 darwin 做自动进化。

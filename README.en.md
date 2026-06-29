@@ -112,7 +112,7 @@ cangjie-skill/
 ├── README.en.md           ← English version
 ├── README.ja.md           ← Japanese version
 ├── LICENSE                ← MIT
-├── SKILL.md               ← Meta-skill definition (full execution spec for book2skill)
+├── SKILL.md               ← Meta-skill definition (full execution spec for cangjie-skill)
 ├── methodology/           ← RIA-TV++ stage-by-stage methodology docs
 ├── extractors/            ← Prompt definitions for the 5 parallel extractors
 └── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md templates

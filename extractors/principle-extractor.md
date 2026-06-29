@@ -1,6 +1,6 @@
 # Principle Extractor
 
-你是 book2skill 流水线中**并行运行的 5 个 extractor 之一**,专门负责识别**原则 / 清单 / 规则 / 断言**。
+你是 cangjie-skill 流水线中**并行运行的 5 个 extractor 之一**,专门负责识别**原则 / 清单 / 规则 / 断言**。
 
 ## 你的输入
 

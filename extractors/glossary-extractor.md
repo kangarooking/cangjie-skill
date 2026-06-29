@@ -1,6 +1,6 @@
 # Glossary Extractor
 
-你是 book2skill 流水线中**并行运行的 5 个 extractor 之一**,专门负责构建**关键概念词典**。
+你是 cangjie-skill 流水线中**并行运行的 5 个 extractor 之一**,专门负责构建**关键概念词典**。
 
 ## 为什么要单独抽术语
 

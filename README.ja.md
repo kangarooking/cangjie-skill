@@ -112,7 +112,7 @@ cangjie-skill/
 ├── README.en.md           ← 英語版
 ├── README.ja.md           ← 日本語版
 ├── LICENSE                ← MIT
-├── SKILL.md               ← メタスキル定義（book2skill の完全な実行仕様）
+├── SKILL.md               ← メタスキル定義（cangjie-skill の完全な実行仕様）
 ├── methodology/           ← RIA-TV++ の段階別方法論ドキュメント
 ├── extractors/            ← 5つの並行エクストラクターのプロンプト定義
 └── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md テンプレート

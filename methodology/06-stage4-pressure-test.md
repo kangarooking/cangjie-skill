@@ -10,6 +10,19 @@
 
 A2 (trigger) 是拆书里最难的环节。一个 skill 做得再漂亮,trigger 不准就等于不存在。压力测试是**唯一**能在发布前发现 trigger 问题的方法。
 
+## 评测原则: 独立 sub-agent 盲测优先
+
+压力测试要尽量模拟真实调用: 一个没有参与蒸馏过程、看不到预期答案的 agent,面对用户 prompt 时是否会自然激活这个 skill。
+
+优先做法:
+- 对每条测试 prompt 启动一个干净的 sub-agent,或在资源有限时对同一个 skill 的一组 prompt 启动一个干净 sub-agent
+- 只给 sub-agent: skill 路径或 skill 内容、用户 prompt、可选的相邻 skill 列表
+- 不给 sub-agent: `type`、`expected_behavior`、`notes`、通过标准、主流程的判断
+- 要求 sub-agent 输出: `would_trigger`、`reason`、`if_triggered_action`
+- 主流程再把 sub-agent 输出和 `test-prompts.json` 的预期逐条对比,统计通过率
+
+如果当前环境没有 sub-agent 能力,才退回到主流程自测,并在 `test-results.md` 里标明这是 fallback 结果,可信度低于独立 sub-agent 盲测。
+
 ## test-prompts.json 格式 (darwin-skill 兼容)
 
 ```json
@@ -55,12 +68,16 @@ A2 (trigger) 是拆书里最难的环节。一个 skill 做得再漂亮,trigger 
 ## 执行流程
 
 1. 对每个 skill,按模板写 `test-prompts.json`
-2. 本地跑一遍: 对每个 test_case, 让 Claude 独立判断"我会在这个场景下调用这个 skill 吗",记录判断和理由
-3. 统计通过率:
+2. 对每个 test_case 做独立盲测: 隐藏 `type` / `expected_behavior` / `notes`,让 sub-agent 判断"是否会调用这个 skill",记录判断和理由
+3. 主流程对照 `test-prompts.json` 判卷:
+   - `should_trigger`: sub-agent 应明确调用该 skill,且执行动作符合 `expected_behavior`
+   - `should_not_trigger`: sub-agent 不应调用该 skill,诱饵测试容错为 0
+   - `edge_case`: sub-agent 的判断要符合 `expected_behavior` 中定义的边界理由
+4. 统计通过率:
    - **100% 通过** → 接受
    - **≥80% 通过** → 分析失败 case, 决定是修 A2 还是修测试 (但修测试要警惕自我合理化)
    - **<80% 通过** → **必须回炉重做阶段 2**,不是小修
-4. 修复后重新跑,直到通过
+5. 修复后重新跑,直到通过
 
 ## 判断"修 skill 还是修测试"
 
