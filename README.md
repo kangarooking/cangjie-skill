@@ -200,6 +200,10 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 
 ![](https://raw.githubusercontent.com/kangarooking/cangjie-skill/main/assets/kangarooking-gzh.png)
 
+如果你也想把书、长视频、播客、课程里的方法论蒸馏成可调用的 Agent Skills，欢迎加入 cangjie-skill 企微交流群：
+
+<img src="https://raw.githubusercontent.com/kangarooking/cangjie-skill/main/assets/wecom-cangjie-group-qr.png" width="220" alt="cangjie-skill 企微交流群二维码">
+
 ## License
 
 MIT. See [LICENSE](./LICENSE).
