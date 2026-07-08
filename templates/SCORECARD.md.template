@@ -1,0 +1,101 @@
+# {{BOOK_TITLE}} — Pipeline Scorecard
+
+> 本记分卡记录 cangjie-skill 本次蒸馏流程的质量指标。它评价的是流水线执行质量,不是评价原书价值。
+
+## 基本信息
+
+- **内容标题**: {{BOOK_TITLE}}
+- **作者 / 讲者**: {{AUTHOR}}
+- **出版年 / 发布时间**: {{YEAR_OR_DATE}}
+- **内容类型**: {{book / video / podcast / course / interview / article}}
+- **内容体量分级**: {{long_book / medium / short_content}}
+- **处理日期**: {{DATE}}
+- **处理模式**: {{dual_agent / fallback_single_agent}}
+
+---
+
+## 候选统计
+
+| 指标 | 数值 |
+|---|---:|
+| 原始候选数 | {{N_RAW_CANDIDATES}} |
+| 去重后候选数 | {{N_DEDUPED_CANDIDATES}} |
+| 验证通过数 | {{N_VERIFIED}} |
+| 淘汰数 | {{N_REJECTED}} |
+| 验证通过率 | {{VERIFY_PASS_RATE}} |
+
+---
+
+## 验证统计
+
+| 指标 | 数值 |
+|---|---:|
+| 双评审一致率 | {{REVIEW_CONSENSUS_RATE}} |
+| 分歧仲裁数 | {{N_ARBITRATED}} |
+| 用户确认捞回数 | {{N_USER_RESCUED}} |
+| 用户确认砍掉数 | {{N_USER_REMOVED}} |
+
+### 证据等级分布
+
+| 等级 | 含义 | 数量 |
+|---|---|---:|
+| A | 内容内多处独立佐证 | {{N_GRADE_A}} |
+| B | 内容内单处佐证 + 外部可佐证 | {{N_GRADE_B}} |
+| C | 证据不足,不得进入阶段 2 | {{N_GRADE_C}} |
+
+---
+
+## Skill 与链接统计
+
+| 指标 | 数值 |
+|---|---:|
+| 最终 skill 数 | {{N_SKILLS}} |
+| related_skills 关系总数 | {{N_RELATIONS}} |
+| depends-on 数 | {{N_DEPENDS_ON}} |
+| contrasts-with 数 | {{N_CONTRASTS_WITH}} |
+| composes-with 数 | {{N_COMPOSES_WITH}} |
+| 注入术语总数 | {{N_INJECTED_TERMS}} |
+| 含本 skill 术语表的 skill 数 | {{N_SKILLS_WITH_TERMS}} |
+
+---
+
+## 压力测试统计
+
+| 指标 | 数值 |
+|---|---:|
+| 测试用例总数 | {{N_TEST_CASES}} |
+| should_trigger 数 | {{N_SHOULD_TRIGGER}} |
+| should_not_trigger 数 | {{N_SHOULD_NOT_TRIGGER}} |
+| edge_case 数 | {{N_EDGE_CASE}} |
+| execution_check 数 | {{N_EXECUTION_CHECK}} |
+| 对抗性测试数 | {{N_ADVERSARIAL}} |
+| 首轮通过率 | {{FIRST_PASS_RATE}} |
+| 最终通过率 | {{FINAL_PASS_RATE}} |
+| 诱饵失败数 | {{N_DECOY_FAILURES}} |
+| 执行质量失败数 | {{N_EXECUTION_FAILURES}} |
+| 回炉次数 | {{N_REWORKS}} |
+
+---
+
+## 风险与例外
+
+- **是否使用 fallback 自测**: {{YES_NO}}
+- **低一致率风险**: {{说明,没有则写"无"}}
+- **诱饵测试风险**: {{说明,没有则写"无"}}
+- **执行质量风险**: {{说明,没有则写"无"}}
+- **版权注意点**: {{说明,没有则写"无"}}
+- **其他例外**: {{说明,没有则写"无"}}
+
+---
+
+## 结论
+
+- **是否适合交付**: {{yes / no / conditional}}
+- **是否建议重跑某阶段**: {{说明}}
+- **是否建议进入 darwin-skill 进化**: {{yes / no / after_fix}}
+
+## 下一步建议
+
+1. {{建议 1}}
+2. {{建议 2}}
+3. {{建议 3}}

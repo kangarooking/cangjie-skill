@@ -45,8 +45,34 @@
       "prompt": "{{边界模糊场景}}",
       "expected_behavior": "{{期望的合理判断 — 可能是调用, 可能是不调用, 但要说清为什么}}",
       "notes": "边界: {{为什么这是边界}}"
+    },
+    {
+      "id": "execution-check-01",
+      "type": "execution_check",
+      "prompt": "{{应触发本 skill 且需要完整执行 E 段的真实场景}}",
+      "expected_behavior": "应激活 {{skill-slug}}, 并完整执行 E 段: {{关键执行路径}}",
+      "rubric": [
+        "是否走完 E 段的关键步骤",
+        "是否符合 I 段的方法论骨架",
+        "是否使用 A1 案例体现出的推理方向",
+        "是否遵守 B 段边界和判停条件"
+      ],
+      "notes": "执行质量检查: trigger 正确之外,还要看输出是否忠于作者方法论"
+    },
+    {
+      "id": "adversarial-01",
+      "type": "edge_case",
+      "prompt": "{{对抗性出题 agent 生成的易混淆用户话术}}",
+      "expected_behavior": "{{应调用 / 不应调用 / 应调用相邻 skill,写明理由}}",
+      "notes": "对抗性出题: 由只读取 name + description 的 agent 生成,用于发现 description 过宽或过窄"
     }
   ],
   "minimum_pass_rate": 0.8,
-  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。"
+  "hard_requirements": {
+    "should_not_trigger_must_all_pass": true,
+    "requires_sibling_confusion_case": true,
+    "requires_execution_check": true,
+    "requires_adversarial_cases": true
+  },
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case + 1 条 execution_check。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景。execution_check 用于验证 E 段执行质量。adversarial-* 来自对抗性出题 agent,可按实际预期标为 should_trigger / should_not_trigger / edge_case。"
 }

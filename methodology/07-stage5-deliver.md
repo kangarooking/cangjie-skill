@@ -1,13 +1,14 @@
-# 阶段 5 — 交付 (DIGEST + 安装)
+# 阶段 5 — 交付 (DIGEST + SCORECARD + 安装)
 
 ## 目标
 
-把流水线的产出真正送到两类使用者手里:
+把流水线的产出真正送到两类使用者手里,并留下可复盘的质量记录:
 
 1. **Agent** — skill 必须被安装到宿主环境的 skills 目录,否则永远不会被调用
 2. **人类读者** — 用一篇 `DIGEST.md` 精华长文承接"不想读全书,但想看精华"的需求
+3. **维护者** — 用一份 `SCORECARD.md` 记录本次流水线质量,便于以后比较和改进
 
-这两件事都不做,前面五个阶段的产出就只是一堆躺在仓库里的文件。
+这三件事都不做,前面五个阶段的产出就只是一堆躺在仓库里的文件。
 
 ## 第 1 步 — 生成 DIGEST.md (面向读者的精华长文)
 
@@ -17,9 +18,10 @@
 
 - `BOOK_OVERVIEW.md` — 骨架 / 术语 / 批判
 - `verified.md` — 通过三重验证的方法论 (已经筛掉了水分)
-- 各 skill 的 SKILL.md — 每个方法论的解释 / 案例 / 边界
+- 各 skill 的 `SKILL.md` — 每个方法论的解释 / 案例 / 边界
 - `candidates/cases.md` / `counter-examples.md` — 案例池和反例池
 - `GLOSSARY.md` — 术语词典
+- `SCORECARD.md` — 质量指标 (生成后可反向链接)
 
 **DIGEST 是"蒸馏后的再呈现",不是"重新摘要"** — 它只写通过了验证的内容,所以浓度天然高于普通书摘。
 
@@ -41,7 +43,27 @@
 - [ ] 有批判/局限部分,不是全程吹捧
 - [ ] 每个方法论小节都有 skill 链接
 
-## 第 2 步 — 安装 skill 到宿主环境
+## 第 2 步 — 生成 SCORECARD.md (流水线质量记分卡)
+
+`SCORECARD.md` 是给维护者看的质量记录。它不评价一本书"好不好",而是记录这次蒸馏流程是否健康。
+
+模板: `templates/SCORECARD.md.template`,输出到 `books/<slug>/SCORECARD.md`。
+
+### 必须汇总的指标
+
+- 内容信息: 标题、作者、内容体量分级、处理日期
+- 候选统计: 原始候选数、去重后候选数、通过数、淘汰数
+- 验证统计: 验证通过率、双评审一致率、仲裁数、A/B/C 证据等级分布
+- 链接统计: skill 总数、关系总数、三类关系分布、术语注入数量
+- 测试统计: 测试用例总数、四类测试分布、首轮通过率、最终通过率、回炉次数
+- 风险记录: fallback 自测、低一致率、诱饵失败、执行质量失败、版权注意点
+- 下一步建议: 是否适合交付、是否需要重跑某阶段、是否建议进入 darwin-skill 进化
+
+### 为什么要做
+
+没有记分卡时,每次蒸馏质量只能凭感觉判断。`SCORECARD.md` 把流程健康度变成可比较的数据。以后如果改了 SOP,可以比较新旧版本是否真的提高了通过率、一致率和执行质量。
+
+## 第 3 步 — 安装 skill 到宿主环境
 
 产出目录 `books/<slug>/<skill-slug>/` 只是构建产物,宿主 (Claude Code / Cursor 等) 不会从这里加载 skill。必须安装:
 
@@ -53,11 +75,11 @@
 3. 复制 (或 symlink) 整个 skill 目录,含 `SKILL.md` 和 `test-prompts.json`
 4. 安装后抽 1–2 个 skill 用一句 should_trigger 的 prompt 验证宿主能加载并触发
 
-## 第 3 步 — 收尾汇报
+## 第 4 步 — 收尾汇报
 
 告诉用户:
 
-> 已完成。产出: N 个 skill (已安装到 <位置>)、INDEX.md、GLOSSARY.md、DIGEST.md (精华长文,约 X 字)。
+> 已完成。产出: N 个 skill (已安装到 <位置>)、INDEX.md、GLOSSARY.md、DIGEST.md (精华长文,约 X 字)、SCORECARD.md (质量记分卡)。
 > 如需持续进化,可以喂给 darwin-skill: `darwin evolve books/<slug>/`
 > 它会用这里的 test-prompts.json 做 ratcheting 自动进化。
 
