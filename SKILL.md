@@ -22,11 +22,11 @@ description: Distill a book, long-video transcript, podcast, course, or intervie
 ```
 阶段 0: Adler 整书理解     → BOOK_OVERVIEW.md
 阶段 1: 5 个 agent 并行提取 → 候选方法论单元池
-阶段 1.5: 三重验证筛选       → 通过的单元 (用户轻确认)
+阶段 1.5: 三重验证筛选       → 双评审 + V1 自适应 + 通过单元 (用户轻确认)
 阶段 2: RIA++ 构造 skill     → 每个 skill 的 SKILL.md
 阶段 3: Zettelkasten 链接    → INDEX.md + GLOSSARY.md
-阶段 4: 压力测试 (darwin 兼容) → test-prompts.json + 回炉淘汰
-阶段 5: 交付                 → DIGEST.md 精华长文 + 安装到 skills 目录
+阶段 4: 压力测试 (darwin 兼容) → test-prompts.json + execution_check + 对抗题 + 回炉淘汰
+阶段 5: 交付                 → DIGEST.md + SCORECARD.md + 安装到 skills 目录
 ```
 
 ## 何时调用此 skill
@@ -43,7 +43,8 @@ description: Distill a book, long-video transcript, podcast, course, or intervie
 在开始前**必须**从用户处确认:
 1. **内容文本来源**: PDF / EPUB / TXT / 字幕文件 / 转写稿路径, 或可访问的纯文本。**不要**在没有文本的情况下"凭记忆"蒸馏 — 宁可停下来问用户要。(视频/播客建议先用 video-downloader 类工具拿到转写文本)
 2. **内容元信息**: 书籍是"书名 + 作者 + 出版年"; 视频/播客/课程是"标题 + 作者(UP 主/主播/讲者) + 发布时间"。用于目录命名和审计。
-3. **是否首次试点**: 如果用户是第一次用 cangjie-skill,建议先蒸馏 1 份内容验证流程再批量。
+3. **内容体量分级**: 长书 / 中篇 / 短内容。短内容指少于 2 万字或少于 40 分钟的转写稿,用于阶段 1.5 的 V1 自适应验证。
+4. **是否首次试点**: 如果用户是第一次用 cangjie-skill,建议先蒸馏 1 份内容验证流程再批量。
 
 **非书籍内容的字段映射**: `source_chapter` 等"章节"字段对视频填时间戳或分 P,对播客填集数,对课程填讲次 — 保证可追溯即可。
 
@@ -57,6 +58,7 @@ books/<book-slug>/
 ├── INDEX.md                   # 阶段 3 产出: skill 总览 + 引用图
 ├── GLOSSARY.md                # 阶段 3 产出: 全书共享术语词典
 ├── DIGEST.md                  # 阶段 5 产出: 面向读者的精华长文
+├── SCORECARD.md               # 阶段 5 产出: 流水线质量记分卡
 ├── candidates/                # 阶段 1 产出: 原始候选池 (审计用)
 ├── rejected/                  # 阶段 1.5 淘汰的单元 + 原因 (审计用)
 ├── <skill-slug-1>/
@@ -99,11 +101,11 @@ books/<book-slug>/
 
 读取 `methodology/03-stage1.5-triple-verify.md`,对每个候选单元执行:
 
-- **V1 跨域**: 书中至少 2 个独立段落有佐证?
+- **V1 跨域**: 长书/中篇要求书中至少 2 个独立段落有佐证;短内容允许 1 处内容内佐证 + 1 处外部可佐证,并标记证据等级
 - **V2 预测力**: 能用它回答一个书里没明说的新问题吗?
 - **V3 独特性**: 不是任何聪明人都会说的常识吗?
 
-通过的写入 `books/<slug>/verified.md`。不通过的写入 `books/<slug>/rejected/` 并附原因 — 保留审计轨迹,也允许用户事后捞回。
+每条候选由两个独立评审 agent 分别判断 V1 / V2 / V3。两者结论一致时直接录用或淘汰;结论不一致时进入第三个仲裁 agent,或升级为用户确认项。通过的写入 `books/<slug>/verified.md`,并记录评审一致性。不通过的写入 `books/<slug>/rejected/` 并附原因 — 保留审计轨迹,也允许用户事后捞回。
 
 **用户轻确认** ★: 筛选完成后,把"通过的 N 个候选标题 + 淘汰的 M 个"列表展示给用户:"这 N 个会做成 skill,有想捞回或砍掉的吗?" 得到确认再进入阶段 2 — 阶段 2–4 是最耗时的部分,这一步确认能避免大量返工。
 
@@ -127,21 +129,24 @@ books/<book-slug>/
 2. 在每个 SKILL.md 末尾补"相关 skills"段,并回填 A2 的"与相邻 skill 的区分"
 3. 按 `templates/INDEX.md.template` 生成 `INDEX.md` (含引用图 mermaid)
 4. 把 `candidates/glossary.md` 整理成 `books/<slug>/GLOSSARY.md` — 它是所有 skill 的共享词典,不该埋在审计目录里
+5. 执行术语反向注入: 扫描每个 skill 正文,凡使用 GLOSSARY 中的作者特定术语,在该 skill 末尾追加 2–5 条"本 skill 术语表",保证独立调用时不失义
 
 ### 阶段 4 — 压力测试 (darwin 兼容)
 
 对每个 skill 按 `methodology/06-stage4-pressure-test.md`:
 1. 设计 5–10 条测试 prompt,按 `templates/test-prompts.json.template` 写入 `test-prompts.json`
-2. 至少包括 3 类: **应调用** / **不应调用 (诱饵)** / **边界模糊**。诱饵中至少 1 条必须是"应触发同书另一个 skill"的场景 (跨 skill 混淆测试)
-3. 优先用独立 sub-agent 盲测每条 prompt,由主流程对照预期统计结果,**未过的回炉重做阶段 2** — 不做"表面修补"
-4. 每个 skill 的测试结果写入 `<skill-dir>/test-results.md`
+2. 至少包括 4 类: **应调用** / **不应调用 (诱饵)** / **边界模糊** / **执行质量检查**。诱饵中至少 1 条必须是"应触发同书另一个 skill"的场景 (跨 skill 混淆测试)
+3. 增加对抗性出题: 另起一个 agent 只读取 skill 的 name + description,生成 3 条最容易误触发或漏触发的用户话术,并入测试集
+4. 优先用独立 sub-agent 盲测每条 prompt,由主流程对照预期统计结果,**未过的回炉重做阶段 2** — 不做"表面修补"
+5. 每个 skill 的测试结果写入 `<skill-dir>/test-results.md`
 
 ### 阶段 5 — 交付
 
 按 `methodology/07-stage5-deliver.md`:
 1. 生成 `books/<slug>/DIGEST.md` — 面向读者的精华长文 (按 `templates/DIGEST.md.template`),满足"不读全书、只看精华"的需求
-2. 询问用户安装位置 (用户级 `~/.claude/skills/` 或项目级 `.claude/skills/` / `.cursor/skills/`),把通过测试的 skill 复制或 symlink 过去 — **没有这一步,产出的 skill 无法被真正调用**
-3. 告知用户: "已完成,可一键喂给 darwin-skill 自动进化"
+2. 生成 `books/<slug>/SCORECARD.md` — 汇总候选数、验证通过率、评审一致率、测试通过率、回炉次数和总耗时
+3. 询问用户安装位置 (用户级 `~/.claude/skills/` 或项目级 `.claude/skills/` / `.cursor/skills/`),把通过测试的 skill 复制或 symlink 过去 — **没有这一步,产出的 skill 无法被真正调用**
+4. 告知用户: "已完成,可一键喂给 darwin-skill 自动进化"
 
 ## 质量红线 (违反则阻止输出)
 
@@ -149,7 +154,8 @@ books/<book-slug>/
 2. 每个 skill 必须有完整的 R / I / A1 / A2 / E / B 六段
 3. 原文引用 ≤150 字/段 (英文 ≤100 词/段)
 4. 每个 skill 必须有 `test-prompts.json`,且包含诱饵测试 (不应调用的场景),其中至少 1 条是同书兄弟 skill 的场景
-5. `description` 字段必须明确 trigger 条件,不能只是"一个关于 X 的 skill"
+5. 每个 skill 必须至少有 1 条 `execution_check`,验证 E 段执行结果是否忠于作者方法论
+6. `description` 字段必须明确 trigger 条件,不能只是"一个关于 X 的 skill"
 
 ## 与 nuwa-skill / darwin-skill 的生态定位
 
