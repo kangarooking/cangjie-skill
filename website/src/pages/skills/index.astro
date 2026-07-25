@@ -1,9 +1,9 @@
 ---
 import SkillCard from "@/components/SkillCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getCatalogStats, loadCatalog } from "@/lib/catalog";
+import { filterCatalog, getCatalogStats, loadCatalog } from "@/lib/catalog";
 
-const entries = await loadCatalog();
+const entries = filterCatalog(await loadCatalog(), {});
 const stats = getCatalogStats(entries);
 const domains = [...new Set(entries.flatMap((entry) => entry.domains))].sort((a, b) => a.localeCompare(b, "zh-CN"));
 ---
@@ -36,10 +36,11 @@ const domains = [...new Set(entries.flatMap((entry) => entry.domains))].sort((a,
     const empty = document.querySelector<HTMLElement>("#empty-state");
 
     function applyFilters() {
-      const query = search?.value.trim().toLocaleLowerCase("zh-CN") ?? "";
+      const query = search?.value.trim() ?? "";
+      const normalizedQuery = query.toLocaleLowerCase("zh-CN");
       let visible = 0;
       for (const card of cards) {
-        const matches = (!query || card.dataset.search?.includes(query))
+        const matches = (!normalizedQuery || card.dataset.search?.includes(normalizedQuery))
           && (!domain?.value || card.dataset.domains?.split("|").includes(domain.value))
           && (!quality?.value || card.dataset.quality === quality.value)
           && (!source?.value || card.dataset.source === source.value);
@@ -52,6 +53,7 @@ const domains = [...new Set(entries.flatMap((entry) => entry.domains))].sort((a,
       if (query) params.set("q", query);
       if (domain?.value) params.set("domain", domain.value);
       if (quality?.value) params.set("quality", quality.value);
+      if (source?.value) params.set("source", source.value);
       history.replaceState(null, "", `${location.pathname}${params.size ? `?${params}` : ""}`);
     }
 
@@ -68,6 +70,7 @@ const domains = [...new Set(entries.flatMap((entry) => entry.domains))].sort((a,
     if (search) search.value = params.get("q") ?? "";
     if (domain) domain.value = params.get("domain") ?? "";
     if (quality) quality.value = params.get("quality") ?? "";
+    if (source) source.value = params.get("source") ?? "";
     applyFilters();
 
     [search, domain, quality, source].forEach((control) => control?.addEventListener("input", applyFilters));

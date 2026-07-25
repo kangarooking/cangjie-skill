@@ -34,6 +34,24 @@ export interface CatalogStats {
   contributors: number;
 }
 
+export interface CatalogFilterOptions {
+  query?: string;
+  domain?: string;
+  quality?: string;
+  source?: string;
+  includeArchived?: boolean;
+}
+
+export interface NormalizedCatalogFilters {
+  query: string;
+  domain: string;
+  quality: Quality | "";
+  source: SourceType | "";
+  includeArchived: boolean;
+}
+
+const qualityValues: Quality[] = ["verified", "community", "experimental"];
+const sourceValues: SourceType[] = ["github", "bundled"];
 const registryDir = resolve(process.cwd(), "../registry");
 
 let catalogPromise: Promise<RegistryEntry[]> | undefined;
@@ -90,15 +108,29 @@ export function searchableText(entry: RegistryEntry): string {
 
 export function filterCatalog(
   entries: RegistryEntry[],
-  options: { query?: string; domain?: string; quality?: string; source?: string },
+  options: CatalogFilterOptions,
 ): RegistryEntry[] {
-  const query = options.query?.trim().toLocaleLowerCase("zh-CN") ?? "";
+  const filters = normalizeCatalogFilters(options);
 
   return entries.filter((entry) => {
-    if (query && !searchableText(entry).includes(query)) return false;
-    if (options.domain && !entry.domains.includes(options.domain)) return false;
-    if (options.quality && entry.quality !== options.quality) return false;
-    if (options.source && entry.source_type !== options.source) return false;
+    if (!filters.includeArchived && entry.status === "archived") return false;
+    if (filters.query && !searchableText(entry).includes(filters.query.toLocaleLowerCase("zh-CN"))) return false;
+    if (filters.domain && !entry.domains.includes(filters.domain)) return false;
+    if (filters.quality && entry.quality !== filters.quality) return false;
+    if (filters.source && entry.source_type !== filters.source) return false;
     return true;
   });
+}
+
+export function normalizeCatalogFilters(options: CatalogFilterOptions): NormalizedCatalogFilters {
+  const quality = options.quality?.trim() ?? "";
+  const source = options.source?.trim() ?? "";
+
+  return {
+    query: options.query?.trim() ?? "",
+    domain: options.domain?.trim() ?? "",
+    quality: qualityValues.includes(quality as Quality) ? quality as Quality : "",
+    source: sourceValues.includes(source as SourceType) ? source as SourceType : "",
+    includeArchived: options.includeArchived === true,
+  };
 }
