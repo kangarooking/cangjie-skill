@@ -1,0 +1,265 @@
+---
+import { withBase } from "@/lib/urls";
+
+const scenes = [
+  {
+    number: "01",
+    id: "origin",
+    eyebrow: "从收藏到调用",
+    title: "把看过的知识，变成 Agent 真正能调用的能力",
+    body: "书、视频、播客和课程，不该只躺在收藏夹里。仓颉把它们蒸馏成能直接使用的 Skill。",
+    tags: ["长视频", "书籍", "长期资料"],
+    still: "/stills/scene-01.jpg",
+    start: 0,
+  },
+  {
+    number: "02",
+    id: "understand",
+    eyebrow: "先理解，再提取",
+    title: "先读懂全貌，再决定什么值得留下",
+    body: "框架、原则、案例、反例和术语并行提取。不是做更长的摘要，而是寻找真正能指导行动的方法。",
+    tags: ["框架", "原则", "案例与反例"],
+    still: "/stills/scene-02.jpg",
+    start: 13.083,
+  },
+  {
+    number: "03",
+    id: "validate",
+    eyebrow: "不是摘抄，是筛选",
+    title: "过不了三道验证，就不进入 Skill",
+    body: "跨域佐证、预测力与独特性。留下的不是听起来有道理的句子，而是经得起真实问题的方法。",
+    tags: ["跨域佐证", "预测力", "独特性"],
+    still: "/stills/scene-03.jpg",
+    start: 24.668,
+  },
+  {
+    number: "04",
+    id: "compose",
+    eyebrow: "从观点到结构",
+    title: "把方法，装成 Agent 能执行的结构",
+    body: "触发条件、输入、步骤、边界和示例被组织成可调用的 Skill，并与其他能力建立连接。",
+    tags: ["触发", "步骤", "可组合"],
+    still: "/stills/scene-04.jpg",
+    start: 37.833,
+  },
+  {
+    number: "05",
+    id: "deliver",
+    eyebrow: "通过测试，才能交付",
+    title: "经得起真实任务，才进入你的 Agent",
+    body: "正例、反例、边界和混淆测试全部通过，最终交付的是可安装、可调用、可复用的 Skill Pack。",
+    tags: ["压力测试", "回炉优化", "安装交付"],
+    still: "/stills/scene-05.jpg",
+    start: 45.913,
+  },
+];
+
+const duration = 54.833;
+---
+
+<section class="journey" data-cinematic aria-labelledby="journey-title">
+  <div class="journey-stage">
+    <div class="journey-media" aria-hidden="true">
+      <img class="journey-poster" src={withBase(scenes[0].still)} alt="" />
+      <video
+        class="journey-video"
+        muted
+        playsinline
+        preload="none"
+        poster={withBase(scenes[0].still)}
+        data-src={withBase("/media/cangjie-scroll.mp4")}
+      ></video>
+      <div class="journey-wash"></div>
+    </div>
+
+    <div class="journey-chrome shell">
+      <p class="journey-label">Cangjie / Knowledge Distillation System</p>
+      <a class="journey-skip" href="#registry-overview">跳过旅程，查看 Registry ↓</a>
+    </div>
+
+    <div class="journey-copy shell">
+      {scenes.map((scene, index) => (
+        <article class:list={["journey-scene", { "is-active": index === 0 }]} data-scene={index}>
+          <p class="journey-kicker"><span>{scene.number} / 05</span><i></i>{scene.eyebrow}</p>
+          {index === 0 ? <h1 id="journey-title">{scene.title}</h1> : <h2>{scene.title}</h2>}
+          <p class="journey-body">{scene.body}</p>
+          <div class="journey-tags" aria-label="关键词">
+            {scene.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+          {index === 0 && (
+            <div class="journey-actions">
+              <a class="button accent" href={withBase("/skills")}>浏览 Skills <span aria-hidden="true">↗</span></a>
+              <a class="button ghost" href={withBase("/learn")}>从零开始使用</a>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+
+    <nav class="journey-rail" aria-label="蒸馏旅程进度">
+      <span data-current>01</span>
+      <div>
+        <i data-progress></i>
+        {scenes.map((scene, index) => (
+          <button type="button" data-jump={index} aria-label={`前往第 ${index + 1} 阶段：${scene.eyebrow}`}></button>
+        ))}
+      </div>
+      <span>05</span>
+    </nav>
+
+    <p class="journey-hint" aria-hidden="true"><span></span>向下滚动，跟着蒸馏列车出发</p>
+  </div>
+</section>
+
+<section class="journey-mobile shell" aria-label="仓颉 Skill 五个蒸馏阶段">
+  <div class="mobile-intro">
+    <p class="eyebrow">Knowledge journey</p>
+    <h1>把看过的知识，变成 Agent 真正能调用的能力</h1>
+    <p>从理解、验证到结构化交付，仓颉用五个阶段把内容变成可安装的 Skill。</p>
+    <div class="button-row">
+      <a class="button accent" href={withBase("/skills")}>浏览 Skills</a>
+      <a class="button secondary" href={withBase("/learn")}>从零开始使用</a>
+    </div>
+  </div>
+  <ol>
+    {scenes.map((scene) => (
+      <li>
+        <div class="mobile-scene-image">
+          <img src={withBase(scene.still)} alt="" loading={scene.number === "01" ? "eager" : "lazy"} />
+          <span>{scene.number} / 05</span>
+        </div>
+        <div>
+          <p>{scene.eyebrow}</p>
+          <h2>{scene.title}</h2>
+          <span>{scene.body}</span>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<script is:inline define:vars={{ duration, sceneStarts: scenes.map((scene) => scene.start / duration) }}>
+  const root = document.querySelector("[data-cinematic]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const desktop = window.matchMedia("(min-width: 901px)");
+
+  if (root && desktop.matches && !reduceMotion.matches) {
+    const video = root.querySelector("video");
+    const poster = root.querySelector(".journey-poster");
+    const scenes = [...root.querySelectorAll("[data-scene]")];
+    const railButtons = [...root.querySelectorAll("[data-jump]")];
+    const progressLine = root.querySelector("[data-progress]");
+    const currentLabel = root.querySelector("[data-current]");
+    let frame = 0;
+    let active = 0;
+
+    root.classList.add("is-enhanced");
+    if (video?.dataset.src) {
+      video.src = video.dataset.src;
+      video.addEventListener("loadeddata", () => {
+        video.classList.add("is-ready");
+        poster?.classList.add("is-hidden");
+      }, { once: true });
+      video.load();
+    }
+
+    const render = () => {
+      frame = 0;
+      const rect = root.getBoundingClientRect();
+      const scrollable = Math.max(root.offsetHeight - window.innerHeight, 1);
+      const ratio = Math.min(Math.max(-rect.top / scrollable, 0), 1);
+      const time = ratio * duration;
+      let nextActive = 0;
+      for (let index = 0; index < sceneStarts.length; index += 1) {
+        if (ratio >= sceneStarts[index]) nextActive = index;
+      }
+
+      if (nextActive !== active) active = nextActive;
+      scenes.forEach((scene, index) => scene.classList.toggle("is-active", index === active));
+      railButtons.forEach((button, index) => button.classList.toggle("is-active", index === active));
+      if (progressLine) progressLine.style.height = `${ratio * 100}%`;
+      if (currentLabel) currentLabel.textContent = String(active + 1).padStart(2, "0");
+      root.classList.toggle("has-progress", ratio > 0.025);
+
+      if (video && video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - time) > 0.05) {
+        video.currentTime = Math.min(time, duration - 0.05);
+      }
+    };
+
+    const requestRender = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(render);
+    };
+
+    railButtons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        const target = root.offsetTop + sceneStarts[index] * (root.offsetHeight - window.innerHeight);
+        window.scrollTo({ top: target, behavior: "smooth" });
+      });
+    });
+
+    render();
+    window.addEventListener("scroll", requestRender, { passive: true });
+    window.addEventListener("resize", requestRender);
+  }
+</script>
+
+<style>
+  .journey { position: relative; height: 560vh; background: var(--ink); }
+  .journey-stage { position: sticky; top: var(--header-height); height: calc(100svh - var(--header-height)); min-height: 590px; overflow: hidden; color: var(--paper); background: #a9c5cf; }
+  .journey-media, .journey-poster, .journey-video, .journey-wash { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .journey-poster, .journey-video { object-fit: cover; object-position: center; }
+  .journey-poster { z-index: 1; transition: opacity .45s ease; }
+  .journey-poster.is-hidden { opacity: 0; }
+  .journey-video { z-index: 2; opacity: 0; transition: opacity .45s ease; }
+  .journey-video.is-ready { opacity: 1; }
+  .journey-wash { z-index: 3; background: linear-gradient(90deg, rgba(12,29,42,.95) 0%, rgba(12,29,42,.86) 28%, rgba(12,29,42,.38) 52%, rgba(12,29,42,.06) 72%), linear-gradient(180deg, rgba(12,29,42,.18), transparent 55%, rgba(12,29,42,.42)); }
+  .journey-chrome { position: absolute; z-index: 5; top: 26px; left: 50%; display: flex; justify-content: space-between; transform: translateX(-50%); }
+  .journey-label, .journey-skip { margin: 0; color: rgba(255,255,255,.7); font: 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+  .journey-skip { transition: color .2s ease; }
+  .journey-skip:hover { color: white; }
+  .journey-copy { position: absolute; z-index: 5; inset: 0; }
+  .journey-scene { position: absolute; top: 50%; left: 0; width: min(650px, 58vw); opacity: 0; pointer-events: none; transform: translateY(calc(-46% + 26px)); transition: opacity .45s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+  .journey-scene.is-active { opacity: 1; pointer-events: auto; transform: translateY(-46%); }
+  .journey-kicker { display: flex; align-items: center; gap: 11px; margin: 0; color: rgba(255,255,255,.76); font: 11px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+  .journey-kicker i { width: 50px; height: 1px; background: var(--cinnabar); }
+  .journey-scene h1, .journey-scene h2 { max-width: 640px; margin: 24px 0 18px; color: white; font-family: var(--font-display); font-size: clamp(48px, 5.2vw, 78px); font-weight: 760; line-height: 1.08; letter-spacing: -.055em; text-wrap: balance; }
+  .journey-scene h2 { font-size: clamp(44px, 4.7vw, 70px); }
+  .journey-body { max-width: 510px; margin: 0; color: rgba(255,255,255,.76); font-size: clamp(16px, 1.25vw, 19px); line-height: 1.8; text-wrap: pretty; }
+  .journey-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 25px; }
+  .journey-tags span { padding: 7px 11px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(10,24,35,.2); color: rgba(255,255,255,.82); font-size: 12px; backdrop-filter: blur(8px); }
+  .journey-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .journey-actions .button { border-color: rgba(255,255,255,.54); }
+  .journey-actions .button.ghost { background: rgba(11,26,38,.24); color: white; }
+  .journey-rail { position: absolute; z-index: 6; right: clamp(24px, 4vw, 68px); top: 50%; display: grid; justify-items: center; gap: 12px; transform: translateY(-50%); }
+  .journey-rail > span { color: rgba(255,255,255,.72); font: 10px var(--font-mono); }
+  .journey-rail > div { position: relative; display: grid; gap: 15px; padding: 8px 0; }
+  .journey-rail > div::before, .journey-rail > div > i { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; transform: translateX(-50%); }
+  .journey-rail > div::before { background: rgba(255,255,255,.24); }
+  .journey-rail > div > i { bottom: auto; height: 0; background: var(--cinnabar); }
+  .journey-rail button { position: relative; z-index: 1; width: 9px; height: 9px; padding: 0; border: 1px solid rgba(255,255,255,.64); border-radius: 50%; background: #345160; transition: transform .2s ease, background .2s ease; }
+  .journey-rail button.is-active { background: var(--cinnabar); transform: scale(1.4); }
+  .journey-hint { position: absolute; z-index: 6; left: 50%; bottom: 24px; display: flex; align-items: center; gap: 10px; margin: 0; color: rgba(255,255,255,.72); font-size: 11px; transform: translateX(-50%); transition: opacity .3s ease; }
+  .journey-hint span { width: 18px; height: 28px; border: 1px solid rgba(255,255,255,.5); border-radius: 999px; }
+  .journey-hint span::after { content: ""; display: block; width: 2px; height: 6px; margin: 5px auto; border-radius: 9px; background: var(--cinnabar); animation: scroll-cue 1.6s ease infinite; }
+  .journey.has-progress .journey-hint { opacity: 0; }
+  .journey-mobile { display: none; }
+  @keyframes scroll-cue { 0%, 100% { transform: translateY(0); opacity: .45; } 50% { transform: translateY(8px); opacity: 1; } }
+
+  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+    .journey { display: none; }
+    .journey-mobile { display: block; padding-top: 54px; }
+    .mobile-intro { padding: 34px 0 52px; }
+    .mobile-intro h1 { max-width: 760px; margin: 0; font-family: var(--font-display); font-size: clamp(42px, 9vw, 64px); line-height: 1.08; letter-spacing: -.05em; }
+    .mobile-intro > p:last-of-type { max-width: 620px; color: var(--muted); font-size: 17px; }
+    .journey-mobile ol { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
+    .journey-mobile li { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-raised); }
+    .mobile-scene-image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+    .mobile-scene-image img { width: 100%; height: 100%; object-fit: cover; }
+    .mobile-scene-image span { position: absolute; right: 12px; top: 12px; padding: 6px 9px; border-radius: 999px; background: rgba(16,35,50,.82); color: white; font: 10px var(--font-mono); }
+    .journey-mobile li > div:last-child { padding: 22px; }
+    .journey-mobile li p { margin: 0 0 8px; color: var(--cinnabar); font: 11px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .journey-mobile li h2 { margin: 0 0 8px; font-family: var(--font-display); font-size: 26px; line-height: 1.18; }
+    .journey-mobile li div > span { color: var(--muted); font-size: 14px; }
+  }
+</style>

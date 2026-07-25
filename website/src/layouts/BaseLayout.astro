@@ -14,6 +14,7 @@ const navigation = [
   { href: "/skills", label: "Skills" },
   { href: "/submit", label: "提交 Skill" },
 ];
+const repoUrl = "https://github.com/kangarooking/cangjie-skill";
 ---
 
 <!doctype html>
@@ -31,8 +32,8 @@ const navigation = [
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href={withBase("/")} aria-label="仓颉 Skill 首页">
-          <span class="brand-mark" aria-hidden="true">仓</span>
-          <span>仓颉 Skill</span>
+          <span class="brand-mark" aria-hidden="true"><i>倉</i></span>
+          <span class="brand-copy"><strong>仓颉 Skill</strong><small>Knowledge into capability</small></span>
         </a>
         <nav class="site-nav" aria-label="主导航">
           {navigation.map((item) => (
@@ -43,8 +44,8 @@ const navigation = [
               {item.label}
             </a>
           ))}
-          <a class="github-link" href="https://github.com/kangarooking/cangjie-skill" target="_blank" rel="noreferrer">
-            GitHub ↗
+          <a class="github-link" href={repoUrl} target="_blank" rel="noreferrer">
+            <span>GitHub</span> <b>开源仓库 ↗</b>
           </a>
         </nav>
       </div>
@@ -57,16 +58,17 @@ const navigation = [
     <footer class="site-footer">
       <div class="shell footer-inner">
         <div>
-          <a class="brand footer-brand" href={withBase("/")}><span class="brand-mark">仓</span><span>仓颉 Skill</span></a>
-          <p>把知识蒸馏成 AI 可以直接执行的方法。</p>
+          <a class="brand footer-brand" href={withBase("/")}><span class="brand-mark"><i>倉</i></span><span class="brand-copy"><strong>仓颉 Skill</strong><small>Cangjie Skill Registry</small></span></a>
+          <p>把书、课程、视频和长期资料，蒸馏成 Agent 真正会用的能力。</p>
         </div>
         <div class="footer-links">
           <a href={withBase("/learn")}>使用教程</a>
           <a href={withBase("/skills")}>Skill 目录</a>
           <a href={withBase("/submit")}>参与共建</a>
-          <a href="https://github.com/kangarooking/cangjie-skill" target="_blank" rel="noreferrer">GitHub</a>
+          <a href={repoUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
         </div>
       </div>
+      <div class="shell footer-meta"><span>OPEN REGISTRY / SCHEMA V1</span><span>BUILD METHODS, NOT SUMMARIES.</span></div>
     </footer>
   </body>
 </html>

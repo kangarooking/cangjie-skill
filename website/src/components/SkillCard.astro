@@ -14,6 +14,7 @@ const qualityLabel = {
   community: "社区收录",
   experimental: "实验性",
 }[entry.quality];
+const sourceLabel = entry.source_type === "github" ? "GitHub" : "Bundled";
 ---
 
 <article
@@ -25,13 +26,17 @@ const qualityLabel = {
   data-source={filterable ? entry.source_type : undefined}
 >
   <div class="card-topline">
-    <span class:list={["quality-badge", `quality-${entry.quality}`]}>{qualityLabel}</span>
-    <span class="skill-count">{entry.skill_count} Skills</span>
+    <span class="card-register">PACK / {entry.slug.slice(0, 3).toUpperCase()}</span>
+    <span class:list={["quality-badge", `quality-${entry.quality}`]}><i></i>{qualityLabel}</span>
   </div>
-  <h3><a href={withBase(`/skills/${entry.slug}`)}>{entry.name}</a></h3>
+  <div class="card-title-row">
+    <span class="skill-glyph" aria-hidden="true">技</span>
+    <h3><a href={withBase(`/skills/${entry.slug}`)}>{entry.name}</a></h3>
+  </div>
   <p>{entry.summary}</p>
   <div class="tag-list" aria-label="领域">
     {entry.domains.map((domain) => <span>{domain}</span>)}
   </div>
-  <a class="card-link" href={withBase(`/skills/${entry.slug}`)} aria-label={`查看 ${entry.name}`}>查看详情 <span>→</span></a>
+  <div class="card-meta"><span>{entry.skill_count} Atomic Skills</span><span>{sourceLabel}</span></div>
+  <a class="card-link" href={withBase(`/skills/${entry.slug}`)} aria-label={`查看 ${entry.name}`}>打开方法档案 <span>↗</span></a>
 </article>
