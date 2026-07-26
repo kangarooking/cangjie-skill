@@ -9,7 +9,7 @@ const scenes = [
     title: "把看过的知识，变成 Agent 真正能调用的能力",
     body: "书、视频、播客和课程，不该只躺在收藏夹里。仓颉把它们蒸馏成能直接使用的 Skill。",
     tags: ["长视频", "书籍", "长期资料"],
-    still: "/stills/scene-01.jpg",
+    still: "/stills/scene-01.jpg?v=2",
     start: 0,
   },
   {
@@ -19,7 +19,7 @@ const scenes = [
     title: "先读懂全貌，再决定什么值得留下",
     body: "框架、原则、案例、反例和术语并行提取。不是做更长的摘要，而是寻找真正能指导行动的方法。",
     tags: ["框架", "原则", "案例与反例"],
-    still: "/stills/scene-02.jpg",
+    still: "/stills/scene-02.jpg?v=2",
     start: 13.083,
   },
   {
@@ -29,7 +29,7 @@ const scenes = [
     title: "过不了三道验证，就不进入 Skill",
     body: "跨域佐证、预测力与独特性。留下的不是听起来有道理的句子，而是经得起真实问题的方法。",
     tags: ["跨域佐证", "预测力", "独特性"],
-    still: "/stills/scene-03.jpg",
+    still: "/stills/scene-03.jpg?v=2",
     start: 24.668,
   },
   {
@@ -39,7 +39,7 @@ const scenes = [
     title: "把方法，装成 Agent 能执行的结构",
     body: "触发条件、输入、步骤、边界和示例被组织成可调用的 Skill，并与其他能力建立连接。",
     tags: ["触发", "步骤", "可组合"],
-    still: "/stills/scene-04.jpg",
+    still: "/stills/scene-04.jpg?v=2",
     start: 37.833,
   },
   {
@@ -49,7 +49,7 @@ const scenes = [
     title: "经得起真实任务，才进入你的 Agent",
     body: "正例、反例、边界和混淆测试全部通过，最终交付的是可安装、可调用、可复用的 Skill Pack。",
     tags: ["压力测试", "回炉优化", "安装交付"],
-    still: "/stills/scene-05.jpg",
+    still: "/stills/scene-05.jpg?v=2",
     start: 45.913,
   },
 ];
@@ -65,9 +65,9 @@ const duration = 54.833;
         class="journey-video"
         muted
         playsinline
-        preload="none"
+        preload="auto"
         poster={withBase(scenes[0].still)}
-        data-src={withBase("/media/cangjie-scroll.mp4")}
+        data-src={withBase("/media/cangjie-scroll.mp4?v=2")}
       ></video>
       <div class="journey-wash"></div>
     </div>
@@ -152,6 +152,7 @@ const duration = 54.833;
     const currentLabel = root.querySelector("[data-current]");
     let frame = 0;
     let active = 0;
+    let targetTime = 0;
 
     root.classList.add("is-enhanced");
     if (video?.dataset.src) {
@@ -160,6 +161,11 @@ const duration = 54.833;
         video.classList.add("is-ready");
         poster?.classList.add("is-hidden");
       }, { once: true });
+      video.addEventListener("seeked", () => {
+        if (Math.abs(video.currentTime - targetTime) > 0.05) {
+          video.currentTime = Math.min(targetTime, duration - 0.05);
+        }
+      });
       video.load();
     }
 
@@ -169,6 +175,7 @@ const duration = 54.833;
       const scrollable = Math.max(root.offsetHeight - window.innerHeight, 1);
       const ratio = Math.min(Math.max(-rect.top / scrollable, 0), 1);
       const time = ratio * duration;
+      targetTime = time;
       let nextActive = 0;
       for (let index = 0; index < sceneStarts.length; index += 1) {
         if (ratio >= sceneStarts[index]) nextActive = index;
@@ -181,8 +188,8 @@ const duration = 54.833;
       if (currentLabel) currentLabel.textContent = String(active + 1).padStart(2, "0");
       root.classList.toggle("has-progress", ratio > 0.025);
 
-      if (video && video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - time) > 0.05) {
-        video.currentTime = Math.min(time, duration - 0.05);
+      if (video && video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - targetTime) > 0.05) {
+        video.currentTime = Math.min(targetTime, duration - 0.05);
       }
     };
 
@@ -206,12 +213,13 @@ const duration = 54.833;
 
 <style>
   .journey { position: relative; height: 560vh; background: var(--ink); }
-  .journey-stage { position: sticky; top: var(--header-height); height: calc(100svh - var(--header-height)); min-height: 590px; overflow: hidden; color: var(--paper); background: #a9c5cf; }
+  .journey-stage { position: sticky; top: var(--header-height); height: calc(100svh - var(--header-height)); min-height: 590px; overflow: hidden; isolation: isolate; color: var(--paper); background: var(--ink-deep); }
   .journey-media, .journey-poster, .journey-video, .journey-wash { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .journey-media { overflow: hidden; background: var(--ink-deep); }
   .journey-poster, .journey-video { object-fit: cover; object-position: center; }
-  .journey-poster { z-index: 1; transition: opacity .45s ease; }
+  .journey-poster { z-index: 1; max-width: none; transform: scale(1.008); transition: opacity .22s ease; }
   .journey-poster.is-hidden { opacity: 0; }
-  .journey-video { z-index: 2; opacity: 0; transition: opacity .45s ease; }
+  .journey-video { z-index: 2; max-width: none; opacity: 0; transition: opacity .22s ease; }
   .journey-video.is-ready { opacity: 1; }
   .journey-wash { z-index: 3; background: linear-gradient(90deg, rgba(12,29,42,.95) 0%, rgba(12,29,42,.86) 28%, rgba(12,29,42,.38) 52%, rgba(12,29,42,.06) 72%), linear-gradient(180deg, rgba(12,29,42,.18), transparent 55%, rgba(12,29,42,.42)); }
   .journey-chrome { position: absolute; z-index: 5; top: 26px; left: 50%; display: flex; justify-content: space-between; transform: translateX(-50%); }
