@@ -38,27 +38,27 @@ const exampleInstallPrompt = "请根据 " + INSTALL_GUIDE_URL + "，从 https://
 </BaseLayout>
 
 <style>
-  .learn-layout { display: grid; grid-template-columns: 190px minmax(0, 720px); justify-content: center; gap: 70px; padding-top: 70px; }
-  .toc { position: sticky; top: 100px; align-self: start; display: grid; gap: 10px; font-size: 13px; }
+  .learn-layout { display: grid; grid-template-columns: 210px minmax(0, 720px); justify-content: center; gap: 70px; padding-top: 70px; padding-bottom: 90px; }
+  .toc { position: sticky; top: 108px; align-self: start; display: grid; gap: 5px; padding: 20px; border: 3px solid white; border-radius: 24px; background: linear-gradient(145deg, #e6f7ff, #fff9e6); box-shadow: var(--shadow-soft); font-size: 13px; }
   .toc strong { margin-bottom: 7px; color: var(--ink); }
-  .toc a { color: var(--muted); }
-  .toc a:hover { color: var(--accent); }
+  .toc a { padding: 7px 9px; border-radius: 10px; color: var(--muted); }
+  .toc a:hover { color: var(--accent); background: white; }
   .learn-prose section { scroll-margin-top: 90px; padding-bottom: 28px; }
   .learn-prose section + section { border-top: 1px solid var(--line); }
-  .step-number { margin-top: 54px; color: var(--accent) !important; font: 12px "SFMono-Regular", monospace; letter-spacing: .08em; }
-  code { padding: 2px 5px; border-radius: 4px; background: var(--soft); color: var(--ink); font: 13px "SFMono-Regular", monospace; }
+  .step-number { display: inline-flex; margin-top: 54px; padding: 6px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent) !important; font: 800 11px var(--font-mono); letter-spacing: .08em; }
+  code { padding: 2px 6px; border-radius: 6px; background: var(--soft); color: var(--ink); font: 13px var(--font-mono); }
   pre code { padding: 0; background: transparent; color: inherit; }
-  .file-tree { display: grid; margin-top: 22px; padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--soft); font: 13px/1.8 "SFMono-Regular", monospace; }
-  .agent-install-demo { margin: 24px 0; padding: 20px; border: 1px solid var(--ink); border-radius: 8px; background: var(--soft); box-shadow: 5px 5px 0 var(--ink); }
+  .file-tree { display: grid; margin-top: 22px; padding: 22px; border: 3px solid white; border-radius: 20px; background: linear-gradient(145deg, #edf9ff, white); box-shadow: var(--shadow-soft); font: 13px/1.8 var(--font-mono); }
+  .agent-install-demo { margin: 24px 0; padding: 22px; border: 3px solid white; border-radius: 22px; background: linear-gradient(145deg, #fff7dc, var(--accent-soft)); box-shadow: var(--shadow-pop); }
   .agent-install-demo span { color: var(--accent); font-size: 11px; font-weight: 750; text-transform: uppercase; }
   .agent-install-demo p { margin: 9px 0 0; color: var(--ink); font-size: 14px; word-break: break-word; }
   .agent-checklist { display: grid; gap: 9px; padding: 0; list-style: none; }
   .agent-checklist li::before { content: "✓"; margin-right: 10px; color: var(--success); font-weight: 750; }
-  .prompt-example { margin-top: 22px; padding: 20px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent-soft); }
+  .prompt-example { margin-top: 22px; padding: 22px; border: 3px solid white; border-radius: 22px; background: linear-gradient(145deg, #e9f9ff, #fff8dc); box-shadow: var(--shadow-soft); }
   .prompt-example span { color: var(--accent); font-size: 12px; font-weight: 700; }
   .prompt-example p { margin-bottom: 0; color: #263653; }
-  details { padding: 18px 0; border-top: 1px solid var(--line); }
+  details { margin: 10px 0; padding: 17px 19px; border: 1px solid var(--line); border-radius: 16px; background: white; box-shadow: 0 7px 18px rgba(33,89,125,.05); }
   details:last-child { border-bottom: 1px solid var(--line); }
-  summary { cursor: pointer; font-weight: 650; }
+  summary { cursor: pointer; font-weight: 750; }
   @media (max-width: 760px) { .learn-layout { grid-template-columns: 1fr; gap: 0; } .toc { display: none; } }
 </style>

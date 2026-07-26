@@ -24,7 +24,7 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23111210%22/><text y=%22.78em%22 x=%22.18em%22 font-size=%2272%22 fill=%22white%22>仓</text></svg>`} />
+    <link rel="icon" type="image/jpeg" href={withBase("/brand/kangarooking-logo.jpg")} />
     <title>{title}</title>
   </head>
   <body>
@@ -32,7 +32,7 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href={withBase("/")} aria-label="仓颉 Skill 首页">
-          <span class="brand-mark" aria-hidden="true"><i>倉</i></span>
+          <span class="brand-mark" aria-hidden="true"><img src={withBase("/brand/kangarooking-logo.jpg")} alt="" /></span>
           <span class="brand-copy"><strong>仓颉 Skill</strong><small>Knowledge into capability</small></span>
         </a>
         <nav class="site-nav" aria-label="主导航">
@@ -58,7 +58,7 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
     <footer class="site-footer">
       <div class="shell footer-inner">
         <div>
-          <a class="brand footer-brand" href={withBase("/")}><span class="brand-mark"><i>倉</i></span><span class="brand-copy"><strong>仓颉 Skill</strong><small>Cangjie Skill Registry</small></span></a>
+          <a class="brand footer-brand" href={withBase("/")}><span class="brand-mark"><img src={withBase("/brand/kangarooking-logo.jpg")} alt="" /></span><span class="brand-copy"><strong>仓颉 Skill</strong><small>Cangjie Skill Registry</small></span></a>
           <p>把书、课程、视频和长期资料，蒸馏成 Agent 真正会用的能力。</p>
         </div>
         <div class="footer-links">
