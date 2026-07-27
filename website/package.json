@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate:registry && astro build",
+    "build": "npm run validate:registry && astro build && node scripts/prepare-sites-build.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",
