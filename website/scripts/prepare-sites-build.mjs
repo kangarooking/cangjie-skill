@@ -1,4 +1,14 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readdir, rename, writeFile } from "node:fs/promises";
+
+const distUrl = new URL("../dist/", import.meta.url);
+const clientUrl = new URL("../dist/client/", import.meta.url);
+
+await mkdir(clientUrl, { recursive: true });
+
+for (const entry of await readdir(distUrl)) {
+  if ([".openai", "client", "server"].includes(entry)) continue;
+  await rename(new URL(entry, distUrl), new URL(entry, clientUrl));
+}
 
 const worker = `export default {
   async fetch(request, env) {
