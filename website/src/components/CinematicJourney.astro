@@ -60,14 +60,23 @@ const duration = 54.833;
 <section class="journey" data-cinematic aria-labelledby="journey-title">
   <div class="journey-stage">
     <div class="journey-media" aria-hidden="true">
-      <img class="journey-poster" src={withBase(scenes[0].still)} alt="" />
+      <div class="journey-fallback">
+        {scenes.map((scene, index) => (
+          <img
+            class:list={["journey-fallback-frame", { "is-active": index === 0 }]}
+            src={withBase(scene.still)}
+            alt=""
+            loading={index === 0 ? "eager" : "lazy"}
+            data-fallback-frame={index}
+          />
+        ))}
+      </div>
       <video
         class="journey-video"
         muted
         playsinline
-        preload="auto"
-        poster={withBase(scenes[0].still)}
-        data-src={withBase("/media/cangjie-scroll.mp4?v=2")}
+        preload="none"
+        data-src={withBase("/media/cangjie-scroll.mp4?v=3")}
       ></video>
       <div class="journey-wash"></div>
     </div>
@@ -145,7 +154,7 @@ const duration = 54.833;
 
   if (root && desktop.matches && !reduceMotion.matches) {
     const video = root.querySelector("video");
-    const poster = root.querySelector(".journey-poster");
+    const fallbackFrames = [...root.querySelectorAll("[data-fallback-frame]")];
     const scenes = [...root.querySelectorAll("[data-scene]")];
     const railButtons = [...root.querySelectorAll("[data-jump]")];
     const progressLine = root.querySelector("[data-progress]");
@@ -153,21 +162,25 @@ const duration = 54.833;
     let frame = 0;
     let active = 0;
     let targetTime = 0;
+    let videoReady = false;
+    let objectUrl = "";
 
     root.classList.add("is-enhanced");
-    if (video?.dataset.src) {
-      video.src = video.dataset.src;
-      video.addEventListener("loadeddata", () => {
-        video.classList.add("is-ready");
-        poster?.classList.add("is-hidden");
-      }, { once: true });
-      video.addEventListener("seeked", () => {
-        if (Math.abs(video.currentTime - targetTime) > 0.05) {
-          video.currentTime = Math.min(targetTime, duration - 0.05);
-        }
-      });
-      video.load();
-    }
+
+    const revealVideo = () => {
+      if (!videoReady || !video) return;
+      video.classList.add("is-ready");
+      root.classList.add("is-video-ready");
+    };
+
+    const syncVideo = () => {
+      if (!videoReady || !video || video.seeking) return;
+      if (Math.abs(video.currentTime - targetTime) <= 0.05) {
+        revealVideo();
+        return;
+      }
+      video.currentTime = Math.min(targetTime, duration - 0.05);
+    };
 
     const render = () => {
       frame = 0;
@@ -183,14 +196,13 @@ const duration = 54.833;
 
       if (nextActive !== active) active = nextActive;
       scenes.forEach((scene, index) => scene.classList.toggle("is-active", index === active));
+      fallbackFrames.forEach((fallback, index) => fallback.classList.toggle("is-active", index === active));
       railButtons.forEach((button, index) => button.classList.toggle("is-active", index === active));
       if (progressLine) progressLine.style.height = `${ratio * 100}%`;
       if (currentLabel) currentLabel.textContent = String(active + 1).padStart(2, "0");
       root.classList.toggle("has-progress", ratio > 0.025);
 
-      if (video && video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - targetTime) > 0.05) {
-        video.currentTime = Math.min(targetTime, duration - 0.05);
-      }
+      syncVideo();
     };
 
     const requestRender = () => {
@@ -205,20 +217,54 @@ const duration = 54.833;
       });
     });
 
+    if (video?.dataset.src) {
+      video.addEventListener("loadeddata", () => {
+        videoReady = true;
+        syncVideo();
+      }, { once: true });
+      video.addEventListener("seeked", () => {
+        if (Math.abs(video.currentTime - targetTime) > 0.05) {
+          syncVideo();
+        } else {
+          revealVideo();
+        }
+      });
+
+      fetch(video.dataset.src, { credentials: "same-origin" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`Video request failed: ${response.status}`);
+          return response.blob();
+        })
+        .then((blob) => {
+          if (!root.isConnected) return;
+          objectUrl = URL.createObjectURL(blob);
+          video.src = objectUrl;
+          video.load();
+        })
+        .catch(() => {
+          root.classList.add("is-fallback-only");
+        });
+    }
+
     render();
     window.addEventListener("scroll", requestRender, { passive: true });
     window.addEventListener("resize", requestRender);
+    window.addEventListener("pagehide", () => {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    }, { once: true });
   }
 </script>
 
 <style>
   .journey { position: relative; height: 560vh; background: var(--ink-deep); }
   .journey-stage { position: sticky; top: var(--header-height); height: calc(100svh - var(--header-height)); min-height: 590px; overflow: hidden; isolation: isolate; color: white; background: #123652; }
-  .journey-media, .journey-poster, .journey-video, .journey-wash { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .journey-media, .journey-fallback, .journey-fallback-frame, .journey-video, .journey-wash { position: absolute; inset: 0; width: 100%; height: 100%; }
   .journey-media { overflow: hidden; background: #123652; }
-  .journey-poster, .journey-video { object-fit: cover; object-position: center; }
-  .journey-poster { z-index: 1; max-width: none; transform: scale(1.008); transition: opacity .22s ease; }
-  .journey-poster.is-hidden { opacity: 0; }
+  .journey-fallback { z-index: 1; transition: opacity .24s ease; }
+  .journey-fallback-frame, .journey-video { max-width: none; object-fit: cover; object-position: center; }
+  .journey-fallback-frame { opacity: 0; transform: scale(1.008); transition: opacity .42s ease; }
+  .journey-fallback-frame.is-active { opacity: 1; }
+  .journey.is-video-ready .journey-fallback { opacity: 0; }
   .journey-video { z-index: 2; max-width: none; opacity: 0; transition: opacity .22s ease; }
   .journey-video.is-ready { opacity: 1; }
   .journey-wash { z-index: 3; background: linear-gradient(90deg, rgba(15,48,72,.96) 0%, rgba(15,48,72,.86) 27%, rgba(15,48,72,.39) 51%, rgba(15,48,72,.04) 73%), linear-gradient(180deg, rgba(24,72,104,.11), transparent 55%, rgba(12,37,57,.35)); }
