@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "npm run validate:registry && astro build && node scripts/prepare-sites-build.mjs",
+    "build:cloudflare": "npm run validate:registry && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",
