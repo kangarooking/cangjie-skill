@@ -119,7 +119,7 @@ cangjie-skill/
 ├── README.md              ← You are here
 ├── README.en.md           ← English version
 ├── README.ja.md           ← Japanese version
-├── LICENSE                ← MIT
+├── LICENSE                ← GNU AGPL v3.0
 ├── SKILL.md               ← Meta-skill definition (full execution spec for cangjie-skill)
 ├── methodology/           ← RIA-TV++ stage-by-stage methodology docs
 ├── extractors/            ← Prompt definitions for the 5 parallel extractors
@@ -194,4 +194,4 @@ If this project has helped you, please star it.
 
 ## License
 
-MIT. See [LICENSE](./LICENSE).
+GNU Affero General Public License v3.0. See [LICENSE](./LICENSE).

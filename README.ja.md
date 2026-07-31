@@ -119,7 +119,7 @@ cangjie-skill/
 ├── README.md              ← 今見ているファイル
 ├── README.en.md           ← 英語版
 ├── README.ja.md           ← 日本語版
-├── LICENSE                ← MIT
+├── LICENSE                ← GNU AGPL v3.0
 ├── SKILL.md               ← メタスキル定義（cangjie-skill の完全な実行仕様）
 ├── methodology/           ← RIA-TV++ の段階別方法論ドキュメント
 ├── extractors/            ← 5つの並行エクストラクターのプロンプト定義
@@ -194,4 +194,4 @@ WeChat 公式アカウント「袋鼠帝 AI 客栈」QR コード:
 
 ## License
 
-MIT. See [LICENSE](./LICENSE).
+GNU Affero General Public License v3.0. See [LICENSE](./LICENSE).
