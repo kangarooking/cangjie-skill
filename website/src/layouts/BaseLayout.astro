@@ -10,9 +10,31 @@ interface Props {
 const { title, description } = Astro.props;
 const currentPath = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), "") || "/";
 const navigation = [
-  { href: "/learn", label: "使用教程" },
+  { href: "/learn", label: "使用教程", compact: false },
   { href: "/skills", label: "Skills" },
-  { href: "/submit", label: "提交 Skill" },
+  { href: "/submit", label: "提交 Skill", compact: false },
+];
+const contactMenus = [
+  {
+    id: "wechat-contact",
+    label: "联系我们",
+    eyebrow: "WECHAT CONTACT",
+    title: "微信扫码添加袋鼠帝",
+    description: "项目反馈、内容合作与生态共建",
+    image: "/contact/wechat-personal-qr.jpg",
+    alt: "袋鼠帝个人微信二维码",
+    variant: "personal",
+  },
+  {
+    id: "wechat-group",
+    label: "交流群",
+    eyebrow: "WECHAT GROUP",
+    title: "微信扫码加入交流群",
+    description: "交流 Skill 用法、案例与共建进展",
+    image: "/contact/wecom-cangjie-group-qr.png",
+    alt: "仓颉 Skill 企业微信交流群二维码",
+    variant: "group",
+  },
 ];
 const repoUrl = "https://github.com/kangarooking/cangjie-skill";
 ---
@@ -39,11 +61,31 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
           {navigation.map((item) => (
             <a
               href={withBase(item.href)}
+              class:list={{ "nav-optional": item.compact === false }}
               aria-current={currentPath.startsWith(item.href) ? "page" : undefined}
             >
               {item.label}
             </a>
           ))}
+          <div class="contact-actions" aria-label="联系与社群">
+            {contactMenus.map((menu) => (
+              <details class:list={["qr-menu", `qr-menu--${menu.variant}`]} data-qr-menu={menu.id}>
+                <summary>{menu.label}</summary>
+                <div class="qr-menu-panel">
+                  <div class="qr-menu-card">
+                    <div class="qr-menu-visual">
+                      <img src={withBase(menu.image)} alt={menu.alt} loading="lazy" decoding="async" />
+                    </div>
+                    <div class="qr-menu-copy">
+                      <span>{menu.eyebrow}</span>
+                      <strong>{menu.title}</strong>
+                      <small>{menu.description}</small>
+                    </div>
+                  </div>
+                </div>
+              </details>
+            ))}
+          </div>
           <a class="github-link" href={repoUrl} target="_blank" rel="noreferrer">
             <span>GitHub</span> <b>开源仓库 ↗</b>
           </a>
@@ -65,10 +107,56 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
           <a href={withBase("/learn")}>使用教程</a>
           <a href={withBase("/skills")}>Skill 目录</a>
           <a href={withBase("/submit")}>参与共建</a>
+          <button type="button" data-open-qr-menu="wechat-contact">联系我们</button>
+          <button type="button" data-open-qr-menu="wechat-group">加入交流群</button>
           <a href={repoUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
         </div>
       </div>
       <div class="shell footer-meta"><span>OPEN REGISTRY / SCHEMA V1</span><span>BUILD METHODS, NOT SUMMARIES.</span></div>
     </footer>
+
+    <script is:inline>
+      (() => {
+        const menus = Array.from(document.querySelectorAll("[data-qr-menu]"));
+
+        const closeMenus = (except) => {
+          menus.forEach((menu) => {
+            if (menu !== except) menu.removeAttribute("open");
+          });
+        };
+
+        menus.forEach((menu) => {
+          menu.addEventListener("toggle", () => {
+            if (menu.open) closeMenus(menu);
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          if (
+            !(event.target instanceof Element)
+            || event.target.closest("[data-qr-menu], [data-open-qr-menu]")
+          ) return;
+          closeMenus();
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key !== "Escape") return;
+          const openMenu = menus.find((menu) => menu.open);
+          if (!openMenu) return;
+          openMenu.removeAttribute("open");
+          openMenu.querySelector("summary")?.focus();
+        });
+
+        document.querySelectorAll("[data-open-qr-menu]").forEach((trigger) => {
+          trigger.addEventListener("click", () => {
+            const target = menus.find((menu) => menu.dataset.qrMenu === trigger.dataset.openQrMenu);
+            if (!target) return;
+            closeMenus(target);
+            target.setAttribute("open", "");
+            target.querySelector("summary")?.focus();
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
