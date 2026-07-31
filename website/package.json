@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "validate:registry": "node scripts/validate-registry.mjs",
+    "submit:indexnow": "node scripts/submit-indexnow.mjs",
     "verify": "npm run validate:registry && npm test && npm run check && npm run build"
   },
   "dependencies": {
