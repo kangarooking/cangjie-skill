@@ -1,4 +1,4 @@
-export const CANONICAL_ORIGIN = "https://cangjie-skill.com";
+export const CANONICAL_ORIGIN = "https://www.cangjie-skill.com";
 export const SITE_NAME = "仓颉 Skill";
 export const DEFAULT_SOCIAL_IMAGE = "/stills/scene-01.jpg";
 

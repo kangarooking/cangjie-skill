@@ -31,7 +31,7 @@ jobs:
           path: ./website
           node-version: 24
         env:
-          CANONICAL_SITE_URL: https://cangjie-skill.com
+          CANONICAL_SITE_URL: https://www.cangjie-skill.com
 
   deploy:
     needs: build

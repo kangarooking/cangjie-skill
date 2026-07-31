@@ -9,16 +9,16 @@ import {
 
 describe("SEO helpers", () => {
   it("normalizes canonical URLs onto the official domain", () => {
-    expect(canonicalUrl("/")).toBe("https://cangjie-skill.com/");
+    expect(canonicalUrl("/")).toBe("https://www.cangjie-skill.com/");
     expect(canonicalUrl("/skills/example/?source=test#install")).toBe(
-      "https://cangjie-skill.com/skills/example/",
+      "https://www.cangjie-skill.com/skills/example/",
     );
-    expect(canonicalUrl("/sitemap.xml")).toBe("https://cangjie-skill.com/sitemap.xml");
+    expect(canonicalUrl("/sitemap.xml")).toBe("https://www.cangjie-skill.com/sitemap.xml");
   });
 
   it("keeps social images on the crawlable canonical origin", () => {
     expect(socialImageUrl("/brand/kangarooking-logo.jpg")).toBe(
-      "https://cangjie-skill.com/brand/kangarooking-logo.jpg",
+      "https://www.cangjie-skill.com/brand/kangarooking-logo.jpg",
     );
   });
 
@@ -29,8 +29,8 @@ describe("SEO helpers", () => {
   it("builds a deduplicated canonical XML sitemap", () => {
     const sitemap = buildSitemap(["/", "/learn", "/learn/"]);
 
-    expect(sitemap).toContain("<loc>https://cangjie-skill.com/</loc>");
-    expect(sitemap).toContain("<loc>https://cangjie-skill.com/learn/</loc>");
+    expect(sitemap).toContain("<loc>https://www.cangjie-skill.com/</loc>");
+    expect(sitemap).toContain("<loc>https://www.cangjie-skill.com/learn/</loc>");
     expect(sitemap.match(/cangjie-skill\.com\/learn/g)).toHaveLength(1);
   });
 });

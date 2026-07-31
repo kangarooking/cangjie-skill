@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cangjie-skill.com/sitemap.xml
+Sitemap: https://www.cangjie-skill.com/sitemap.xml
