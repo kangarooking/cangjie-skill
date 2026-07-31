@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { loadCatalog, type RegistryEntry } from "@/lib/catalog";
 import { getAgentInstallPrompt, INSTALL_GUIDE_URL } from "@/lib/install";
+import { canonicalUrl } from "@/lib/seo";
 import { withBase } from "@/lib/urls";
 
 export async function getStaticPaths() {
@@ -13,6 +14,10 @@ interface Props { entry: RegistryEntry }
 const { entry } = Astro.props;
 const repositoryPath = new URL(entry.source_url).pathname.replace(/^\//, "");
 const installPrompt = getAgentInstallPrompt(entry);
+const pageUrl = canonicalUrl(`/skills/${entry.slug}`);
+const skillId = `${pageUrl}#skill`;
+const breadcrumbId = `${pageUrl}#breadcrumb`;
+const metaDescription = `${entry.summary} 查看适用场景、安装提示词、调用方法和开源仓库。`;
 const qualityLabel = {
   verified: "已验证",
   community: "社区收录",
@@ -20,10 +25,64 @@ const qualityLabel = {
 }[entry.quality];
 ---
 
-<BaseLayout title={entry.name + " — 仓颉 Skill"} description={entry.summary}>
+<BaseLayout
+  title={`${entry.name} - Agent Skill 安装与使用 | 仓颉 Skill`}
+  description={metaDescription}
+  schemaType="ItemPage"
+  schema={{
+    breadcrumb: { "@id": breadcrumbId },
+    mainEntity: { "@id": skillId },
+  }}
+  extraSchema={[
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": skillId,
+      name: entry.name,
+      description: entry.summary,
+      url: pageUrl,
+      codeRepository: entry.source_url,
+      programmingLanguage: "Markdown",
+      runtimePlatform: "AI Agent",
+      applicationCategory: "Agent Skill",
+      keywords: entry.domains.join(", "),
+      inLanguage: entry.language,
+      isAccessibleForFree: true,
+      isPartOf: { "@id": "https://cangjie-skill.com/#website" },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": breadcrumbId,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "首页",
+          item: canonicalUrl("/"),
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Agent Skills 中文目录",
+          item: canonicalUrl("/skills"),
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: entry.name,
+          item: pageUrl,
+        },
+      ],
+    },
+  ]}
+>
   <section class="detail-hero">
     <div class="shell">
-      <a class="back-link" href={withBase("/skills")}>← Skills 目录 / {entry.slug}</a>
+      <nav class="detail-breadcrumb" aria-label="面包屑">
+        <a href={withBase("/")}>首页</a>
+        <span aria-hidden="true">/</span>
+        <a href={withBase("/skills")}>Skills 目录</a>
+        <span aria-current="page">/ {entry.name}</span>
+      </nav>
       <div class="detail-heading">
         <div class="skill-symbol" aria-hidden="true">技</div>
         <div>
@@ -144,8 +203,8 @@ const qualityLabel = {
 <style>
   .detail-hero { position: relative; overflow: hidden; padding: 42px 0 62px; border-bottom: 1px solid rgba(90,157,194,.12); background: radial-gradient(circle at 82% 18%, rgba(255,215,106,.55), transparent 13%), linear-gradient(145deg, #dff5ff, #fff9e9); }
   .detail-hero::after { content: ""; position: absolute; width: 280px; height: 95px; right: -35px; bottom: -24px; border-radius: 999px; background: rgba(255,255,255,.42); transform: rotate(-8deg); }
-  .back-link { color: var(--muted); font-size: 13px; }
-  .back-link:hover { color: var(--accent); }
+  .detail-breadcrumb { display: flex; flex-wrap: wrap; gap: 7px; color: var(--muted); font-size: 13px; }
+  .detail-breadcrumb a:hover { color: var(--accent); }
   .detail-heading { position: relative; z-index: 1; display: grid; grid-template-columns: 78px minmax(0, 850px); gap: 26px; align-items: start; margin-top: 42px; }
   .skill-symbol { position: relative; display: grid; place-items: center; width: 78px; height: 78px; border: 4px solid white; border-radius: 26px; background: linear-gradient(145deg, #86d9ff, #3aa9df); color: white; box-shadow: 0 12px 25px rgba(45,143,194,.24), inset 0 2px rgba(255,255,255,.5); font: 900 34px var(--font-display); text-shadow: 0 2px 4px rgba(25,86,117,.2); transform: rotate(-4deg); }
   .detail-heading h1 { margin: 15px 0 10px; font-family: var(--font-display); font-size: clamp(38px, 5vw, 58px); font-weight: 900; line-height: 1.08; letter-spacing: -.05em; }

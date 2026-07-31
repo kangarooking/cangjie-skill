@@ -1,14 +1,90 @@
 ---
 import { withBase } from "@/lib/urls";
+import {
+  CANONICAL_ORIGIN,
+  canonicalUrl,
+  serializeJsonLd,
+  SITE_NAME,
+  socialImageUrl,
+  type SeoNode,
+} from "@/lib/seo";
 import "@/styles/global.css";
 
 interface Props {
   title: string;
   description: string;
+  image?: string;
+  imageAlt?: string;
+  schemaType?: string;
+  schema?: Record<string, unknown>;
+  extraSchema?: SeoNode[];
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  imageAlt = "仓颉 Skill：把知识蒸馏成 Agent 可调用的能力",
+  schemaType = "WebPage",
+  schema = {},
+  extraSchema = [],
+  noindex = false,
+} = Astro.props;
 const currentPath = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), "") || "/";
+const canonical = canonicalUrl(currentPath);
+const socialImage = socialImageUrl(image);
+const organizationId = `${CANONICAL_ORIGIN}/#organization`;
+const websiteId = `${CANONICAL_ORIGIN}/#website`;
+const webpageId = `${canonical}#webpage`;
+const structuredData = serializeJsonLd({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": organizationId,
+      name: SITE_NAME,
+      alternateName: "Cangjie Skill",
+      url: `${CANONICAL_ORIGIN}/`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${CANONICAL_ORIGIN}/brand/kangarooking-logo.jpg`,
+        width: 320,
+        height: 320,
+      },
+      description: "把书籍、长视频、播客和课程蒸馏成可安装、可调用、可复用的 Agent Skills。",
+      sameAs: ["https://github.com/kangarooking/cangjie-skill"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      url: `${CANONICAL_ORIGIN}/`,
+      name: SITE_NAME,
+      alternateName: "Cangjie Skill",
+      description: "开源 Agent Skills 中文知识库、安装教程与 Skill Pack Registry。",
+      inLanguage: "zh-CN",
+      publisher: { "@id": organizationId },
+    },
+    {
+      "@type": schemaType,
+      "@id": webpageId,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: "zh-CN",
+      isPartOf: { "@id": websiteId },
+      about: { "@id": organizationId },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: socialImage,
+      },
+      ...schema,
+    },
+    ...extraSchema,
+  ],
+});
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const baiduSiteVerification = import.meta.env.PUBLIC_BAIDU_SITE_VERIFICATION;
 const navigation = [
   { href: "/learn", label: "使用教程", compact: false },
   { href: "/skills", label: "Skills" },
@@ -23,6 +99,8 @@ const contactMenus = [
     description: "项目反馈、内容合作与生态共建",
     image: "/contact/wechat-personal-qr.jpg",
     alt: "袋鼠帝个人微信二维码",
+    width: 888,
+    height: 1131,
     variant: "personal",
   },
   {
@@ -33,6 +111,8 @@ const contactMenus = [
     description: "交流 Skill 用法、案例与共建进展",
     image: "/contact/wecom-cangjie-group-qr.png",
     alt: "仓颉 Skill 企业微信交流群二维码",
+    width: 396,
+    height: 396,
     variant: "group",
   },
 ];
@@ -43,10 +123,32 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="author" content="仓颉 Skill 开源社区" />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+    <meta name="theme-color" content="#12324e" />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
+    {baiduSiteVerification && <meta name="baidu-site-verification" content={baiduSiteVerification} />}
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/jpeg" href={withBase("/brand/kangarooking-logo.jpg")} />
+    <link rel="apple-touch-icon" href={withBase("/brand/kangarooking-logo.jpg")} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1440" />
+    <meta property="og:image:height" content="900" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <script is:inline type="application/ld+json" set:html={structuredData}></script>
     <title>{title}</title>
   </head>
   <body>
@@ -54,7 +156,7 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href={withBase("/")} aria-label="仓颉 Skill 首页">
-          <span class="brand-mark" aria-hidden="true"><img src={withBase("/brand/kangarooking-logo.jpg")} alt="" /></span>
+          <span class="brand-mark" aria-hidden="true"><img src={withBase("/brand/kangarooking-logo.jpg")} alt="" width="320" height="320" /></span>
           <span class="brand-copy"><strong>仓颉 Skill</strong><small>Knowledge into capability</small></span>
         </a>
         <nav class="site-nav" aria-label="主导航">
@@ -74,7 +176,7 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
                 <div class="qr-menu-panel">
                   <div class="qr-menu-card">
                     <div class="qr-menu-visual">
-                      <img src={withBase(menu.image)} alt={menu.alt} loading="lazy" decoding="async" />
+                      <img src={withBase(menu.image)} alt={menu.alt} width={menu.width} height={menu.height} loading="lazy" decoding="async" />
                     </div>
                     <div class="qr-menu-copy">
                       <span>{menu.eyebrow}</span>
@@ -100,7 +202,7 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
     <footer class="site-footer">
       <div class="shell footer-inner">
         <div>
-          <a class="brand footer-brand" href={withBase("/")}><span class="brand-mark"><img src={withBase("/brand/kangarooking-logo.jpg")} alt="" /></span><span class="brand-copy"><strong>仓颉 Skill</strong><small>Cangjie Skill Registry</small></span></a>
+          <a class="brand footer-brand" href={withBase("/")}><span class="brand-mark"><img src={withBase("/brand/kangarooking-logo.jpg")} alt="" width="320" height="320" /></span><span class="brand-copy"><strong>仓颉 Skill</strong><small>Cangjie Skill Registry</small></span></a>
           <p>把书、课程、视频和长期资料，蒸馏成 Agent 真正会用的能力。</p>
         </div>
         <div class="footer-links">

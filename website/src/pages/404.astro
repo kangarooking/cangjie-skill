@@ -1,0 +1,31 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { withBase } from "@/lib/urls";
+---
+
+<BaseLayout
+  title="页面未找到 - 仓颉 Skill"
+  description="你访问的页面不存在。返回仓颉 Skill 首页、Agent Skills 中文目录或安装教程。"
+  noindex
+>
+  <section class="not-found">
+    <div class="shell not-found-card">
+      <p class="eyebrow">404 / LOST KNOWLEDGE</p>
+      <h1>这份方法档案<br />暂时没有找到</h1>
+      <p>链接可能已经移动或输入有误。你可以返回首页，或者直接进入 Agent Skills 中文目录继续查找。</p>
+      <div class="button-row">
+        <a class="button accent" href={withBase("/")}>返回首页</a>
+        <a class="button secondary" href={withBase("/skills")}>浏览 Skills</a>
+        <a class="text-link" href={withBase("/learn")}>查看安装教程 →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found { display: grid; min-height: 68vh; place-items: center; padding: 90px 0; background: radial-gradient(circle at 75% 20%, rgba(255, 211, 92, .32), transparent 20%), linear-gradient(145deg, #e4f6ff, #fff9e8); }
+  .not-found-card { text-align: center; }
+  .not-found h1 { margin: 0; font-family: var(--font-display); font-size: clamp(48px, 8vw, 88px); font-weight: 900; line-height: 1.02; letter-spacing: -.055em; }
+  .not-found p:not(.eyebrow) { max-width: 620px; margin: 26px auto; color: var(--muted); font-size: 17px; line-height: 1.8; }
+  .not-found .button-row { justify-content: center; }
+</style>

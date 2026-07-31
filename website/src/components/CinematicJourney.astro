@@ -7,7 +7,7 @@ const scenes = [
     id: "origin",
     eyebrow: "从收藏到调用",
     title: "把看过的知识，变成 Agent 真正能调用的能力",
-    body: "书、视频、播客和课程，不该只躺在收藏夹里。仓颉把它们蒸馏成能直接使用的 Skill。",
+    body: "Agent Skill 是让 AI Agent 按需调用的本地工作方法。仓颉把书、视频、播客和课程，蒸馏成可安装、可复用的 Skill Pack。",
     tags: ["长视频", "书籍", "长期资料"],
     still: "/stills/scene-01.jpg?v=2",
     start: 0,
@@ -66,7 +66,10 @@ const duration = 54.833;
             class:list={["journey-fallback-frame", { "is-active": index === 0 }]}
             src={withBase(scene.still)}
             alt=""
+            width="1440"
+            height="900"
             loading={index === 0 ? "eager" : "lazy"}
+            fetchpriority={index === 0 ? "high" : "auto"}
             data-fallback-frame={index}
           />
         ))}
@@ -123,7 +126,7 @@ const duration = 54.833;
 <section class="journey-mobile shell" aria-label="仓颉 Skill 五个蒸馏阶段">
   <div class="mobile-intro">
     <p class="eyebrow">Knowledge journey</p>
-    <h1>把看过的知识，变成 Agent 真正能调用的能力</h1>
+    <h2>把看过的知识，变成 Agent 真正能调用的能力</h2>
     <p>从理解、验证到结构化交付，仓颉用五个阶段把内容变成可安装的 Skill。</p>
     <div class="button-row">
       <a class="button accent" href={withBase("/skills")}>浏览 Skills</a>
@@ -134,7 +137,14 @@ const duration = 54.833;
     {scenes.map((scene) => (
       <li>
         <div class="mobile-scene-image">
-          <img src={withBase(scene.still)} alt="" loading={scene.number === "01" ? "eager" : "lazy"} />
+          <img
+            src={withBase(scene.still)}
+            alt=""
+            width="1440"
+            height="900"
+            loading={scene.number === "01" ? "eager" : "lazy"}
+            fetchpriority={scene.number === "01" ? "high" : "auto"}
+          />
           <span>{scene.number} / 05</span>
         </div>
         <div>
@@ -303,7 +313,7 @@ const duration = 54.833;
     .journey { display: none; }
     .journey-mobile { display: block; padding-top: 54px; }
     .mobile-intro { padding: 34px 0 52px; }
-    .mobile-intro h1 { max-width: 760px; margin: 0; font-family: var(--font-display); font-size: clamp(42px, 9vw, 64px); font-weight: 900; line-height: 1.08; letter-spacing: -.05em; }
+    .mobile-intro h2 { max-width: 760px; margin: 0; font-family: var(--font-display); font-size: clamp(42px, 9vw, 64px); font-weight: 900; line-height: 1.08; letter-spacing: -.05em; }
     .mobile-intro > p:last-of-type { max-width: 620px; color: var(--muted); font-size: 17px; }
     .journey-mobile ol { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
     .journey-mobile li { overflow: hidden; border: 3px solid white; border-radius: var(--radius-lg); background: var(--paper-raised); box-shadow: var(--shadow-soft); }

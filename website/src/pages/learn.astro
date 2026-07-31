@@ -1,12 +1,69 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { INSTALL_GUIDE_URL } from "@/lib/install";
+import { canonicalUrl } from "@/lib/seo";
 import { withBase } from "@/lib/urls";
 
 const exampleInstallPrompt = "请根据 " + INSTALL_GUIDE_URL + "，从 https://github.com/kangarooking/buffett-letters-skill 安装 buffett-letters-skill。";
+const pageUrl = canonicalUrl("/learn");
+const howToId = `${pageUrl}#howto`;
+const faqId = `${pageUrl}#faq`;
+const howToSteps = [
+  ["理解 Skill Pack 目录", "确认 Pack 中包含一个或多个原子 Skill，每个原子 Skill 至少有一个 SKILL.md。"],
+  ["选择适合任务的 Skill", "在 Skills 目录按名称、领域或使用场景搜索，优先选择与当前真实任务直接相关的 Pack。"],
+  ["把安装提示词交给 Agent", "进入 Skill 详情页复制安装提示词，发送给 Codex、Claude Code、Cursor 或其他支持 Skills 的 Agent。"],
+  ["直接描述真实任务", "说明目标、背景材料和期望结果，让 Agent 按 Skill 中定义的方法执行。"],
+  ["验证 Skill 是否生效", "让 Agent 说明读取了哪个 Skill、采用哪些步骤，并检查输出是否包含该方法特有的验收项。"],
+];
+const faqItems = [
+  {
+    question: "Agent 没有识别到 Skill 怎么办？",
+    answer: "先检查目录层级：目标文件应为 .../skill-name/SKILL.md，而不是多套了一层压缩包目录。然后开启新会话再试。",
+  },
+  {
+    question: "一次安装很多 Skill 会怎样？",
+    answer: "可以安装，但名称和触发描述过于相似时可能产生冲突。推荐围绕当前工作保留一组高频 Skill。",
+  },
+  {
+    question: "Skill 会把资料上传到哪里？",
+    answer: "仓颉 Skill 本身只是本地文本和脚本。实际数据如何处理取决于你使用的 Agent、模型服务和 Skill 内部是否调用外部服务，安装前应检查仓库内容。",
+  },
+];
 ---
 
-<BaseLayout title="使用教程 — 仓颉 Skill" description="从选择、安装到调用，快速学会在主流 AI 编程 Agent 中使用仓颉 Skill。">
+<BaseLayout
+  title="Agent Skill 安装与使用教程 - 仓颉 Skill"
+  description="十分钟学会 Agent Skill 的目录结构、安装提示词、调用方法和验证步骤，适用于 Codex、Claude Code、Cursor 等主流 AI 编程 Agent。"
+  schema={{ mainEntity: [{ "@id": howToId }, { "@id": faqId }] }}
+  extraSchema={[
+    {
+      "@type": "HowTo",
+      "@id": howToId,
+      name: "如何安装并使用 Agent Skill",
+      description: "从选择 Skill Pack、交给 Agent 安装，到调用和验证的完整流程。",
+      totalTime: "PT10M",
+      step: howToSteps.map(([name, text], index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        name,
+        text,
+        url: `${pageUrl}#${["understand", "choose", "install", "use", "verify"][index]}`,
+      })),
+    },
+    {
+      "@type": "FAQPage",
+      "@id": faqId,
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ]}
+>
   <section class="page-hero"><div class="shell"><p class="eyebrow">Get started</p><h1>十分钟，让 Agent<br />用上专业方法</h1><p class="lede">Skill 不是一段需要复制粘贴的提示词，而是一套放在本地、可被 Agent 自动读取的工作方法。</p></div></section>
 
   <div class="learn-layout shell">
@@ -32,7 +89,16 @@ const exampleInstallPrompt = "请根据 " + INSTALL_GUIDE_URL + "，从 https://
       <section id="verify"><p class="step-number">STEP 05</p><h2>验证 Skill 是否生效</h2><p>让 Agent 说明它读取了哪个 Skill、当前采用了哪些步骤。一个正常生效的 Skill 应该让输出更有结构，而且包含该方法特有的检查项，而不是泛泛回答。</p><pre><code>开始前，请告诉我你将使用哪个 Skill，
 并用 3 点概括它要求你遵循的工作流程。</code></pre></section>
 
-      <section id="troubleshoot"><p class="step-number">TROUBLESHOOTING</p><h2>常见问题</h2><details><summary>Agent 没有识别到 Skill</summary><p>先检查目录层级：目标文件应为 <code>.../skill-name/SKILL.md</code>，而不是多套了一层压缩包目录。然后开启新会话再试。</p></details><details><summary>一次安装很多 Skill 会怎样？</summary><p>可以安装，但名称和触发描述过于相似时可能产生冲突。推荐围绕当前工作保留一组高频 Skill。</p></details><details><summary>Skill 会把资料上传到哪里？</summary><p>仓颉 Skill 本身只是本地文本和脚本。实际数据如何处理取决于你使用的 Agent、模型服务和 Skill 内部是否调用外部服务，安装前应检查仓库内容。</p></details></section>
+      <section id="troubleshoot">
+        <p class="step-number">TROUBLESHOOTING</p>
+        <h2>常见问题</h2>
+        {faqItems.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </section>
     </article>
   </div>
 </BaseLayout>

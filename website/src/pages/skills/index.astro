@@ -2,13 +2,35 @@
 import SkillCard from "@/components/SkillCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { filterCatalog, getCatalogStats, loadCatalog } from "@/lib/catalog";
+import { canonicalUrl } from "@/lib/seo";
 
 const entries = filterCatalog(await loadCatalog(), {});
 const stats = getCatalogStats(entries);
 const domains = [...new Set(entries.flatMap((entry) => entry.domains))].sort((a, b) => a.localeCompare(b, "zh-CN"));
+const itemListId = `${canonicalUrl("/skills")}#skill-packs`;
 ---
 
-<BaseLayout title="Skills 目录 — 仓颉 Skill" description={`浏览 ${stats.packs} 个 Skill Pack 和 ${stats.skills} 个经过蒸馏的原子 Skill。`}>
+<BaseLayout
+  title="Agent Skills 中文目录 - 仓颉 Skill"
+  description={`浏览 ${stats.packs} 个开源 Agent Skill Packs 和 ${stats.skills} 个原子 Skills，按投资、决策、写作、营销、AI 等领域搜索，查看使用场景和安装提示词。`}
+  schemaType="CollectionPage"
+  schema={{ mainEntity: { "@id": itemListId } }}
+  extraSchema={[
+    {
+      "@type": "ItemList",
+      "@id": itemListId,
+      name: "仓颉 Skill Pack Registry",
+      numberOfItems: entries.length,
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      itemListElement: entries.map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: entry.name,
+        url: canonicalUrl(`/skills/${entry.slug}`),
+      })),
+    },
+  ]}
+>
   <section class="page-hero compact"><div class="shell"><p class="eyebrow">Registry</p><h1>Skills 目录</h1><p class="lede">当前收录 <strong>{stats.packs}</strong> 个 Skill Pack，共 <strong>{stats.skills}</strong> 个原子 Skill。搜索名称、领域或使用场景，快速找到合适的方法。</p></div></section>
 
   <section class="catalog-section shell">

@@ -1,0 +1,13 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+/install/*
+  X-Robots-Tag: noindex, follow
+
+/media/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/stills/*
+  Cache-Control: public, max-age=31536000, immutable

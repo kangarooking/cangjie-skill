@@ -4,8 +4,8 @@ const repositoryName = process.env.GITHUB_REPOSITORY?.split("/")[1];
 const isGitHubPages = Boolean(process.env.GITHUB_ACTIONS && repositoryName);
 
 export default defineConfig({
-  site: process.env.SITE_URL ?? "http://localhost:4321",
+  site: process.env.CANONICAL_SITE_URL ?? "https://cangjie-skill.com",
   base: isGitHubPages ? `/${repositoryName}` : "/",
   output: "static",
-  trailingSlash: "never",
+  trailingSlash: "always",
 });

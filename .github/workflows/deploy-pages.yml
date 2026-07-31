@@ -31,7 +31,7 @@ jobs:
           path: ./website
           node-version: 24
         env:
-          SITE_URL: https://kangarooking.github.io
+          CANONICAL_SITE_URL: https://cangjie-skill.com
 
   deploy:
     needs: build
