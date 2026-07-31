@@ -319,6 +319,10 @@ img, video { display: block; max-width: 100%; }
   .site-nav { gap: 3px; }
 }
 
+@media (max-width: 820px) {
+  .site-nav .nav-optional { display: none; }
+}
+
 @media (max-width: 640px) {
   :root { --header-height: 66px; }
   .shell, .narrow { width: min(100% - 28px, 1180px); }

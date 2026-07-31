@@ -1,0 +1,90 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { GEO_FAQ_ITEMS, GEO_LAST_UPDATED } from "@/lib/geo";
+import { withBase } from "@/lib/urls";
+---
+
+<BaseLayout
+  title="仓颉 Skill FAQ - Agent Skills 安装、兼容与 Registry 问答"
+  description="仓颉 Skill 常见问题：了解 Agent Skill 是什么、与提示词和 MCP 的区别、如何安装、兼容哪些 Agent、Registry 数据和质量标签如何核验。"
+  schemaType="FAQPage"
+  schema={{
+    dateModified: GEO_LAST_UPDATED,
+    mainEntity: GEO_FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  }}
+>
+  <section class="page-hero compact">
+    <div class="shell faq-hero">
+      <div>
+        <p class="eyebrow">Answer center / FAQ</p>
+        <h1>关于仓颉 Skill，<br />先给你直接答案</h1>
+        <p class="lede">安装、兼容、来源、质量和许可证，都可以在这里快速核验。每个答案都和页面可见事实、Registry 或公开仓库保持一致。</p>
+      </div>
+      <div class="answer-index"><strong>{GEO_FAQ_ITEMS.length}</strong><span>个可引用答案</span><small>UPDATED {GEO_LAST_UPDATED}</small></div>
+    </div>
+  </section>
+
+  <section class="faq-section shell" id="answers">
+    <aside class="faq-aside">
+      <p class="eyebrow">Quick navigation</p>
+      <h2>按问题查找</h2>
+      <ol>
+        {GEO_FAQ_ITEMS.map((item, index) => <li><a href={`#answer-${index + 1}`}>{item.question}</a></li>)}
+      </ol>
+      <a class="button secondary" href={withBase("/about")}>先了解项目</a>
+    </aside>
+    <div class="faq-list">
+      {GEO_FAQ_ITEMS.map((item, index) => (
+        <article id={`answer-${index + 1}`}>
+          <span>{String(index + 1).padStart(2, "0")} / {String(GEO_FAQ_ITEMS.length).padStart(2, "0")}</span>
+          <h2>{item.question}</h2>
+          <p>{item.answer}</p>
+          {item.links?.length && (
+            <div class="answer-sources" aria-label="相关来源">
+              {item.links.map((link) => <a href={link.href} target={link.href.startsWith("http") && !link.href.startsWith("https://www.cangjie-skill.com") ? "_blank" : undefined} rel="noreferrer">{link.label} ↗</a>)}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section faq-cta">
+    <div class="narrow">
+      <p class="eyebrow">Verify before use</p>
+      <h2>答案是入口，来源才是证据。</h2>
+      <p>安装前继续检查具体 Skill Pack 的来源仓库、许可证、适用边界和文件内容。如果你发现官网与来源不一致，可以通过 GitHub 提交修正。</p>
+      <div class="button-row"><a class="button accent" href={withBase("/skills")}>核验 Skill Pack</a><a class="button secondary" href={withBase("/submit")}>参与修正</a></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero.compact { padding-bottom: 58px; }
+  .faq-hero { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: end; }
+  .answer-index { display: grid; min-width: 210px; padding: 22px; border: 3px solid white; border-radius: 26px; background: linear-gradient(145deg, #fff, #eaf8ff); box-shadow: var(--shadow-pop); text-align: right; transform: rotate(1.5deg); }
+  .answer-index strong { color: var(--accent); font-family: var(--font-display); font-size: 58px; line-height: 1; }
+  .answer-index span { font-weight: 850; }
+  .answer-index small { margin-top: 8px; color: var(--muted); font: 9px var(--font-mono); }
+  .faq-section { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 68px; padding-top: 72px; padding-bottom: 100px; }
+  .faq-aside { position: sticky; top: calc(var(--header-height) + 30px); align-self: start; }
+  .faq-aside h2 { margin: 0; font-family: var(--font-display); font-size: 28px; }
+  .faq-aside ol { display: grid; gap: 9px; margin: 22px 0 28px; padding-left: 20px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+  .faq-aside a:hover { color: var(--accent); }
+  .faq-list { display: grid; gap: 16px; }
+  .faq-list article { scroll-margin-top: calc(var(--header-height) + 24px); padding: 30px 32px; border: 1px solid rgba(89,155,193,.16); border-radius: 27px; background: rgba(255,255,255,.88); box-shadow: var(--shadow-soft); }
+  .faq-list article > span { color: var(--accent); font: 9px var(--font-mono); letter-spacing: .1em; }
+  .faq-list h2 { margin: 13px 0 10px; font-family: var(--font-display); font-size: 25px; font-weight: 900; letter-spacing: -.025em; }
+  .faq-list p { margin: 0; color: var(--ink-soft); }
+  .answer-sources { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .answer-sources a { padding: 6px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 11px; font-weight: 800; }
+  .faq-cta { background: linear-gradient(145deg, #fff5d5, #e6f6ff); }
+  .faq-cta h2 { margin: 0; font-family: var(--font-display); font-size: clamp(34px, 5vw, 52px); }
+  .faq-cta > div > p:not(.eyebrow) { color: var(--ink-soft); }
+  @media (max-width: 800px) { .faq-hero { grid-template-columns: 1fr; gap: 32px; } .answer-index { width: 210px; } .faq-section { grid-template-columns: 1fr; gap: 36px; } .faq-aside { position: static; } .faq-aside ol { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .faq-aside ol { grid-template-columns: 1fr; } .faq-list article { padding: 24px 22px; } }
+</style>

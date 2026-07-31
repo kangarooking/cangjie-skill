@@ -5,6 +5,8 @@ export async function GET() {
   const entries = filterCatalog(await loadCatalog(), {});
   const paths = [
     "/",
+    "/about",
+    "/faq",
     "/learn",
     "/skills",
     ...entries.map((entry) => `/skills/${entry.slug}`),

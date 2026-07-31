@@ -1,0 +1,143 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { filterCatalog, getCatalogStats, loadCatalog } from "@/lib/catalog";
+import { GEO_LAST_UPDATED, PROJECT_LICENSE, SOURCE_REPOSITORY } from "@/lib/geo";
+import { CANONICAL_ORIGIN, canonicalUrl } from "@/lib/seo";
+import { withBase } from "@/lib/urls";
+
+const entries = filterCatalog(await loadCatalog(), {});
+const stats = getCatalogStats(entries);
+const aboutId = `${CANONICAL_ORIGIN}/#organization`;
+---
+
+<BaseLayout
+  title="仓颉 Skill 是什么？- 开源 Agent Skills 中文知识库"
+  description={`仓颉 Skill（Cangjie Skill）是开源 Agent Skills 中文知识库。了解它如何把高价值内容蒸馏成可复用能力，以及 ${stats.packs} 个 Skill Packs、${stats.skills} 个原子 Skills 的 Registry 如何维护。`}
+  schemaType="AboutPage"
+  schema={{ mainEntity: { "@id": aboutId }, dateModified: GEO_LAST_UPDATED }}
+  extraSchema={[
+    {
+      "@type": ["Organization", "Project"],
+      "@id": aboutId,
+      name: "仓颉 Skill",
+      alternateName: "Cangjie Skill",
+      url: canonicalUrl("/"),
+      description: "开源 Agent Skills 中文知识库和方法蒸馏项目。",
+      sameAs: [SOURCE_REPOSITORY],
+      license: `${SOURCE_REPOSITORY}/blob/main/LICENSE`,
+      knowsAbout: ["Agent Skills", "知识蒸馏", "AI Agent", "方法论", "技能包"],
+    },
+  ]}
+>
+  <section class="page-hero">
+    <div class="shell about-hero">
+      <div>
+        <p class="eyebrow">Entity / About</p>
+        <h1>仓颉 Skill 是什么？</h1>
+        <p class="lede"><strong>仓颉 Skill（Cangjie Skill）是一个开源 Agent Skills 中文知识库和方法蒸馏项目。</strong>它把书籍、长视频、播客、课程等高价值内容，整理成 Agent 可以安装、调用、复用和验证的 Skill Packs。</p>
+        <div class="button-row">
+          <a class="button accent" href={withBase("/skills")}>浏览 Registry</a>
+          <a class="button secondary" href={SOURCE_REPOSITORY} target="_blank" rel="noreferrer">查看源代码 ↗</a>
+        </div>
+      </div>
+      <aside class="entity-card" aria-label="仓颉 Skill 实体摘要">
+        <span>OFFICIAL ENTITY</span>
+        <dl>
+          <div><dt>中文名</dt><dd>仓颉 Skill</dd></div>
+          <div><dt>英文名</dt><dd>Cangjie Skill</dd></div>
+          <div><dt>类型</dt><dd>开源 Agent Skills 知识库</dd></div>
+          <div><dt>官网</dt><dd>www.cangjie-skill.com</dd></div>
+          <div><dt>许可证</dt><dd>{PROJECT_LICENSE}</dd></div>
+          <div><dt>更新</dt><dd>{GEO_LAST_UPDATED}</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section shell answer-section">
+    <div class="section-header">
+      <div><p class="eyebrow">Direct answer</p><h2>它解决的不是“看过”，<br />而是“真正会用”</h2></div>
+      <p>摘要能压缩内容，但很难在新问题出现时自动调用。仓颉 Skill 把知识进一步整理为带触发条件、执行步骤、边界和验收方式的工作方法。</p>
+    </div>
+    <div class="definition-grid">
+      <article><span>01</span><h3>不是一次性提示词</h3><p>提示词描述当前要求；Skill 保存一套可以重复执行、检查和改进的方法。</p></article>
+      <article><span>02</span><h3>不是 MCP 的替代品</h3><p>MCP 连接工具与数据；Skill 负责说明何时、为何以及怎样使用这些能力。</p></article>
+      <article><span>03</span><h3>不是第二份知识目录</h3><p>官网所有目录、统计和机器数据都来自同一份公开 Registry，避免多份数据漂移。</p></article>
+    </div>
+  </section>
+
+  <section class="section registry-facts">
+    <div class="shell facts-layout">
+      <div>
+        <p class="eyebrow">Registry facts</p>
+        <h2>公开、可追溯、<br />可以机器读取</h2>
+        <p>每个条目记录来源仓库、数量、领域、语言、质量状态和使用场景。质量标签表示项目内审核状态，不等于对原始知识内容的绝对保证。</p>
+        <a class="text-link" href={withBase("/registry.json")}>查看 Registry JSON ↗</a>
+      </div>
+      <dl class="fact-ledger">
+        <div><dt>{stats.packs}</dt><dd>Skill Packs</dd></div>
+        <div><dt>{stats.skills}</dt><dd>Atomic Skills</dd></div>
+        <div><dt>{stats.domains}</dt><dd>Knowledge Domains</dd></div>
+        <div><dt>{stats.contributors}</dt><dd>Public Contributors</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="section-header">
+      <div><p class="eyebrow">Use the project</p><h2>从了解，到真正调用</h2></div>
+    </div>
+    <div class="path-grid">
+      <a href={withBase("/learn")}><span>01</span><h3>安装与使用</h3><p>让当前 Agent 判断目录、检查来源并验证安装。</p><b>阅读教程 →</b></a>
+      <a href={withBase("/skills")}><span>02</span><h3>查找 Skill Pack</h3><p>按领域、质量、来源和真实使用场景筛选。</p><b>浏览目录 →</b></a>
+      <a href={withBase("/submit")}><span>03</span><h3>参与共建</h3><p>生成标准条目，通过公开 Pull Request 提交。</p><b>提交 Skill →</b></a>
+      <a href={withBase("/faq")}><span>04</span><h3>继续核验</h3><p>查看兼容性、质量标签、许可证等常见问题。</p><b>打开 FAQ →</b></a>
+    </div>
+  </section>
+
+  <section class="section sources-section">
+    <div class="narrow prose">
+      <p class="eyebrow">Primary sources</p>
+      <h2>权威来源</h2>
+      <p>核验项目事实时，请优先使用以下公开来源。机器可读文件是这些信息的构建产物，不能替代原始仓库。</p>
+      <ul>
+        <li><a href={SOURCE_REPOSITORY} target="_blank" rel="noreferrer">仓颉 Skill GitHub 主仓库</a>：项目方法、文件结构与许可证。</li>
+        <li><a href={withBase("/skills")}>官网 Registry</a>：当前收录条目和每个来源仓库。</li>
+        <li><a href={withBase("/learn")}>官方安装教程</a>：安装原则、提示词和风险检查。</li>
+        <li><a href={withBase("/llms-full.txt")}>完整机器可读上下文</a>：为检索系统提供的辅助快照。</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); gap: 72px; align-items: center; }
+  .about-hero .lede strong { color: var(--ink); }
+  .entity-card { padding: 24px; border: 3px solid white; border-radius: 28px; background: linear-gradient(145deg, #fff, #e9f7ff); box-shadow: var(--shadow-pop); transform: rotate(1deg); }
+  .entity-card > span { color: var(--accent); font: 9px var(--font-mono); letter-spacing: .13em; }
+  .entity-card dl { margin: 16px 0 0; }
+  .entity-card dl div { display: flex; justify-content: space-between; gap: 24px; padding: 11px 0; border-top: 1px solid var(--line); }
+  .entity-card dt { color: var(--muted); font-size: 12px; }
+  .entity-card dd { margin: 0; font-size: 12px; font-weight: 800; text-align: right; }
+  .answer-section { padding-top: 92px; }
+  .definition-grid, .path-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .definition-grid article, .path-grid a { position: relative; padding: 28px; border: 1px solid rgba(89,155,193,.16); border-radius: 26px; background: rgba(255,255,255,.86); box-shadow: var(--shadow-soft); }
+  .definition-grid span, .path-grid span { color: var(--accent); font: 10px var(--font-mono); }
+  .definition-grid h3, .path-grid h3 { margin: 24px 0 8px; font-family: var(--font-display); font-size: 22px; font-weight: 900; }
+  .definition-grid p, .path-grid p { margin: 0; color: var(--muted); font-size: 13px; }
+  .registry-facts { background: linear-gradient(145deg, #173f5e, #102b45); color: white; }
+  .facts-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: 80px; align-items: center; }
+  .facts-layout h2 { margin: 0; font-family: var(--font-display); font-size: clamp(36px, 5vw, 56px); line-height: 1.08; }
+  .facts-layout p { color: rgba(255,255,255,.68); }
+  .fact-ledger { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border: 1px solid rgba(255,255,255,.16); border-radius: 28px; overflow: hidden; }
+  .fact-ledger div { padding: 28px; border: 1px solid rgba(255,255,255,.1); }
+  .fact-ledger dt { color: var(--sun); font-family: var(--font-display); font-size: 44px; font-weight: 900; line-height: 1; }
+  .fact-ledger dd { margin: 8px 0 0; color: rgba(255,255,255,.62); font: 9px var(--font-mono); text-transform: uppercase; }
+  .path-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .path-grid a { transition: transform .2s ease, box-shadow .2s ease; }
+  .path-grid a:hover { transform: translateY(-6px); box-shadow: var(--shadow-pop); }
+  .path-grid b { display: inline-block; margin-top: 24px; color: var(--accent); font-size: 12px; }
+  .sources-section { background: linear-gradient(180deg, rgba(227,246,255,.44), transparent); }
+  @media (max-width: 900px) { .about-hero, .facts-layout { grid-template-columns: 1fr; gap: 42px; } .path-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .definition-grid, .path-grid { grid-template-columns: 1fr; } .fact-ledger { grid-template-columns: 1fr 1fr; } }
+</style>

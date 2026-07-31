@@ -88,6 +88,7 @@ const baiduSiteVerification = import.meta.env.PUBLIC_BAIDU_SITE_VERIFICATION;
 const navigation = [
   { href: "/learn", label: "使用教程", compact: false },
   { href: "/skills", label: "Skills" },
+  { href: "/about", label: "关于", compact: false },
   { href: "/submit", label: "提交 Skill", compact: false },
 ];
 const contactMenus = [
@@ -208,6 +209,8 @@ const repoUrl = "https://github.com/kangarooking/cangjie-skill";
         <div class="footer-links">
           <a href={withBase("/learn")}>使用教程</a>
           <a href={withBase("/skills")}>Skill 目录</a>
+          <a href={withBase("/about")}>关于仓颉 Skill</a>
+          <a href={withBase("/faq")}>常见问题</a>
           <a href={withBase("/submit")}>参与共建</a>
           <button type="button" data-open-qr-menu="wechat-contact">联系我们</button>
           <button type="button" data-open-qr-menu="wechat-group">加入交流群</button>
