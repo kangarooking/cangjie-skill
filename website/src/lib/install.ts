@@ -1,6 +1,6 @@
 import type { RegistryEntry } from "./catalog";
 
-export const INSTALL_GUIDE_URL = "https://kangarooking.github.io/cangjie-skill/install/cangjie-skill.md";
+export const INSTALL_GUIDE_URL = "https://cangjie-skill.pages.dev/install/cangjie-skill.md";
 
 export function getAgentInstallPrompt(entry: RegistryEntry, guideUrl = INSTALL_GUIDE_URL): string {
   const source = entry.source_type === "bundled" && entry.skill_path

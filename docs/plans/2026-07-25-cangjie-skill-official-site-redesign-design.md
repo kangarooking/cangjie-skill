@@ -26,7 +26,7 @@ flowchart LR
 
 - `registry/{slug}/entry.yaml` 是唯一 Skill 数据源。
 - `schemas/registry-entry.schema.json` 是唯一结构规范。
-- 安装提示词固定使用 `https://kangarooking.github.io/cangjie-skill/install/cangjie-skill.md`。
+- 安装提示词固定使用 `https://cangjie-skill.pages.dev/install/cangjie-skill.md`。
 - 不新增账号、数据库、评分、评论或在线执行 Skill。
 - 本地投稿文件只在浏览器内读取、检查和打包。
 

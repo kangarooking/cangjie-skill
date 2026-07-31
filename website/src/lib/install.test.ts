@@ -18,6 +18,12 @@ const baseEntry: RegistryEntry = {
 };
 
 describe("Agent install prompt", () => {
+  it("uses the live Cloudflare install guide", () => {
+    expect(INSTALL_GUIDE_URL).toBe(
+      "https://cangjie-skill.pages.dev/install/cangjie-skill.md",
+    );
+  });
+
   it("generates a copy-ready prompt for GitHub skills", () => {
     expect(getAgentInstallPrompt(baseEntry)).toBe(
       `请根据 ${INSTALL_GUIDE_URL}，从 https://github.com/example/example-skill 安装 example-skill。`,

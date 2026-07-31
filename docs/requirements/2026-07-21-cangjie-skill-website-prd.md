@@ -283,14 +283,14 @@ flowchart LR
 教程必须展示可理解的完整示例：
 
 ~~~text
-请根据 https://kangarooking.github.io/cangjie-skill/install/cangjie-skill.md，
+请根据 https://cangjie-skill.pages.dev/install/cangjie-skill.md，
 从 https://github.com/kangarooking/buffett-letters-skill
 安装 buffett-letters-skill。
 ~~~
 
 固定安装规范地址为：
 
-https://kangarooking.github.io/cangjie-skill/install/cangjie-skill.md
+https://cangjie-skill.pages.dev/install/cangjie-skill.md
 
 该地址只有在官网部署完成后才可访问。发布前必须把安装规范文件与网站同时部署，避免生产页面引用 404。
 
@@ -513,7 +513,7 @@ GitHub 来源的提示词格式：
 ### 12.1 文件与地址
 
 - 源文件：website/public/install/cangjie-skill.md
-- 正式地址：https://kangarooking.github.io/cangjie-skill/install/cangjie-skill.md
+- 正式地址：https://cangjie-skill.pages.dev/install/cangjie-skill.md
 - 内容类型：Markdown 文本。
 - 目标读者：Agent。
 
