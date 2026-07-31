@@ -2,6 +2,12 @@
 
 本を実行可能な AI スキルのセットに蒸留します。
 
+## 公式サイト
+
+🌐 [Cangjie Skill 公式サイトを見る](https://cangjie-skill.pages.dev/)
+
+公式サイトでは、Skill Pack の視覚的な閲覧、初めての方向けの利用ガイド、Skill 詳細、コミュニティへの提出窓口を提供します。cangjie-skill のコード、方法論、テンプレートの唯一のソースは引き続きこの GitHub リポジトリです。公式サイトは展示、ナビゲーション、利用ガイドを担います。
+
 ## なぜこれを作ったのか
 
 最近バズったアイデアがあります：同僚を AI スキルに蒸留する。人が離職しても、その人の経験、口調、仕事のスタイルが AI によってある程度再現できる。[nuwa-skill](https://github.com/alchaincyf/nuwa-skill) はまさにこれを行う——イーロン・マスク skill やウォーレン・バフェット skill のような「人間 skill」を生成します。コンパニオンの [darwin-skill](https://github.com/alchaincyf/darwin-skill) はスキルの自動進化を担当します。
