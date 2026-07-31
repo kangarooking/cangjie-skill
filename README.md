@@ -13,6 +13,12 @@
 
 </div>
 
+## 官方网站
+
+🌐 [访问 Cangjie Skill 官方网站](https://cangjie-skill.pages.dev/)
+
+官网提供 Skill Packs 可视化浏览、从零开始的使用教程、Skill 详情与生态共建提交入口。GitHub 仓库仍是 cangjie-skill 代码、方法论和模板的唯一来源，官网负责展示、导航与使用指引。
+
 ## 为什么做这件事
 
 最近有一个很火的 idea：把同事蒸馏成 skill。即便一个人离职了，他的经验、语气、工作方式都会被 AI 一定程度替代。[nuwa-skill](https://github.com/alchaincyf/nuwa-skill) 就是做这件事的——创造"人类 skill"，比如马斯克 skill、巴菲特 skill。配套的 [darwin-skill](https://github.com/alchaincyf/darwin-skill) 负责让这些 skill 自动进化。
