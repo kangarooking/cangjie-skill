@@ -15,7 +15,7 @@
 
 ## 官方网站
 
-🌐 [访问 Cangjie Skill 官方网站](https://cangjie-skill.pages.dev/)
+🌐 [访问 Cangjie Skill 官方网站](https://cangjie-skill.com/)
 
 官网提供 Skill Packs 可视化浏览、从零开始的使用教程、Skill 详情与生态共建提交入口。GitHub 仓库仍是 cangjie-skill 代码、方法论和模板的唯一来源，官网负责展示、导航与使用指引。
 

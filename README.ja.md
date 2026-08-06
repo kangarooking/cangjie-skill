@@ -4,7 +4,7 @@
 
 ## 公式サイト
 
-🌐 [Cangjie Skill 公式サイトを見る](https://cangjie-skill.pages.dev/)
+🌐 [Cangjie Skill 公式サイトを見る](https://cangjie-skill.com/)
 
 公式サイトでは、Skill Pack の視覚的な閲覧、初めての方向けの利用ガイド、Skill 詳細、コミュニティへの提出窓口を提供します。cangjie-skill のコード、方法論、テンプレートの唯一のソースは引き続きこの GitHub リポジトリです。公式サイトは展示、ナビゲーション、利用ガイドを担います。
 

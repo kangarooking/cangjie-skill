@@ -4,7 +4,7 @@ Distill a book into a set of executable AI skills.
 
 ## Official Website
 
-🌐 [Visit the Cangjie Skill official website](https://cangjie-skill.pages.dev/)
+🌐 [Visit the Cangjie Skill official website](https://cangjie-skill.com/)
 
 The website provides visual Skill Pack browsing, a beginner-friendly usage guide, Skill detail pages, and a contribution submission entry. This GitHub repository remains the sole source for cangjie-skill code, methodology, and templates; the website provides presentation, navigation, and usage guidance.
 
