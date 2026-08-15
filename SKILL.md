@@ -19,7 +19,8 @@ description: Distill a book, long-video transcript, podcast, course, or intervie
 
 一个五阶段 + 并行提取 + 三重验证 + darwin 兼容测试的流水线。详见 `methodology/00-overview.md`。
 
-```
+``` 
+阶段 0.5: 可蒸性预筛选      → PIPELINE_STATE.md (值得蒸?/有现成产物?/成本预期)
 阶段 0: Adler 整书理解     → BOOK_OVERVIEW.md
 阶段 1: 5 个 agent 并行提取 → 候选方法论单元池
 阶段 1.5: 三重验证筛选       → 通过的单元 (用户轻确认)
@@ -70,6 +71,16 @@ books/<book-slug>/
 ## 执行流程 (严格按顺序)
 
 **断点续跑**: 开始前先检查 `books/<slug>/PIPELINE_STATE.md` 是否存在。存在则读取并从记录的阶段续跑,不要从头重来。每完成一个阶段,更新该文件 (当前阶段 / 已完成产物 / 各 skill 状态 / 下一步),格式用简单的 checklist markdown 即可。
+
+### 阶段 0.5 — 可蒸性预筛选 (必做,5 分钟)
+
+按 `methodology/00.5-pre-filter.md` 执行,开工前先回答三件事:
+
+1. **可蒸性三问**: 框架密度 / 原则可复用性 / 步骤可拆性。≤1 问通过 → 降级为摘要,不蒸 skill。
+2. **复用检查**: 搜 GitHub (`kangarooking/cangjie-skill` 社区 / ClawHub / `<书名> + skill 蒸馏`) 和本地 skills 列表,已有现成产物就直接安装,跳过整个流水线。
+3. **成本预期**: 告知用户预计时长 + token 消耗 (短视频数千 token / 整本书数万~十余万),由用户决定值不值得蒸。
+
+结论写入 `PIPELINE_STATE.md`,再进入阶段 0。
 
 ### 阶段 0 — 整书理解
 
@@ -150,6 +161,12 @@ books/<book-slug>/
 3. 原文引用 ≤150 字/段 (英文 ≤100 词/段)
 4. 每个 skill 必须有 `test-prompts.json`,且包含诱饵测试 (不应调用的场景),其中至少 1 条是同书兄弟 skill 的场景
 5. `description` 字段必须明确 trigger 条件,不能只是"一个关于 X 的 skill"
+
+## 三个坑 (来自随风《蒸馏读书法》,违反则流程走偏)
+
+1. **坑一: 以为 AI 训练过这本书就不用蒸了** — 蒸馏的价值不在"记住"(AI 本来就知道 PSF 是什么),在"建立触发条件" (聊项目时自动调出来)。该蒸还得蒸。
+2. **坑二: 蒸完就不读书了** — 蒸馏是阅读的补充,不是替代。用户没读过原书时,阶段 1.5 的三重验证判断节点会缺背景 — 此时让用户多参与确认,或提醒先粗读。
+3. **坑三: Skill 越多越好** — 触发条件太宽会导致 skill 在错误场景被激活,帮倒忙。宁可窄一点: 阶段 1.5 宁可多淘汰,阶段 4 诱饵测试必须过。目标区间 10-25 个/本,不是 50 个全要。
 
 ## 与 nuwa-skill / darwin-skill 的生态定位
 
