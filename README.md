@@ -8,6 +8,7 @@
 [![Method: RIA--TV++](https://img.shields.io/badge/Method-RIA--TV++-2ea44f.svg)](./SKILL.md)
 [![Platform: OpenClaw](https://img.shields.io/badge/Platform-OpenClaw-1677ff.svg)](https://github.com/openclaw/openclaw)
 [![Platform: Claude Code](https://img.shields.io/badge/Platform-Claude%20Code-f97316.svg)](https://code.claude.com/)
+[![Platform: DeepSeek Harness](https://img.shields.io/badge/Platform-DeepSeek%20Harness-4f46e5.svg)](#deepseek-harness-插件)
 
 **读完、看完、听完之后，带走一套能调用的方法论。**
 
@@ -18,6 +19,25 @@
 🌐 [访问 Cangjie Skill 官方网站](https://cangjie-skill.com/)
 
 官网提供 Skill Packs 可视化浏览、从零开始的使用教程、Skill 详情与生态共建提交入口。GitHub 仓库仍是 cangjie-skill 代码、方法论和模板的唯一来源，官网负责展示、导航与使用指引。
+
+## DeepSeek Harness 插件
+
+cangjie-skill 同时提供独立的 DeepSeek Harness 插件安装包。适配层封装在 Release 安装包中，不会向本仓库加入特定平台的包装文件。
+
+已安装 DeepSeek Harness 后，运行：
+
+```bash
+dsh plugin --profile web add "https://github.com/kangarooking/cangjie-skill/releases/download/dsh-v0.1.0/dsh-cangjie-skill-0.1.0.tgz"
+dsh web
+```
+
+[下载 DeepSeek Harness 插件 v0.1.0](https://github.com/kangarooking/cangjie-skill/releases/download/dsh-v0.1.0/dsh-cangjie-skill-0.1.0.tgz)
+
+启动新任务后，可以直接说：
+
+```text
+请用 cangjie-skill 把这本书蒸馏成一组可执行的 Agent Skills：<文件路径>
+```
 
 ## 为什么做这件事
 
