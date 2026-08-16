@@ -27,7 +27,10 @@ cangjie-skill 同时提供独立的 DeepSeek Harness 插件安装包。适配层
 已安装 DeepSeek Harness 后，运行：
 
 ```bash
-dsh plugin --profile web add "https://github.com/kangarooking/cangjie-skill/releases/download/v2.0.0/dsh-cangjie-skill-2.0.0.tgz"
+mkdir -p ~/.dsh/packages
+curl -fL "https://github.com/kangarooking/cangjie-skill/releases/download/v2.0.0/dsh-cangjie-skill-2.0.0.tgz" \
+  -o ~/.dsh/packages/dsh-cangjie-skill-2.0.0.tgz
+dsh plugin --profile web add ~/.dsh/packages/dsh-cangjie-skill-2.0.0.tgz
 dsh web
 ```
 
