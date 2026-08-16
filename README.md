@@ -27,11 +27,11 @@ cangjie-skill 同时提供独立的 DeepSeek Harness 插件安装包。适配层
 已安装 DeepSeek Harness 后，运行：
 
 ```bash
-dsh plugin --profile web add "https://github.com/kangarooking/cangjie-skill/releases/download/dsh-v0.1.0/dsh-cangjie-skill-0.1.0.tgz"
+dsh plugin --profile web add "https://github.com/kangarooking/cangjie-skill/releases/download/v2.0.0/dsh-cangjie-skill-2.0.0.tgz"
 dsh web
 ```
 
-[下载 DeepSeek Harness 插件 v0.1.0](https://github.com/kangarooking/cangjie-skill/releases/download/dsh-v0.1.0/dsh-cangjie-skill-0.1.0.tgz)
+[下载 DeepSeek Harness 插件（适配仓颉 Skill v2.0.0）](https://github.com/kangarooking/cangjie-skill/releases/download/v2.0.0/dsh-cangjie-skill-2.0.0.tgz)
 
 启动新任务后，可以直接说：
 
