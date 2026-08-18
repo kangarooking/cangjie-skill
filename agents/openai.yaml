@@ -1,0 +1,4 @@
+interface:
+  display_name: "仓颉 · 长内容蒸馏"
+  short_description: "把书籍、课程、访谈与长视频提炼为可执行 Agent Skills"
+  default_prompt: "Use $cangjie-skill to distill this long-form source into tested, reusable Agent Skills."

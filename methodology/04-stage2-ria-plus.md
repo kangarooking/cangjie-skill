@@ -2,7 +2,7 @@
 
 ## 目标
 
-把阶段 1.5 通过的每个方法论单元,构造成一个符合 Claude Code skill 规范的 SKILL.md。
+把阶段 1.5 通过的每个方法论单元,构造成一个跨宿主兼容的 Agent Skill `SKILL.md`。
 
 使用模板: `templates/SKILL.md.template`
 
@@ -38,7 +38,7 @@
 2. **这些情境的语言信号是什么?** (用户会说什么样的话)
 3. **和哪些相邻 skill 不同?** (避免和其他 skill 互相抢调用)
 
-A2 的产出直接写入 skill frontmatter 的 `description` 字段 — Claude 据此决定是否激活 skill。
+A2 的产出直接写入 skill frontmatter 的 `description` 字段 — 支持 Agent Skills 的宿主据此决定是否激活 skill。
 
 注意:
 - "与相邻 skill 的区分"在本阶段只写**初稿** (依据 verified.md 的单元列表推测),阶段 3 建立链接关系后回填定稿 — 不要在本阶段硬编相邻关系。
@@ -74,12 +74,10 @@ B 的作用是**防止乱调用**。没有 B 的 skill,会在不该用的时候�
 name: <skill-slug>                    # kebab-case, 唯一
 description: |                        # A2 的浓缩版, ≤300 字
   <何时用 + 何时不用 + 关键 trigger>
-source_book: 《穷查理宝典》 查理·芒格
-source_chapter: 第三讲
-tags: [decision, mental-model, cognitive-bias]
-related_skills: []                    # 阶段 3 填充
 ---
 ```
+
+跨宿主兼容要求: frontmatter 只保留 `name` 与 `description`。来源、章节、标签和相关 skill 放入正文的“审计信息”与“相关 skills”部分,避免不同宿主解析扩展字段时产生兼容性差异。
 
 ## 常见失败模式
 

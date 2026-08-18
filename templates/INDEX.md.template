@@ -56,15 +56,19 @@ graph LR
 
 ## 安装使用
 
-本目录是构建产物, 宿主不会从这里加载 skill。要让 agent 真正调用, 把 skill 目录复制到宿主的 skills 目录:
+本目录是构建产物, 宿主不会从任意构建目录自动加载 skill。把通过测试的 skill 目录复制到目标宿主的发现目录:
 
 ```bash
-# 用户级 (所有项目可用)
-cp -r {{skill-slug-1}} ~/.claude/skills/
+# Codex 用户级 / 项目级
+cp -r {{skill-slug-1}} "$HOME/.agents/skills/"
+cp -r {{skill-slug-1}} <project>/.agents/skills/
 
-# 或项目级
-cp -r {{skill-slug-1}} <project>/.claude/skills/    # Claude Code
-cp -r {{skill-slug-1}} <project>/.cursor/skills/    # Cursor
+# Claude Code 用户级 / 项目级
+cp -r {{skill-slug-1}} "$HOME/.claude/skills/"
+cp -r {{skill-slug-1}} <project>/.claude/skills/
+
+# Cursor 项目级
+cp -r {{skill-slug-1}} <project>/.cursor/skills/
 ```
 
 ---
@@ -73,9 +77,7 @@ cp -r {{skill-slug-1}} <project>/.cursor/skills/    # Cursor
 
 所有 skill 均带有 `test-prompts.json` (darwin-skill 兼容格式), 可直接接入自动进化:
 
-```
-darwin evolve books/{{book-slug}}/
-```
+调用 `darwin-skill`,并把 `books/{{book-slug}}/` 指定为评测目录。
 
 ---
 

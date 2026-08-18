@@ -2,10 +2,6 @@
 name: {{skill-slug}}
 description: |
   {{何时调用 + 何时不调用 + 关键 trigger 信号, ≤300 字}}
-source_book: 《{{BOOK_TITLE}}》 {{AUTHOR}}
-source_chapter: {{章节}}
-tags: [{{tag1}}, {{tag2}}]
-related_skills: []    # 阶段 3 填充
 ---
 
 <!--
@@ -13,8 +9,7 @@ related_skills: []    # 阶段 3 填充
   - description: 基于 A2 段浓缩, ≤300 字, 必须含"何时调用 + 何时不调用 + 关键 trigger 信号"。
     好例: "用户在纠结一个决策、列举正面理由却理不出头绪时;或在问'怎么做 X 才能成功'时。不适用于: 纯信息查询、日常琐碎选择。"
     关键 trigger 词建议中英双写, 提高英文提问场景的触发准确率。
-  - source_chapter: 书填章节/页码; 视频填时间戳/分 P; 播客填集数。
-  - source_book / tags / related_skills 为审计与链接用的扩展字段, 宿主加载 skill 时只读 name + description。
+  - 为保证跨宿主兼容,frontmatter 只保留 name + description。来源、章节、标签和关系写入正文审计信息。
 -->
 
 # {{Skill Title}}
@@ -116,6 +111,9 @@ related_skills: []    # 阶段 3 填充
 
 ## 审计信息
 
+- **来源**: 《{{BOOK_TITLE}}》 {{AUTHOR}}
+- **章节/位置**: {{章节/页码/时间戳/分 P/集数}}
+- **标签**: {{tag1}}, {{tag2}}
 - **验证通过**: V1 ✓ / V2 ✓ / V3 ✓
 - **测试通过率**: {{%}} (详见 test-prompts.json)
 - **蒸馏时间**: {{DATE}}

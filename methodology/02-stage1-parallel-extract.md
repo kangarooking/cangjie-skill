@@ -4,10 +4,10 @@
 
 不用单一视角读一遍,而是**同时从 5 个不同角度扫描全书**,最大化候选单元覆盖率。
 
-## 为什么要并行
+## 为什么要分批并行
 
 - **覆盖**: 单一视角会漏。框架提取器找不到的"反例",反例提取器会找到。
-- **速度**: Claude Code 的 Agent 工具支持并行,不用白不用。
+- **速度**: 支持子 Agent 的宿主可并行处理独立任务,在不超过并发上限的前提下缩短提取时间。
 - **独立性**: 每个 extractor 独立判断,避免互相污染 — 三重验证才能真正起作用 (V1 跨域要求"独立出现")
 
 ## 5 个 sub-agent
@@ -17,9 +17,15 @@
 - 书本文本 (或文本路径)
 - 对应的 extractor prompt (`extractors/<type>-extractor.md`)
 
-并在一次调用中通过 Agent 工具 **同时 spawn 5 个**,不是串行。
+使用宿主提供的子 Agent 能力启动任务。Codex 环境可使用当前会话提供的 `spawn_agent` / `wait_agent` 等工具,但必须先检查 Agent 状态与实际可用容量,并遵守 `agents.max_concurrent_threads_per_session` 或当前会话声明的上限。
 
-**降级方案**: 当前环境不支持并行 sub-agent 时,用同样 5 个 extractor prompt 串行执行 (每次以"干净视角"执行一个 extractor 的职责,不带上一个 extractor 的判断),产出格式不变。
+1. 从 framework / principle / case / counter-example / glossary 中选择本批可容纳的独立任务。
+2. 启动本批任务并等待全部完成,主流程逐一校验输出文件。
+3. 对剩余提取器重复上述步骤,全部完成后再进入阶段 1.5。
+
+每个子 Agent 只写自己的唯一产出文件。若处于嵌套调用、已有其他 Agent 或无法确认容量,应保守缩小批次、逐个运行或串行;不得假设固定并发槽位数。
+
+**降级方案**: 当前环境不支持 sub-agent 或槽位不足时,用同样 5 个 extractor prompt 串行执行 (每次以"干净视角"执行一个 extractor 的职责,不带上一个 extractor 的判断),产出格式不变。
 
 ## 长文本分块策略 (超出单个 sub-agent 上下文时)
 

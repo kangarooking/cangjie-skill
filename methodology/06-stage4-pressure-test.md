@@ -15,7 +15,7 @@ A2 (trigger) 是拆书里最难的环节。一个 skill 做得再漂亮,trigger 
 压力测试要尽量模拟真实调用: 一个没有参与蒸馏过程、看不到预期答案的 agent,面对用户 prompt 时是否会自然激活这个 skill。
 
 优先做法:
-- 对每条测试 prompt 启动一个干净的 sub-agent,或在资源有限时对同一个 skill 的一组 prompt 启动一个干净 sub-agent
+- 对每条测试 prompt 启动一个干净的 sub-agent,或在资源有限时对同一个 skill 的一组 prompt 启动一个干净 sub-agent。按宿主实际可用并发容量分批,等待本批完成后再启动下一批
 - 只给 sub-agent: skill 路径或 skill 内容、用户 prompt、可选的相邻 skill 列表
 - 不给 sub-agent: `type`、`expected_behavior`、`notes`、通过标准、主流程的判断
 - 要求 sub-agent 输出: `would_trigger`、`reason`、`if_triggered_action`
