@@ -15,6 +15,7 @@ related_skills: []    # 阶段 3 填充
     关键 trigger 词建议中英双写, 提高英文提问场景的触发准确率。
   - source_chapter: 书填章节/页码; 视频填时间戳/分 P; 播客填集数。
   - source_book / tags / related_skills 为审计与链接用的扩展字段, 宿主加载 skill 时只读 name + description。
+  - 本 skill 术语表由阶段 3 术语反向注入生成,只保留当前 skill 实际用到的作者特定术语。
 -->
 
 # {{Skill Title}}
@@ -114,8 +115,21 @@ related_skills: []    # 阶段 3 填充
 
 ---
 
+## 本 skill 术语表 (阶段 3 按需填充)
+
+- **{{术语 1}}**: {{一句话解释,使用作者在本书中的含义}}
+- **{{术语 2}}**: {{一句话解释}}
+
+若当前 skill 没有使用作者特定术语,删除本节。
+
+---
+
 ## 审计信息
 
 - **验证通过**: V1 ✓ / V2 ✓ / V3 ✓
+- **证据等级**: {{A/B}}
+- **评审模式**: {{dual_agent / fallback_single_agent}}
+- **评审一致性**: {{agreed_pass / arbitration_pass}}
 - **测试通过率**: {{%}} (详见 test-prompts.json)
+- **执行质量检查**: {{通过 / 未通过 / 回炉后通过}}
 - **蒸馏时间**: {{DATE}}

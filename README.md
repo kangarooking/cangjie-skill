@@ -73,11 +73,11 @@ cangjie-skill 使用 **RIA-TV++** 流水线，把书籍、视频转写、播客�
 
 1. **整体内容理解（Adler 分析）**——借鉴 Mortimer Adler 的分析阅读法，对整份内容做结构、解释、批判、应用四步拆解，产出 `BOOK_OVERVIEW.md`
 2. **并行提取**——同时派 5 个专项提取器（框架、原则、案例、反例、术语），从原文中提取候选方法论单元
-3. **三重验证筛选**——每个候选必须通过三项检验：原内容中至少有 2 处独立佐证（跨域）、能回答内容里未明说的新问题（预测力）、不是常识（独特性）。通过率通常只有 25-50%
+3. **三重验证筛选**——每个候选必须通过三项检验：跨域证据、预测力、独特性。新版流程加入双评审仲裁和短内容 V1 自适应，减少主观漂移和短内容误杀。通过率通常只有 25-50%
 4. **RIA++ 构造**——将验证通过的内容按 R（原文引用）/ I（用自己的话重写）/ A1（书中案例）/ A2（未来触发场景）/ E（可执行步骤）/ B（边界与盲点）六个维度结构化
 5. **Zettelkasten 链接**——找出 skill 之间的依赖、对比、组合关系，生成 `INDEX.md` 和引用图
-6. **压力测试**——为每个 skill 设计包含诱饵题的测试用例（含跨 skill 混淆测试），未通过的回炉重做
-7. **交付**——生成面向读者的 `DIGEST.md` 精华长文（不想读全书？看这篇就够），并把通过测试的 skill 安装到 Claude Code / Cursor 的 skills 目录，让它们真正可被调用
+6. **压力测试**——为每个 skill 设计包含诱饵题、跨 skill 混淆、执行质量检查和对抗性出题的测试用例，未通过的回炉重做
+7. **交付**——生成面向读者的 `DIGEST.md` 精华长文和记录流程质量的 `SCORECARD.md`，并把通过测试的 skill 安装到 Claude Code / Cursor 的 skills 目录，让它们真正可被调用
 
 RIA-TV++ 这个名字拆开看：
 - **RIA**：来自赵周《这样读书就够了》的便签拆书法（Reading / Interpretation / Appropriation）
@@ -173,7 +173,7 @@ cangjie-skill/
 ├── SKILL.md               ← 元 skill 定义（cangjie-skill 的完整执行规范）
 ├── methodology/           ← RIA-TV++ 各阶段的方法论文档
 ├── extractors/            ← 5 个并行提取器的 prompt 定义
-└── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md 模板
+└── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md / SCORECARD.md 等模板
 ```
 
 ## 生态
