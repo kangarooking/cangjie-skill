@@ -1,6 +1,6 @@
 ---
 name: cangjie-skill
-description: Distill a book, long-video transcript, podcast, course, or interview into a coherent set of executable skills. Use when the user asks to "拆书" / "蒸馏一本书" / "把 XX 书做成 skill" / "把这个视频/播客/课程蒸馏成 skill" / "turn a book or video into skills" — i.e. wants the frameworks, principles, and methodologies in long-form content extracted into atomic, reusable Claude skills that an agent can invoke in real-world situations. NOT for simple summarization, book reviews, or role-playing as the author (that is nuwa-skill's job).
+description: Distill a book, long-video transcript, podcast, course, interview, or long-form source into a coherent set of executable Agent Skills. Use when the user asks to "拆书", "蒸馏一本书", "把 XX 书做成 skill", "把这个视频/播客/课程蒸馏成 skill", or "turn a book or video into skills" and wants frameworks, principles, and methodologies extracted into atomic, tested, reusable skills. Do not use for simple summaries, book reviews, or author role-play.
 ---
 
 # cangjie-skill — 把一本书蒸馏成一组可执行 skills 的元 skill
@@ -10,6 +10,14 @@ description: Distill a book, long-video transcript, podcast, course, or intervie
 把一本书里沉淀的方法论,拆解成一组**原子化、可被 agent 在真实场景下调用**的 skills,让读者真正用起来。
 
 > **术语约定**: 本文档及 `methodology/`、`extractors/` 中所有的"书",泛指一切被蒸馏的长内容 — 书籍、长视频转写、播客文字稿、课程、访谈、长文、资料集。
+
+## 宿主运行约定
+
+- 支持子 Agent 的宿主应并行运行相互独立的提取或盲测任务;不支持时按同一职责串行执行。
+- 在 Codex 中,优先使用当前会话提供的子 Agent 工具 (例如 `spawn_agent` / `wait_agent`)。启动前检查当前 Agent 状态和实际可用容量,并遵守 `agents.max_concurrent_threads_per_session` 或宿主给出的并发上限;不要假设固定槽位数。
+- 五个提取器按实际空闲容量分批。每批完成并校验输出后再启动下一批;嵌套调用或容量不足时缩小批次或改为串行。
+- 所有子 Agent 共享文件系统。给每个 Agent 分配唯一输出文件,主流程负责检查文件存在、字段完整和来源可追溯,避免多个 Agent 写同一文件。
+- 不把预期答案、测试类型或主流程结论传给盲测 Agent,避免评测泄漏。
 
 **边界**:
 - ✅ 做: 方法论 / 决策框架 / 清单 / 原则 / 概念体系的蒸馏
@@ -45,7 +53,7 @@ description: Distill a book, long-video transcript, podcast, course, or intervie
 2. **内容元信息**: 书籍是"书名 + 作者 + 出版年"; 视频/播客/课程是"标题 + 作者(UP 主/主播/讲者) + 发布时间"。用于目录命名和审计。
 3. **是否首次试点**: 如果用户是第一次用 cangjie-skill,建议先蒸馏 1 份内容验证流程再批量。
 
-**非书籍内容的字段映射**: `source_chapter` 等"章节"字段对视频填时间戳或分 P,对播客填集数,对课程填讲次 — 保证可追溯即可。
+**非书籍内容的位置映射**: 候选审计记录中的 `source_chapter` 及最终 skill 正文中的“章节/位置”,对视频填时间戳或分 P,对播客填集数,对课程填讲次 — 保证可追溯即可。
 
 ## 输出结构
 
@@ -78,9 +86,13 @@ books/<book-slug>/
 3. 按 `templates/BOOK_OVERVIEW.md.template` 填充,写入 `books/<slug>/BOOK_OVERVIEW.md`。
 4. 把产出展示给用户确认:"骨架我理解对了吗?有没有你希望重点突出的方向?" 得到确认再进入阶段 1。
 
-### 阶段 1 — 5 个 sub-agent 并行提取
+### 阶段 1 — 5 个 sub-agent 分批并行提取
 
-**并行** spawn 5 个 Task sub-agents(使用 Agent 工具,一次调用中发起 5 个):
+在支持子 Agent 的宿主中,按实际空闲容量启动 5 个独立提取器:
+
+1. 检查当前 Agent 状态与并发容量,确定本批可启动数量。
+2. 从框架、原则、案例、反例、术语提取器中启动本批任务;等待本批完成并校验输出后,再处理剩余提取器。
+3. 子 Agent 只接收 `BOOK_OVERVIEW.md`、原文路径或分块路径、对应 extractor prompt 和唯一输出路径;不要把其他提取器的判断传给它。
 
 | sub-agent | 读取的 prompt | 产出 |
 |---|---|---|
@@ -93,7 +105,7 @@ books/<book-slug>/
 每个 sub-agent 独立读书、独立提取、独立输出到 `books/<slug>/candidates/<type>.md`。
 
 - **长文本**: 超出单个 sub-agent 上下文的内容,按 `methodology/02-stage1-parallel-extract.md` 的分块策略处理。
-- **降级方案**: 当前环境不支持并行 sub-agent 时,用同样 5 个 extractor prompt **串行**执行,产出格式不变。
+- **降级方案**: 当前环境不支持 sub-agent 或槽位不足时,用同样 5 个 extractor prompt **串行**执行,每次保持干净视角,产出格式不变。
 
 ### 阶段 1.5 — 三重验证筛选
 
@@ -133,15 +145,22 @@ books/<book-slug>/
 对每个 skill 按 `methodology/06-stage4-pressure-test.md`:
 1. 设计 5–10 条测试 prompt,按 `templates/test-prompts.json.template` 写入 `test-prompts.json`
 2. 至少包括 3 类: **应调用** / **不应调用 (诱饵)** / **边界模糊**。诱饵中至少 1 条必须是"应触发同书另一个 skill"的场景 (跨 skill 混淆测试)
-3. 优先用独立 sub-agent 盲测每条 prompt,由主流程对照预期统计结果,**未过的回炉重做阶段 2** — 不做"表面修补"
+3. 优先用独立 sub-agent 盲测 prompt;按宿主实际可用并发容量分批,等待本批完成后再启动下一批。由主流程对照预期统计结果,**未过的回炉重做阶段 2** — 不做"表面修补"
 4. 每个 skill 的测试结果写入 `<skill-dir>/test-results.md`
 
 ### 阶段 5 — 交付
 
 按 `methodology/07-stage5-deliver.md`:
 1. 生成 `books/<slug>/DIGEST.md` — 面向读者的精华长文 (按 `templates/DIGEST.md.template`),满足"不读全书、只看精华"的需求
-2. 询问用户安装位置 (用户级 `~/.claude/skills/` 或项目级 `.claude/skills/` / `.cursor/skills/`),把通过测试的 skill 复制或 symlink 过去 — **没有这一步,产出的 skill 无法被真正调用**
-3. 告知用户: "已完成,可一键喂给 darwin-skill 自动进化"
+2. 一次性询问安装范围,只安装通过测试的 skill:
+   - Codex 用户目录: `$HOME/.agents/skills/<skill-slug>/`
+   - Codex 项目目录: `<repo>/.agents/skills/<skill-slug>/`
+   - Claude Code 用户/项目目录: `$HOME/.claude/skills/<skill-slug>/` 或 `<repo>/.claude/skills/<skill-slug>/`
+   - Cursor 项目目录: `<repo>/.cursor/skills/<skill-slug>/`
+   - 仅保留仓库产物: 不复制到发现目录
+3. 安装前验证每个 `SKILL.md` 的 frontmatter 只含 `name` 与 `description`,资源路径均存在。面向 Codex 安装时可为每个 skill 生成 `agents/openai.yaml` UI 元数据。
+4. 安装后用 1 条 `should_trigger` 和 1 条 `should_not_trigger` prompt 抽测目标宿主的发现与边界;若变更未立即显示,提示重新加载或重启目标宿主。
+5. 告知用户: "已完成,可喂给 darwin-skill 继续评测与进化"
 
 ## 质量红线 (违反则阻止输出)
 

@@ -43,22 +43,25 @@
 
 ## 第 2 步 — 安装 skill 到宿主环境
 
-产出目录 `books/<slug>/<skill-slug>/` 只是构建产物,宿主 (Claude Code / Cursor 等) 不会从这里加载 skill。必须安装:
+产出目录 `books/<slug>/<skill-slug>/` 只是构建产物,宿主不会从任意构建目录自动加载 skill。必须安装:
 
 1. **问用户装哪里** (一次性问清,不要逐个 skill 问):
-   - 用户级: `~/.claude/skills/<skill-slug>/` (所有项目可用)
-   - 项目级: `<project>/.claude/skills/<skill-slug>/` 或 `.cursor/skills/<skill-slug>/`
-   - 用户也可能只想要仓库形式 (发布到 GitHub),那就跳过安装
+   - Codex 用户级: `$HOME/.agents/skills/<skill-slug>/`
+   - Codex 项目级: `<project>/.agents/skills/<skill-slug>/`
+   - Claude Code 用户级/项目级: `$HOME/.claude/skills/<skill-slug>/` 或 `<project>/.claude/skills/<skill-slug>/`
+   - Cursor 项目级: `<project>/.cursor/skills/<skill-slug>/`
+   - 用户也可能只想要仓库形式,那就跳过安装
 2. **只安装通过阶段 4 测试的 skill** — 未通过的留在构建目录里回炉
 3. 复制 (或 symlink) 整个 skill 目录,含 `SKILL.md` 和 `test-prompts.json`
-4. 安装后抽 1–2 个 skill 用一句 should_trigger 的 prompt 验证宿主能加载并触发
+4. 安装前验证 frontmatter 只含 `name` 与 `description`;面向 Codex 安装时可为每个 skill 生成 `agents/openai.yaml`
+5. 安装后抽 1–2 个 skill,分别用 `should_trigger` 与 `should_not_trigger` prompt 验证目标宿主能发现且不会过度触发
 
 ## 第 3 步 — 收尾汇报
 
 告诉用户:
 
 > 已完成。产出: N 个 skill (已安装到 <位置>)、INDEX.md、GLOSSARY.md、DIGEST.md (精华长文,约 X 字)。
-> 如需持续进化,可以喂给 darwin-skill: `darwin evolve books/<slug>/`
-> 它会用这里的 test-prompts.json 做 ratcheting 自动进化。
+> 如需持续进化,请调用 darwin-skill 并指定 `books/<slug>/`。
+> 它会用这里的 test-prompts.json 做 validation-gated 迭代。
 
 最后把 `PIPELINE_STATE.md` 标记为全部完成。

@@ -14,6 +14,7 @@
 [![Method: RIA--TV++](https://img.shields.io/badge/Method-RIA--TV++-2ea44f.svg)](./SKILL.md)
 [![Platform: OpenClaw](https://img.shields.io/badge/Platform-OpenClaw-1677ff.svg)](https://github.com/openclaw/openclaw)
 [![Platform: Claude Code](https://img.shields.io/badge/Platform-Claude%20Code-f97316.svg)](https://code.claude.com/)
+[![Platform: Codex](https://img.shields.io/badge/Platform-Codex-f97316.svg)](https://developers.openai.com/codex/skills/)
 [![Platform: DeepSeek Harness](https://img.shields.io/badge/Platform-DeepSeek%20Harness-4f46e5.svg)](#deepseek-harness-插件)
 
 **读完、看完、听完之后，带走一套能调用的方法论。**
@@ -25,6 +26,15 @@
 🌐 [访问 Cangjie Skill 官方网站](https://cangjie-skill.com/)
 
 官网提供 Skill Packs 可视化浏览、从零开始的使用教程、Skill 详情与生态共建提交入口。GitHub 仓库仍是 cangjie-skill 代码、方法论和模板的唯一来源，官网负责展示、导航与使用指引。
+
+## Codex 支持
+
+本仓库遵循开放 Agent Skills 目录结构,可直接用于 Codex。将整个仓库目录放到以下任一位置:
+
+- 用户级: `$HOME/.agents/skills/cangjie-skill/`
+- 项目级: `<repo>/.agents/skills/cangjie-skill/`
+
+仓库内的 `agents/openai.yaml` 提供 Codex / ChatGPT 桌面端的展示元数据。安装后可在 Codex 中通过 `$cangjie-skill` 显式调用,也可由 Codex 根据 `description` 自动匹配。并行提取会遵守当前会话实际可用的子 Agent 容量,不依赖固定并发槽位数。详见 [Codex Skills 文档](https://developers.openai.com/codex/skills/) 与 [Codex Subagents 文档](https://developers.openai.com/codex/subagents/)。
 
 ## DeepSeek Harness 插件
 
@@ -72,12 +82,12 @@ dsh web
 cangjie-skill 使用 **RIA-TV++** 流水线，把书籍、视频转写、播客文字稿、访谈记录等原始文本变成一组结构化的 skill。整个过程分七个阶段：
 
 1. **整体内容理解（Adler 分析）**——借鉴 Mortimer Adler 的分析阅读法，对整份内容做结构、解释、批判、应用四步拆解，产出 `BOOK_OVERVIEW.md`
-2. **并行提取**——同时派 5 个专项提取器（框架、原则、案例、反例、术语），从原文中提取候选方法论单元
+2. **并行提取**——独立派出 5 个专项提取器（框架、原则、案例、反例、术语），在宿主容量允许时并行或分批运行，从原文中提取候选方法论单元
 3. **三重验证筛选**——每个候选必须通过三项检验：原内容中至少有 2 处独立佐证（跨域）、能回答内容里未明说的新问题（预测力）、不是常识（独特性）。通过率通常只有 25-50%
 4. **RIA++ 构造**——将验证通过的内容按 R（原文引用）/ I（用自己的话重写）/ A1（书中案例）/ A2（未来触发场景）/ E（可执行步骤）/ B（边界与盲点）六个维度结构化
 5. **Zettelkasten 链接**——找出 skill 之间的依赖、对比、组合关系，生成 `INDEX.md` 和引用图
 6. **压力测试**——为每个 skill 设计包含诱饵题的测试用例（含跨 skill 混淆测试），未通过的回炉重做
-7. **交付**——生成面向读者的 `DIGEST.md` 精华长文（不想读全书？看这篇就够），并把通过测试的 skill 安装到 Claude Code / Cursor 的 skills 目录，让它们真正可被调用
+7. **交付**——生成面向读者的 `DIGEST.md` 精华长文（不想读全书？看这篇就够），并把通过测试的 skill 安装到 Claude Code、Cursor、Codex 等目标宿主的 skills 发现目录，让它们真正可被调用
 
 RIA-TV++ 这个名字拆开看：
 - **RIA**：来自赵周《这样读书就够了》的便签拆书法（Reading / Interpretation / Appropriation）

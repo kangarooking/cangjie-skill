@@ -14,6 +14,15 @@ Distill a book into a set of executable AI skills.
 
 The website provides visual Skill Pack browsing, a beginner-friendly usage guide, Skill detail pages, and a contribution submission entry. This GitHub repository remains the sole source for cangjie-skill code, methodology, and templates; the website provides presentation, navigation, and usage guidance.
 
+## Codex Support
+
+This repository follows the open Agent Skills directory structure and can be used directly by Codex. Place the repository directory in either location:
+
+- User scope: `$HOME/.agents/skills/cangjie-skill/`
+- Repository scope: `<repo>/.agents/skills/cangjie-skill/`
+
+The included `agents/openai.yaml` provides display metadata for Codex and the ChatGPT desktop app. Invoke the skill explicitly with `$cangjie-skill`, or let Codex select it from its `description`. Parallel extraction adapts to the subagent capacity available in the current session instead of assuming a fixed concurrency limit. See the [Codex Skills documentation](https://developers.openai.com/codex/skills/) and [Codex Subagents documentation](https://developers.openai.com/codex/subagents/).
+
 ## Why This Exists
 
 There's a recent viral idea: distilling colleagues into AI skills. Even after someone leaves, their experience, tone, and work style can be partially replicated by AI. [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) does exactly this — creating "human skills" like an Elon Musk skill or a Warren Buffett skill. The companion [darwin-skill](https://github.com/alchaincyf/darwin-skill) handles automatic skill evolution.
@@ -36,12 +45,12 @@ So cangjie-skill has one clear goal: **distill every book worth distilling**, tu
 cangjie-skill uses the **RIA-TV++** pipeline to transform a book from raw text into a set of structured skills. The process has seven stages:
 
 1. **Whole-Book Comprehension (Adler Analysis)** — Structural, interpretive, critical, and applicability analysis using Mortimer Adler's method, producing `BOOK_OVERVIEW.md`
-2. **Parallel Extraction** — Five specialized extractors (frameworks, principles, cases, counter-examples, glossary) run simultaneously to pull candidate units from the source text
+2. **Parallel Extraction** — Five specialized extractors (frameworks, principles, cases, counter-examples, glossary) run independently and, when host capacity permits, in parallel or batches to pull candidate units from the source text
 3. **Triple Verification** — Each candidate must pass three checks: at least 2 independent supporting passages (cross-domain), ability to answer a novel question (predictive power), and non-commonsense uniqueness. Pass rate is typically 25-50%
 4. **RIA++ Construction** — Verified content is structured into six dimensions: R (original quote) / I (own-words reconstruction) / A1 (book cases) / A2 (future trigger scenarios) / E (executable steps) / B (boundaries & blind spots)
 5. **Zettelkasten Linking** — Dependency, contrast, and composition relationships between skills are identified, producing `INDEX.md` with a reference graph
 6. **Pressure Testing** — Test prompts including bait questions (and cross-skill confusion tests) are designed for each skill; failures go back for full reconstruction
-7. **Delivery** — A reader-facing `DIGEST.md` long-form digest is generated (skip the book, read the essence), and tested skills are installed into the Claude Code / Cursor skills directory so they can actually be invoked
+7. **Delivery** — A reader-facing `DIGEST.md` long-form digest is generated (skip the book, read the essence), and tested skills are installed into the target host's skills directory, including Claude Code, Cursor, and Codex
 
 The name RIA-TV++ breaks down as:
 - **RIA**: From Zhao Zhou's bookmark method (Reading / Interpretation / Appropriation)
