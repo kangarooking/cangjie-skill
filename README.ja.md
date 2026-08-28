@@ -96,6 +96,7 @@ RIA-TV++ の名前の由来：
 | [1000-true-fans-skill](https://github.com/kangarooking/1000-true-fans-skill) | 『1000 True Fans』 | 13 |
 | [system-prompt-skills](https://github.com/kangarooking/system-prompt-skills) | 165個のAI製品システムプロンプト | 15 |
 | [X-growth-skills](https://github.com/kangarooking/X-growth-skills) | X（Twitter）のアカウント立ち上げ、コンテンツ成長、アルゴリズム、交流、収益化の実践資料 | 15 |
+| [sunyuchen-skill](https://github.com/kangarooking/sunyuchen-skill) | “sunyuchen” と名付けられた単篇の物語文章サンプル | 1（7つの能力） |
 | [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | 貧しきチャーリーの格言 | 12 |
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | No Rules Rules | 10 |
 | 黄帝内経・素問（本プロジェクト内） | 『黄帝内経・素問』 | 10 |
@@ -156,6 +157,7 @@ cangjie-skill はより大きなスキルエコシステムの一部です：
 - [1000 True Fans Skill](https://github.com/kangarooking/1000-true-fans-skill) — 『1000 True Fans』から抽出した13個の個人ブランド・真のファン育成・信頼ベース収益化スキル
 - [System Prompt Skills](https://github.com/kangarooking/system-prompt-skills) — 165個のAI製品システムプロンプトから抽出した15個のシステムプロンプト設計スキル
 - [X Growth Skills](https://github.com/kangarooking/X-growth-skills) — Xの立ち上げ、コンテンツ、アルゴリズム、交流、分析、収益化の15スキル
+- [sunyuchen-skill](https://github.com/kangarooking/sunyuchen-skill) — 数字による冷たい導入、運用の細部、短い会話、感情の余白、物のコールバックを扱う抑制的な物語文章 Skill
 - Huangdi Neijing Suwen Skill（本プロジェクト内）— 『黄帝内経・素問』から抽出した10個の中医観察・調整スキル
 - Huangdi Neijing Lingshu Skill（本プロジェクト内）— 『黄帝内経・霊枢』から抽出した8個の心身調整・弁証スキル
 - [First Principles Skill](https://github.com/kangarooking/first-principles-skill) — 『第一性原理』から抽出した10個の公理化思考・破界イノベーション・組織刷新スキル

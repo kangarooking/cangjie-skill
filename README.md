@@ -132,6 +132,7 @@ The name RIA-TV++ breaks down as:
 | [1000-true-fans-skill](https://github.com/kangarooking/1000-true-fans-skill) | 1000 True Fans | 13 |
 | [system-prompt-skills](https://github.com/kangarooking/system-prompt-skills) | 165 AI product system prompts | 15 |
 | [X-growth-skills](https://github.com/kangarooking/X-growth-skills) | Practical X (Twitter) account launch, content growth, algorithm, engagement, and monetization resources | 15 |
+| [sunyuchen-skill](https://github.com/kangarooking/sunyuchen-skill) | A single narrative writing sample labeled “sunyuchen” | 1 (7 capabilities) |
 | [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | Poor Charlie's Almanack | 12 |
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | No Rules Rules | 10 |
 | [huangdi-neijing-skill](https://github.com/kangarooking/huangdi-neijing-skill) | *Huangdi Neijing* (*Suwen* + *Lingshu*) | 22 |
@@ -200,6 +201,7 @@ They interlock: nuwa distills people, cangjie distills books, darwin keeps them 
 - [1000 True Fans Skill](https://github.com/kangarooking/1000-true-fans-skill) — 13 personal branding, true fan development, and trust-based monetization skills from *1000 True Fans*
 - [System Prompt Skills](https://github.com/kangarooking/system-prompt-skills) — 15 system prompt design skills distilled from 165 AI product system prompts
 - [X Growth Skills](https://github.com/kangarooking/X-growth-skills) — 15 skills for X account launch, content, algorithms, engagement, review, and monetization
+- [sunyuchen-skill](https://github.com/kangarooking/sunyuchen-skill) — A restrained narrative writing skill covering cold opens, operational detail, short dialogue, emotional restraint, and object callbacks
 - [Huangdi Neijing Skill](https://github.com/kangarooking/huangdi-neijing-skill) — 22 methodology skills from *Huangdi Neijing*, including 12 from *Suwen* and 10 from *Lingshu*
 - [First Principles Skill](https://github.com/kangarooking/first-principles-skill) — 10 skills on axiomatic reasoning, boundary-breaking innovation, and organizational refresh from *First Principles*
 - [Mao Selected Works Skill](https://github.com/kangarooking/mao-selected-works-skill) — 25 cognition, strategy, organization, and execution skills from *Selected Works of Mao Zedong*
