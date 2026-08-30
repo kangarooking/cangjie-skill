@@ -71,6 +71,8 @@ dsh web
 
 如果要蒸馏视频内容，建议搭配 [video-downloader](https://github.com/kangarooking/kangarooking-skills/tree/main/video-downloader) skill 一起使用：先用它下载视频、提取字幕/音频转写和关键素材，再把得到的文本内容交给 cangjie-skill 做方法论抽取、skill 化和压力测试。
 
+如果来源是 X 帖子、串文或搜索结果，先用 [X 来源适配器](source-adapters/x-twitter.md) 把有边界的 Xquik JSON 转成确定性的 Markdown 来源包。适配器会保留帖子 ID、作者、时间、分页状态和不可信内容边界，再交给 Cangjie 登记与切块。
+
 ## 它解决了什么问题
 
 - 看了很多书、视频、播客但用不起来——知识停留在"看过/听过/收藏过"层面，无法在真实决策中被调用
@@ -185,6 +187,7 @@ cangjie-skill/
 ├── SKILL.md               ← 元 skill 定义（cangjie-skill 的完整执行规范）
 ├── methodology/           ← RIA-TV++ 各阶段的方法论文档
 ├── extractors/            ← 5 个并行提取器的 prompt 定义
+├── source-adapters/       ← 外部来源数据的确定性适配器
 └── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md 模板
 ```
 

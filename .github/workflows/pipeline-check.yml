@@ -39,6 +39,8 @@ jobs:
         run: pip install pyyaml jsonschema referencing
       - name: Doctor（跳过可选 tokenizer 依赖）
         run: python3 scripts/cangjie.py doctor || true
+      - name: Test source adapters
+        run: python3 -m unittest discover -s scripts/tests -p "test_*.py"
       - name: Validate skill packs (books/)
         run: |
           shopt -s nullglob
