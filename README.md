@@ -71,6 +71,8 @@ So cangjie-skill has one clear goal: **distill every piece of high-value content
 
 For video content, we recommend using the [video-downloader](https://github.com/kangarooking/kangarooking-skills/tree/main/video-downloader) skill alongside cangjie-skill. Use it first to download the video, extract subtitles or audio transcripts, and collect key materials; then pass the resulting text to cangjie-skill for methodology extraction, skill construction, and pressure testing.
 
+For X posts, threads, or search results, use the [X source adapter](source-adapters/x-twitter.md) to convert bounded Xquik JSON into a deterministic Markdown source packet. The adapter preserves Tweet IDs, authors, timestamps, pagination state, and untrusted-content boundaries before Cangjie registers and chunks the source.
+
 ## What Problems It Solves
 
 - Reading many books, watching many videos, or listening to many podcasts without applying them — knowledge stays at the "read/watched/listened/saved" level and cannot be invoked in real decisions
@@ -185,6 +187,7 @@ cangjie-skill/
 ├── SKILL.md               ← Meta-skill definition (full execution spec for cangjie-skill)
 ├── methodology/           ← RIA-TV++ stage-by-stage methodology docs
 ├── extractors/            ← Prompt definitions for the 5 parallel extractors
+├── source-adapters/       ← Deterministic adapters for external source data
 └── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md templates
 ```
 

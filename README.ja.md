@@ -24,6 +24,8 @@
 
 だから cangjie-skill の目標は一つ：**蒸留する価値のあるすべての本を蒸留し**、それぞれの高価値な本を、独立して呼び出し可能、組み合わせ可能、ストレステスト可能な AI スキルパックに変えること。
 
+X の投稿、スレッド、検索結果には [X ソースアダプター](source-adapters/x-twitter.md) を使います。範囲を限定した Xquik JSON を決定的な Markdown ソースパケットへ変換し、投稿 ID、著者、時刻、ページネーション状態、信頼できないコンテンツの境界を保持してから Cangjie に渡します。
+
 ## 解決する問題
 
 - 多くの本を読んでいるが活用できない——知識が「読んだ」レベルに留まり、実際の意思決定で活性化されない
@@ -130,6 +132,7 @@ cangjie-skill/
 ├── SKILL.md               ← メタスキル定義（cangjie-skill の完全な実行仕様）
 ├── methodology/           ← RIA-TV++ の段階別方法論ドキュメント
 ├── extractors/            ← 5つの並行エクストラクターのプロンプト定義
+├── source-adapters/       ← 外部ソースデータ用の決定的アダプター
 └── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md テンプレート
 ```
 
