@@ -85,6 +85,8 @@ For video content, we recommend using the [video-downloader](https://github.com/
 
 ## How It Works
 
+> 🚀 **Want to jump straight in?** Follow the [Quickstart: from one book to an installable Skill Pack](./docs/quickstart.md) for a step-by-step walkthrough (input prep → the seven stages → compile & install → verification & troubleshooting).
+
 cangjie-skill uses the **RIA-TV++** pipeline to transform source texts—including books, video transcripts, podcast transcripts, and interview notes—into a reusable Capability Bundle, then compiles that source into installable skills. The process has seven stages:
 
 1. **Whole-Content Comprehension (Adler Analysis)** — Structural, interpretive, critical, and applicability analysis using Mortimer Adler's method, producing `BOOK_OVERVIEW.md`

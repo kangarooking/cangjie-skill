@@ -85,6 +85,8 @@ dsh web
 
 ## 它是怎么工作的
 
+> 🚀 **想直接上手？** 跟着 [Quickstart：从一本书到一个可安装的 Skill Pack](./docs/quickstart.md) 分步走完整个流程（输入准备 → 七个阶段 → 编译安装 → 验证与排错）。
+
 cangjie-skill 使用 **RIA-TV++** 流水线，先把书籍、视频转写、播客文字稿、访谈记录等原始文本变成可复用的 Capability Bundle，再编译为可安装的 skill。整个过程分七个阶段：
 
 1. **整体内容理解（Adler 分析）**——借鉴 Mortimer Adler 的分析阅读法，对整份内容做结构、解释、批判、应用四步拆解，产出 `BOOK_OVERVIEW.md`
