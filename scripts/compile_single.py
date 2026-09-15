@@ -90,11 +90,18 @@ def resource_links(cap: dict, prefix: str = "") -> str:
 
 
 def router_table(caps: list[dict], variant: str) -> str:
+    # also_read 双契约兼容：methodology/05 未约束条目格式，实际存在 slug 与 capability_id
+    # 两种写法；capability_id 自动映射为 slug，slug 原样通过
+    id_to_slug = {c["capability_id"]: c["slug"] for c in caps}
+
+    def _ref(entry: str) -> str:
+        return f"references/capabilities/{id_to_slug.get(entry, entry)}.md"
+
     rows = ["| 用户意图 | 先读 | 补读/备注 |", "|---|---|---|"]
     for cap in caps:
         intents = "；".join(cap["intents"])
         card = f"references/capabilities/{cap['slug']}.md"
-        extra = "、".join(f"references/capabilities/{s}.md" for s in cap.get("also_read", [])) or "—"
+        extra = "、".join(_ref(s) for s in cap.get("also_read", [])) or "—"
         if variant == "router" and cap.get("promotion", {}).get("destination") == "promoted":
             extra = f"已晋级为独立 Skill `{cap['slug']}`（已安装时优先直接使用；本卡仅作原文与背景补充）"
         rows.append(f"| {intents} | {card} | {extra} |")

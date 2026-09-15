@@ -70,11 +70,13 @@ def build_graph(bundle_dir: Path, chunks_path: Path | None) -> dict:
             add_node(cap["slug"], "entrypoint", f"晋级 Skill: {cap['title']}")
             edges.append({"from": cid, "to": cap["slug"], "edge_type": "compiled_as"})
         edges.append({"from": cid, "to": router_name, "edge_type": "served_by"})
-        # 邻居
+        # 邻居（also_read 双契约兼容：条目可为 slug 或 capability_id）
         slug_to_id = {c["slug"]: c["capability_id"] for c in bundle["capabilities"]}
+        id_to_slug = {c["capability_id"]: c["slug"] for c in bundle["capabilities"]}
         for sib in cap.get("also_read", []):
-            if sib in slug_to_id:
-                edges.append({"from": cid, "to": slug_to_id[sib], "edge_type": "composes_with"})
+            sib_slug = id_to_slug.get(sib, sib)
+            if sib_slug in slug_to_id:
+                edges.append({"from": cid, "to": slug_to_id[sib_slug], "edge_type": "composes_with"})
 
     return {
         "schema_version": 1,
