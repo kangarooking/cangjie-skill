@@ -87,6 +87,8 @@ For video content, we recommend using the [video-downloader](https://github.com/
 
 cangjie-skill uses the **RIA-TV++** pipeline to transform source texts—including books, video transcripts, podcast transcripts, and interview notes—into a reusable Capability Bundle, then compiles that source into installable skills. The process has seven stages:
 
+> **Script dependencies**: the deterministic scripts under `scripts/` require **Python 3.10+** and **PyYAML** (`python3 -m pip install pyyaml`). `python3 scripts/cangjie.py doctor` runs a self-check and works even when PyYAML is missing. Optional: `tiktoken`, `jsonschema`.
+
 1. **Whole-Content Comprehension (Adler Analysis)** — Structural, interpretive, critical, and applicability analysis using Mortimer Adler's method, producing `BOOK_OVERVIEW.md`
 2. **Parallel Extraction** — Five specialized extractors (frameworks, principles, cases, counter-examples, glossary) run simultaneously to pull candidate units from the source text
 3. **Triple Verification + Promotion Gate** — Check source sufficiency, executability, and task utility by candidate type. A complete procedure or formula explained once can qualify; repetition or author originality is not mandatory. References and unresolved candidates remain auditable, and standalone entrypoints are decided separately

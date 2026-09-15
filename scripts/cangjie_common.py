@@ -15,7 +15,10 @@ import time
 import uuid
 from pathlib import Path
 
-import yaml
+try:
+    import yaml
+except ImportError:  # 缺 PyYAML 时 CLI 仍须可达：doctor 要能自检并给出安装指引（见 _yaml_missing）
+    yaml = None
 
 TOOL_VERSION = "cangjie-tools v2.5.0"
 
@@ -34,7 +37,16 @@ def sha256_text(text: str) -> str:
     return sha256_bytes(text.encode("utf-8"))
 
 
+def _require_yaml() -> None:
+    if yaml is None:
+        raise SystemExit(
+            "缺少 PyYAML，无法解析 YAML。请先安装：python3 -m pip install pyyaml"
+            "（`cangjie.py doctor` 不依赖它，可先运行自检。）"
+        )
+
+
 def load_yaml(path: Path) -> dict:
+    _require_yaml()
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
         raise ValueError(f"{path}: 期望 YAML mapping")
@@ -57,6 +69,7 @@ def split_frontmatter(text: str) -> tuple[dict, str]:
     if text.startswith("---"):
         end = text.find("\n---", 3)
         if end != -1:
+            _require_yaml()
             fm = yaml.safe_load(text[3:end])
             if isinstance(fm, dict):
                 return fm, text[end + 4 :].lstrip("\n")

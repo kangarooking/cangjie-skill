@@ -46,6 +46,8 @@ metadata:
 ## 输入要求
 
 在开始前**必须**从用户处确认:
+
+> **脚本依赖**: 确定性脚本(`scripts/`)需要 Python 3.10+ 与 PyYAML(`python3 -m pip install pyyaml`)。缺 PyYAML 时先运行 `python3 scripts/cangjie.py doctor` 自检,它会给出安装指引。
 1. **内容文本来源**: PDF / EPUB / TXT / 字幕文件 / 转写稿路径, 或可访问的纯文本。**不要**在没有文本的情况下"凭记忆"蒸馏 — 宁可停下来问用户要。(视频/播客建议先用 video-downloader 类工具拿到转写文本)
 2. **内容元信息**: 书籍是"书名 + 作者 + 出版年"; 视频/播客/课程是"标题 + 作者(UP 主/主播/讲者) + 发布时间"。用于目录命名和审计。
 3. **使用目的**（决定输出模式推荐）: 学习/查阅这本书 → 倾向 single；接入日常工作流、跨书组合 → 倾向 pack。不确定时按 single-first 原则先推荐 single。

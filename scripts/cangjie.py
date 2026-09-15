@@ -51,7 +51,8 @@ def cmd_doctor(_args) -> int:
             print(f"  [ok] {mod}")
         except ImportError:
             level = "缺失(必需)" if required else "缺失(可选)"
-            print(f"  [{'FAIL' if required else 'warn'}] {mod} {level}")
+            hint = "  → python3 -m pip install pyyaml" if mod == "yaml" else ""
+            print(f"  [{'FAIL' if required else 'warn'}] {mod} {level}{hint}")
             ok = ok and not required
     for rel in ("capability-bundle.schema.json", "registry-entry.schema.json", "contracts/source-document.schema.json"):
         p = SCRIPTS.parent / "schemas" / rel

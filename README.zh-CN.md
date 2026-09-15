@@ -87,6 +87,8 @@ dsh web
 
 cangjie-skill 使用 **RIA-TV++** 流水线，先把书籍、视频转写、播客文字稿、访谈记录等原始文本变成可复用的 Capability Bundle，再编译为可安装的 skill。整个过程分七个阶段：
 
+> **脚本依赖**：`scripts/` 下的确定性脚本需要 **Python 3.10+** 与 **PyYAML**（`python3 -m pip install pyyaml`）。缺 PyYAML 时 `python3 scripts/cangjie.py doctor` 自检仍可运行并给出安装指引。可选依赖：`tiktoken`、`jsonschema`。
+
 1. **整体内容理解（Adler 分析）**——借鉴 Mortimer Adler 的分析阅读法，对整份内容做结构、解释、批判、应用四步拆解，产出 `BOOK_OVERVIEW.md`
 2. **并行提取**——同时派 5 个专项提取器（框架、原则、案例、反例、术语），从原文中提取候选方法论单元
 3. **三重验证 + 晋级门**——按候选类型检查来源充分性、可执行性和任务增益；单处完整机制也可入选，不强求重复出现或作者独创。参考、待核查和淘汰项分别留痕，独立入口由后续晋级门决定
