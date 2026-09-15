@@ -1,0 +1,22 @@
+{
+  "close_score": 10,
+  "flag_score": 6,
+  "keyword_weight": 2,
+  "url_weight": 4,
+  "promo_phrase_weight": 4,
+  "promo_phrase_threshold": 2,
+  "foreign_image_weight": 3,
+  "trusted_image_hosts": "user-images\\.githubusercontent\\.com|github\\.com|camo\\.githubusercontent\\.com",
+  "ad_keywords": [
+    "VPN", "机场推荐", "科学上网", "梯子推荐", "翻墙",
+    "官网链接", "注册领取", "限时优惠", "优惠码", "邀请码",
+    "加微信", "加QQ", "私聊", "推广", "广告", "低价代做",
+    "接单", "代写", "刷单", "博彩", "棋牌", "彩票", "贷款", "办证"
+  ],
+  "url_patterns": [
+    "[a-z0-9-]+\\.(l49|xyz|top|vip|club)\\.net",
+    "t\\.me/",
+    "bit\\.ly/",
+    "\\?aff=|/auth/|invite/"
+  ]
+}
