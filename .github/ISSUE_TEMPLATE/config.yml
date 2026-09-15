@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🎁 通过官网提交 Skill（推荐）
+    url: https://cangjie-skill.com/submit
+    about: 生成标准 Registry 条目并发起 Pull Request，合并后自动上线

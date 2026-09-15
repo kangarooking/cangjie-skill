@@ -193,6 +193,13 @@ cangjie-skill/
 └── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md templates
 ```
 
+## Share Your Skill
+
+Distilled your own Skill Pack? Share it through the official channels instead of a plain issue:
+
+- **Recommended**: [Submit via the website](https://cangjie-skill.com/submit) — the page generates a standard Registry entry (`registry/<slug>/entry.yaml`) and walks you through a GitHub Pull Request; schema checks run automatically and it goes live once merged
+- **Alternative**: open a "🎁 Share your Skill" issue — a low-friction structured form; these issues are labeled `skill-share` and are collected by the maintainer into the community directory (they are not treated as ads)
+
 ## Ecosystem
 
 cangjie-skill is part of a larger skill ecosystem:

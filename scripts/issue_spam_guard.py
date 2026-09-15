@@ -91,8 +91,11 @@ def main() -> int:
 
     if action not in ("opened", "edited"):
         return 0
-    if "suspected-spam" in {l["name"] for l in issue.get("labels", [])}:
+    labels = {l["name"] for l in issue.get("labels", [])}
+    if "suspected-spam" in labels:
         return 0  # 已标记过，避免编辑后重复评论
+    if rules.get("share_whitelist_label", "skill-share") in labels:
+        return 0  # Skill 分享 issue 是官方支持的投稿渠道，不做广告检测
 
     rules = json.loads(RULES_PATH.read_text(encoding="utf-8"))
     score, hits = score_issue(issue["title"], issue.get("body") or "", rules)
