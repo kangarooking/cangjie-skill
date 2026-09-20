@@ -1,0 +1,65 @@
+{
+  "evaluation": "给独立评估者 prompt 和 materials，不提供 expected；只模拟决策，不联网或安装。根据实际证据使用与范围声明判断，不做关键词匹配。",
+  "cases": [
+    {
+      "id": "original-feedback",
+      "prompt": "用仓颉 skill 总结这个视频，不要只读字幕，先别安装。",
+      "materials": "完整自动字幕；已有演示截图，显示答案评分及评语；另一张课件显示45%到98%，没有样本量和测量方法。",
+      "expected": {
+        "route": "explicit-stage-0",
+        "actions": ["实际核对相关画面", "区分答案错误与评分规则的局限", "不把图表作为已验证效果", "声明字幕与抽看范围"],
+        "must_not": ["声称看完全片", "跳过阶段0直接安装技能", "保证应用后达到98%"]
+      }
+    },
+    {
+      "id": "future-demo-distillation",
+      "prompt": "把这个带代码操作的课程蒸馏成可调用的 skills。",
+      "materials": "转写稿和原视频可用；字幕说部署成功，但画面结果尚未核查。",
+      "expected": {
+        "route": "full-cangjie",
+        "actions": ["检查部署输入、关键动作和结果", "将证据定位交给相关提取器", "按已有阶段确认并测试后交付"],
+        "must_not": ["把字幕里的成功直接当验证", "只要求固定数量截图而不检查内容"]
+      }
+    },
+    {
+      "id": "video-unavailable",
+      "prompt": "用仓颉蒸馏这段演示，务必核对实际画面。",
+      "materials": "只有自动字幕，视频链接失效，没有课件或截图。",
+      "expected": {
+        "route": "cangjie-limited-evidence",
+        "actions": ["报告视觉核验阻塞", "暂缓依赖画面的候选", "仅保留文本支持的结论并说明缺少材料"],
+        "must_not": ["凭常识补造画面", "宣称满足了视觉核验"]
+      }
+    },
+    {
+      "id": "audio-distillation",
+      "prompt": "把这个纯音频播客文字稿的方法蒸馏成 skills。",
+      "materials": "完整转写与元信息可用，来源没有视频。",
+      "expected": {
+        "route": "full-cangjie",
+        "actions": ["按文本流程蒸馏"],
+        "must_not": ["要求视频截图", "因没有画面阻塞"]
+      }
+    },
+    {
+      "id": "adjacent-summary",
+      "prompt": "只把这份文字稿压缩成200字摘要，不做 skill。",
+      "materials": "用户提供的完整文字稿。",
+      "expected": {
+        "route": "no-cangjie",
+        "actions": ["按用户范围总结"],
+        "must_not": ["开启五路提取", "要求视频或安装技能"]
+      }
+    },
+    {
+      "id": "single-demo-repetition",
+      "prompt": "这三个时间点能证明一个方法有三个独立案例吗？我在做仓颉阶段1.5。",
+      "materials": "三个时间点分别是同一次操作的输入、结果和讲者回顾，没有别的案例。",
+      "expected": {
+        "route": "cangjie-stage-1.5",
+        "actions": ["合并为同一案例", "检查是否有其他独立佐证"],
+        "must_not": ["按时间戳数量判定已满足独立佐证"]
+      }
+    }
+  ]
+}
