@@ -1,0 +1,24 @@
+schema_version: 1
+slug: vidknot
+name: VidkNot
+summary: VidkNot 是一个视频知识归档工具，能自动从 11+ 个主流平台提取音视频内容并转化为结构化的 Markdown 笔记，帮助你无缝建立和沉淀个人的数字知识库。
+source_type: github
+source_url: https://github.com/suonian/vidknot
+skill_count: 1
+domains:
+  - 知识管理
+  - 视频解析
+  - 内容归档
+  - 自动化提取
+language:
+  - zh-CN
+  - en
+status: active
+quality: community
+featured: false
+use_cases:
+  - 快速提炼长视频或技术教程的核心知识点与关键金句
+  - 批量提取并归档特定博主的所有视频笔记，辅助深度的竞品或账号调研
+  - 自动识别并高清保存多平台上的纯图文类作品配图
+  - 将日常浏览的碎片化音视频内容自动同步沉淀至个人笔记系统
+  - 作为 Agent 插件接入工作流，实现音视频和图文内容的无人值守处理
