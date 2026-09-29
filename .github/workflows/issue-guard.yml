@@ -1,0 +1,21 @@
+name: Issue Spam Guard
+
+# issue 广告/垃圾自动识别：高分自动关闭，中分打标待人工复核；reopen 自动恢复。
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  issues: write
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/issue_spam_guard.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,55 @@
+name: 🎁 分享你的 Skill / Share your Skill
+description: 分享你用 cangjie-skill 蒸馏出的 Skill Pack（不视为广告，会被收录进社区目录）
+title: "[Skill 分享] "
+labels: ["skill-share"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢分享！**Skill 分享不属于广告**，会由维护者收录进社区 Skill 目录。
+        > 💡 更推荐的方式：在[官网提交页](https://cangjie-skill.com/submit)生成标准 Registry 条目并发起 Pull Request，合并即自动上线，无需等待人工转录。此表单适合不方便发 PR 的用户。
+  - type: input
+    id: name
+    attributes:
+      label: Skill 名称
+      placeholder: 例如：产品决策 Skill
+    validations:
+      required: true
+  - type: input
+    id: source_url
+    attributes:
+      label: 仓库 / 资源链接
+      description: GitHub 仓库链接；尚未开源可说明情况
+      placeholder: https://github.com/your-name/your-skill
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: 一句话简介
+      description: 来自什么内容、能帮助完成什么任务
+      placeholder: 将《XXX》转化为…工具，共 N 个能力
+    validations:
+      required: true
+  - type: input
+    id: skill_count
+    attributes:
+      label: 原子 Skill 数量
+      placeholder: "8"
+    validations:
+      required: true
+  - type: input
+    id: domains
+    attributes:
+      label: 领域标签
+      description: 用逗号分隔，建议 2–4 个
+      placeholder: 战略, 决策
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: 版权确认
+      options:
+        - label: 我确认有权公开分享该内容，理解收录不代表官方对内容准确性的背书
+          required: true

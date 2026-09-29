@@ -195,6 +195,13 @@ cangjie-skill/
 └── templates/             ← SKILL.md / INDEX.md / BOOK_OVERVIEW.md 模板
 ```
 
+## 分享你的 Skill
+
+蒸馏出自己的 Skill Pack？请走官方分享渠道，不要直接开普通 issue：
+
+- **推荐**：[官网提交页](https://cangjie-skill.com/submit)——页面在本地生成标准 Registry 条目（`registry/<slug>/entry.yaml`），引导你发起 GitHub Pull Request；schema 自动校验，合并即上线
+- **备选**：开一个「🎁 分享你的 Skill」issue——低门槛结构化表单；此类 issue 会自动带上 `skill-share` 标签，由维护者收录进社区目录（**分享不算广告**，不会被防广告机器人误清理）
+
 ## 生态
 
 cangjie-skill 是一个更大的 skill 生态的一部分：
