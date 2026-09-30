@@ -37,7 +37,14 @@
       "type": "should_not_trigger",
       "prompt": "{{诱饵 2 — 应触发同书另一个 skill 的场景}}",
       "expected_behavior": "不应激活本 skill, 应激活 {{sibling-skill-slug}}",
-      "notes": "跨 skill 混淆诱饵 (硬性要求至少 1 条): 防止同书 skill 互相抢调用"
+      "notes": "跨 skill 混淆测试 #1: 防止同书 skill 互相抢调用"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "{{诱饵 3 — 应触发同书第三个 skill 的场景}}",
+      "expected_behavior": "不应激活本 skill, 应激活 {{sibling-skill-slug-2}}",
+      "notes": "跨 skill 混淆测试 #2: 防止同书 skill 互相抢调用"
     },
     {
       "id": "edge-01",
@@ -48,5 +55,5 @@
     }
   ],
   "minimum_pass_rate": 0.8,
-  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。"
+  "notes": "至少 3 条 should_trigger + 3 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 2 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。⚠️ 不满足此条的 test-prompts.json 视为不合格, 打回重写。"
 }
