@@ -27,6 +27,17 @@
 
 官网提供 Skill Packs 可视化浏览、从零开始的使用教程、Skill 详情与生态共建提交入口。GitHub 仓库仍是 cangjie-skill 代码、方法论和模板的唯一来源，官网负责展示、导航与使用指引。
 
+## Hermes Agent 安装
+
+仓库根目录的 `SKILL.md` 保留给 OpenClaw、Claude Code 等仓库式宿主使用。Hermes Agent 请安装完整的目录型入口；该目录包含运行 cangjie-skill 所需的方法论、提取器、模板和脚本：
+
+```bash
+hermes skills inspect kangarooking/cangjie-skill/skills/cangjie-skill
+hermes skills install kangarooking/cangjie-skill/skills/cangjie-skill
+```
+
+安装后可用 `hermes skills list` 和 `hermes skills audit` 验证。不要把仓库根目录的 `SKILL.md` 单独复制到 Hermes 的 skills 目录，否则其对 `methodology/`、`extractors/`、`templates/` 和 `scripts/` 的引用会缺失。
+
 ## v2.5.0 更新重点
 
 - **Capability Bundle 成为唯一事实源**：先生成稳定的能力卡和元数据，再编译安装产物。

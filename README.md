@@ -27,6 +27,17 @@
 
 The website provides visual Skill Pack browsing, a beginner-friendly usage guide, Skill detail pages, and a contribution submission entry. This GitHub repository remains the sole source for cangjie-skill code, methodology, and templates; the website provides presentation, navigation, and usage guidance.
 
+## Install in Hermes Agent
+
+The root `SKILL.md` remains available for repository-oriented hosts such as OpenClaw and Claude Code. Hermes Agent should install the complete directory skill, which includes the methodology, extractors, templates, and scripts required by cangjie-skill:
+
+```bash
+hermes skills inspect kangarooking/cangjie-skill/skills/cangjie-skill
+hermes skills install kangarooking/cangjie-skill/skills/cangjie-skill
+```
+
+After installation, verify it with `hermes skills list` and `hermes skills audit`. Do not copy the root `SKILL.md` by itself into Hermes' skills directory; its references to `methodology/`, `extractors/`, `templates/`, and `scripts/` would be incomplete.
+
 ## What's New in v2.5.0
 
 - **Capability Bundle as the single source of truth**: extraction produces stable capability cards and metadata before any installable output is compiled.
