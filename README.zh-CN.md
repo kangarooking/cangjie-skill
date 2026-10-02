@@ -89,6 +89,8 @@ dsh web
 
 ## 它是怎么工作的
 
+> 🚀 **想直接上手？** 跟着 [Quickstart：从一本书到一个可安装的 Skill Pack](./docs/quickstart.md) 分步走完整个流程（输入准备 → 七个阶段 → 编译安装 → 验证与排错）。
+
 cangjie-skill 使用 **RIA-TV++** 流水线，先把书籍、视频转写、播客文字稿、访谈记录等原始文本变成可复用的 Capability Bundle，再编译为可安装的 skill。整个过程分七个阶段：
 
 > **脚本依赖**：`scripts/` 下的确定性脚本需要 **Python 3.10+** 与 **PyYAML**（`python3 -m pip install pyyaml`）。缺 PyYAML 时 `python3 scripts/cangjie.py doctor` 自检仍可运行并给出安装指引。可选依赖：`tiktoken`、`jsonschema`。

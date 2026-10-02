@@ -89,6 +89,8 @@ For video content, we recommend using the [video-downloader](https://github.com/
 
 ## How It Works
 
+> 🚀 **Want to jump straight in?** Follow the [Quickstart: from one book to an installable Skill Pack](./docs/quickstart.md) for a step-by-step walkthrough (input prep → the seven stages → compile & install → verification & troubleshooting).
+
 cangjie-skill uses the **RIA-TV++** pipeline to transform source texts—including books, video transcripts, podcast transcripts, and interview notes—into a reusable Capability Bundle, then compiles that source into installable skills. The process has seven stages:
 
 > **Script dependencies**: the deterministic scripts under `scripts/` require **Python 3.10+** and **PyYAML** (`python3 -m pip install pyyaml`). `python3 scripts/cangjie.py doctor` runs a self-check and works even when PyYAML is missing. Optional: `tiktoken`, `jsonschema`.
