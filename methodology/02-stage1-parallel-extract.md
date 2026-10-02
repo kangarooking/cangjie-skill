@@ -35,7 +35,7 @@
 | glossary | 术语是局部命中型,可先用确定性方法预筛 | 检索式取块 + 脚本预筛 |
 
 **检索式取块的前置条件**: 先用确定性脚本建好内容地图 —
-`python3 scripts/build_chunks.py <源文件> --out books/<slug>/.cangjie/` 生成结构感知块,
+`python3 scripts/build_chunks.py <源文件> --sidecar books/<slug>/.cangjie` 生成结构感知块,
 `python3 scripts/build_index.py books/<slug>/.cangjie/chunks/chunks.jsonl` 建 SQLite FTS5 索引。
 检索式 extractor 的流程: 关键词召回相关块 → 取邻接块防断章取义 → 证据不足时扩大窗口 →
 候选需回原文核验。五个 extractor 仍使用独立任务上下文,独立判断不变。
