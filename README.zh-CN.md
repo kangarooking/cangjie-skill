@@ -19,6 +19,9 @@
 
 **读完、看完、听完之后，带走一套能调用的方法论。**
 
+[![AtomGit](https://atomgit.com/kangarooking/cangjie-skill/star/new_badge.svg)](https://atomgit.com/kangarooking/cangjie-skill)
+
+
 </div>
 
 ## 66 秒了解仓颉 Skill
