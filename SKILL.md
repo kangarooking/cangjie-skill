@@ -1,6 +1,6 @@
 ---
 name: cangjie-skill
-description: Distill a book, long-video transcript, podcast, course, or interview into a coherent set of executable skills. Use when the user asks to "拆书" / "蒸馏一本书" / "把 XX 书做成 skill" / "把这个视频/播客/课程蒸馏成 skill" / "turn a book or video into skills" — i.e. wants the frameworks, principles, and methodologies in long-form content extracted into atomic, reusable Claude skills that an agent can invoke in real-world situations. NOT for simple summarization, book reviews, or role-playing as the author (that is nuwa-skill's job).
+description: Distill a book, long-video transcript, podcast, course, or interview into a coherent set of executable skills. Use when the user asks to "拆书" / "蒸馏一本书" / "把 XX 书做成 skill" / "把这个视频/播客/课程蒸馏成 skill" / "turn a book or video into skills" — i.e. wants the frameworks, principles, and methodologies in long-form content extracted into atomic, reusable Claude skills that an agent can invoke in real-world situations. Also use for explicitly requested cangjie/仓颉 stage-0 analysis without generating or installing skills. NOT for ordinary summarization without explicit cangjie invocation, book reviews, or role-playing as the author (that is nuwa-skill's job).
 metadata:
   cangjie.version: "2.5.0"
 ---
@@ -16,6 +16,7 @@ metadata:
 **边界**:
 - ✅ 做: 方法论 / 决策框架 / 操作流程 / 计算规则 / 排障 / 清单 / 原则的蒸馏，概念体系作为参考支撑
 - ❌ 不做: 书摘 / 读后感 / 作者人设角色扮演 (后者请用 nuwa-skill)
+- 用户明确点名仓颉但只要求总结或阶段 0 分析时，按该范围交付，不自动扩成完整蒸馏、安装或项目修改。普通摘要仍不触发本 Skill。
 
 ## 核心方法论: RIA-TV++（v2.5 Bundle 版）
 
@@ -55,6 +56,8 @@ metadata:
 
 **非书籍内容的字段映射**: 章节类字段对视频填时间戳或分 P,对播客填集数,对课程填讲次 — 保证可追溯即可。
 
+**视频材料**: 蒸馏对象包含课件、代码、操作演示或图表，或用户明确要求“不要只读字幕”时，阶段 0 先读 `references/video-evidence.md`。字幕用于定位和理解口述；对结论有影响的画面必须实际核对，并记录来源、时间点和未覆盖范围。画面不可获取时只输出有材料支持的部分，不声称完成视觉核验。纯音频、纯文本任务不因此增加视频步骤。
+
 ## 输出结构
 
 ```
@@ -89,6 +92,7 @@ books/<book-slug>/
 ### 阶段 0 — 整书理解
 
 1. 读取用户提供的书本文本。大文件分块阅读。
+   视频按 `references/video-evidence.md` 补充关键画面证据，将核验范围写入 `BOOK_OVERVIEW.md`，随全局上下文交给提取器。
 2. 执行 `methodology/01-stage0-adler.md` 中的 Adler 四步 (结构 / 解释 / 批判 / 应用)。
 3. 按 `templates/BOOK_OVERVIEW.md.template` 填充,写入 `books/<slug>/BOOK_OVERVIEW.md`。
 4. 把产出展示给用户确认:"骨架我理解对了吗?有没有你希望重点突出的方向?" 得到确认再进入阶段 1。
@@ -182,3 +186,7 @@ books/<book-slug>/
 - **保留审计轨迹** — candidates/ 和 rejected/ 都要留
 - **随时可续跑** — 每完成一个阶段就更新 PIPELINE_STATE.md,中断后从状态文件恢复
 - **输出策略持久化** — update/repair 默认沿用原输出模式,不因新增材料静默改变产物形态
+
+## 视频证据回归
+
+修改视频处理规则后，用 `tests/video-evidence-cases.json` 做情景重放。评估实际决策、证据定位与范围声明，不要只检查输出是否出现规定词句。
