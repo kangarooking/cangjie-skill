@@ -76,6 +76,7 @@ books/<book-slug>/
     │   ├── resources/         # 能力显式声明的 UTF-8 脚本、CSV/JSON/Markdown 模板（可选）
     │   ├── destinations.json  # 晋级/路由去向映射（阶段 1.6 产出）
     │   └── book/{overview.md,glossary.md}
+    │       └── source/{chapters.md,fulltext.md?}  # 查阅层: 章节摘要+可选原文（版权敏感,仅本地产物）; compile 自动打包为 references/source/ 并写入回源规则
     ├── runs/<run-id>/         # 每次编译/更新的决策报告与校验日志
     └── snapshots/             # 发布前快照（rollback 用）
 ```
@@ -182,3 +183,4 @@ books/<book-slug>/
 - **保留审计轨迹** — candidates/ 和 rejected/ 都要留
 - **随时可续跑** — 每完成一个阶段就更新 PIPELINE_STATE.md,中断后从状态文件恢复
 - **输出策略持久化** — update/repair 默认沿用原输出模式,不因新增材料静默改变产物形态
+- **交付前补齐查阅层** — 编译前确认 `book/source/chapters.md` 已产出（阶段 0/1 的骨架与分块直接聚合,不必重读全书）;需要引用原文的场景不给无回源能力的包（ADR: docs/plans/2026-10-06-reference-layer-adr.md）

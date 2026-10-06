@@ -9,7 +9,8 @@
     ├── cards/<slug>.md              # RIA 能力卡（R/I/A1/A2/E/B，正文逐字保留）
     └── book/{overview.md,glossary.md}
 
-输出（--variant single）：1 个发现入口 + 全部能力卡 + overview/glossary/cheatsheet/索引。
+输出（--variant single）：1 个发现入口 + 全部能力卡 + overview/glossary/cheatsheet/索引，
+另有可选查阅层 `references/source/`（来自 Bundle 侧车 book/source/，见 docs/plans/2026-10-06-reference-layer-adr.md）。
 --variant router 生成 compact pack 的来源路由入口视图（晋级能力在路由表标注改由独立 Skill 处理）。
 
 本脚本纯确定性、不调用模型。主入口 description、核心原则、意图路由全部来自 Bundle，脚本不猜测。
@@ -108,7 +109,8 @@ def router_table(caps: list[dict], variant: str) -> str:
     return "\n".join(rows)
 
 
-def build_entry_md(bundle: dict, variant: str) -> str:
+def build_entry_md(bundle: dict, variant: str, source_refs: dict[str, bool] | None = None) -> str:
+    source_refs = source_refs or {}
     entry = bundle["entry"] if variant == "single" else bundle["router_entry"]
     caps = active_capabilities(bundle)
     book = bundle["book"]
@@ -131,6 +133,20 @@ def build_entry_md(bundle: dict, variant: str) -> str:
     principles = "\n".join(f"{i}. {p}" for i, p in enumerate(e["core_principles"], 1))
     out_of_scope = "\n".join(f"- {x}" for x in e["out_of_scope"])
     stops = "\n".join(f"- {x}" for x in e["stop_conditions"])
+    # 查阅层路由（ADR 2026-10-06）：book/source/ 存在时才写入，保证无该侧车时产物与 v2.5.0 一致
+    source_extra = ""
+    if source_refs.get("chapters"):
+        ft = ("需要逐字原文时再回源 references/source/fulltext.md"
+              if source_refs.get("fulltext")
+              else "本包未附逐字原文，如实说明并建议对照原书")
+        source_extra = (
+            f"\n- 书中具体内容/章节细节/原话出处 → references/source/chapters.md"
+            f"（先查章节摘要定位，{ft}）"
+        )
+        source_rule = ("\n- 书中事实类问题（引用原话/页码/章节内容）必须先回源 references/source/ 核对后再回答，"
+                       "不得凭能力卡或记忆编造原文与页码。")
+    else:
+        source_rule = ""
 
     body = f"""# {book['title']} — {'全书能力入口' if variant == 'single' else '来源路由入口（compact pack）'}
 
@@ -152,13 +168,13 @@ def build_entry_md(bundle: dict, variant: str) -> str:
 - 书名/作者/章节/整书概览 → references/overview.md
 - 术语解释 → references/glossary.md
 - 决策规则速查（不需要原文依据时） → references/cheatsheet.md
-- 完整意图与关键词索引（本表未覆盖的意图先查这里） → references/capability-index.md
+- 完整意图与关键词索引（本表未覆盖的意图先查这里） → references/capability-index.md{source_extra}
 
 ## 加载规则
 
 - 每次任务先读本文件，再按路由表加载 **1** 张能力卡；任务明确跨域时最多加载 2 张。
 - 概览/书名类问题不加载能力卡，用「核心原则」与 overview.md 回答。
-- 路由表与 capability-index.md 都无法命中的意图，明确告知超出本书范围，不要硬套。
+- 路由表与 capability-index.md 都无法命中的意图，明确告知超出本书范围，不要硬套。{source_rule}
 
 ## 边界与判停
 
@@ -192,7 +208,14 @@ def build_tree(bundle_dir: Path, variant: str) -> dict[str, str]:
     caps = active_capabilities(bundle)
 
     files: dict[str, str] = {}
-    files["SKILL.md"] = build_entry_md(bundle, variant)
+    # 查阅层（ADR 2026-10-06）：book/source/{chapters,fulltext}.md 可选打包进 references/source/
+    source_refs: dict[str, bool] = {}
+    for name, rel in (("chapters", "chapters.md"), ("fulltext", "fulltext.md")):
+        src = bundle_dir / "book" / "source" / rel
+        if src.is_file():
+            files[f"references/source/{rel}"] = src.read_text(encoding="utf-8")
+            source_refs[name] = True
+    files["SKILL.md"] = build_entry_md(bundle, variant, source_refs)
     for cap in caps:
         files.update(capability_resources(bundle_dir, cap))
         files[f"references/capabilities/{cap['slug']}.md"] = (

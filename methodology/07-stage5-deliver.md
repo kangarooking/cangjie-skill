@@ -25,6 +25,15 @@ python3 scripts/cangjie.py compile \
 4. 编译产物必须通过 `validate_skill_pack.py`（编译器已内置为硬门）。
 5. `update` / `repair` 默认沿用本次决策,不因新增材料静默改变产物形态;重新选型走 `replan-output --dry-run`。
 
+### 0.5 查阅层（source sidecar，交付前核对）
+
+编译前确认 `books/<slug>/.cangjie/capabilities/book/source/chapters.md` 是否存在 — 它决定产物有没有"回源能力"（ADR: `docs/plans/2026-10-06-reference-layer-adr.md`）：
+
+- **chapters.md**（推荐必配）：每章一段 — `## 第 N 章 <标题> (p.X–Y)` + 一句话主旨 + 要点 + 关键原文定位。来源不必重读全书：阶段 0 骨架 + 阶段 1 分块的 heading_path 直接聚合；存量书按 `BOOK_OVERVIEW.md` + 章节目录补写一次即可。大书/套装按分册标注注册号；采样蒸馏的书在文件头如实标注。
+- **fulltext.md**（可选）：原书全文纯文本。⚠ 版权敏感 — 只允许进本地产物；产物要外发/发布到 GitHub 时必须先移除。可用 `scripts/extract_text.py` 从 PDF/EPUB/DOCX/TXT 确定性生成。
+- 编译器自动把两个文件打包为 `references/source/` 并在入口写入查阅路由与"书中事实必须回源核对"的加载规则；侧车不存在时编译行为不变。
+- 评测：`output_cases` 可加"查阅类 case"（问书中事实，断言页码/原文命中，并拒绝编造页码）。
+
 ## 第 1 步 — 生成 DIGEST.md (面向读者的精华长文)
 
 ### 为什么放在最后而不是阶段 0
