@@ -1,0 +1,16 @@
+schema_version: 1
+slug: aihot
+name: AIHOT 中文 AI 资讯查询 Skill
+summary: 通过 AIHOT 的匿名只读接口查询近期中文 AI 资讯、精选、热点、事件脉络与日报，按日期核对并保留 AIHOT 和原始来源链接。服务与内容使用须遵守 https://aihot.news/terms。
+source_type: github
+source_url: https://github.com/KKKKhazix/khazix-skills/tree/main/aihot
+skill_count: 1
+domains: [AI资讯, 信息检索, 阅读]
+language: [zh-CN]
+status: active
+quality: community
+featured: false
+use_cases:
+  - 查询最近 24 小时的 AI 动态，保留资讯日期和出处链接
+  - 按关键词检索近期模型或产品发布，回到原始来源核实
+  - 查询指定日期的 AI 日报或当前热点与事件脉络

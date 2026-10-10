@@ -4,8 +4,8 @@ import { filterCatalog, getCatalogStats, loadCatalog } from "./catalog";
 describe("registry catalog", () => {
   it("loads all seeded packs and totals", async () => {
     const entries = await loadCatalog();
-    expect(entries).toHaveLength(22);
-    expect(getCatalogStats(entries)).toMatchObject({ packs: 22, skills: 300 });
+    expect(entries).toHaveLength(23);
+    expect(getCatalogStats(entries)).toMatchObject({ packs: 23, skills: 301 });
   });
 
   it("has unique slugs and valid GitHub sources", async () => {
@@ -18,6 +18,6 @@ describe("registry catalog", () => {
     const entries = await loadCatalog();
     expect(filterCatalog(entries, { query: "巴菲特" }).length).toBe(2);
     expect(filterCatalog(entries, { domain: "数学" })).toHaveLength(1);
-    expect(filterCatalog(entries, { quality: "community" })).toHaveLength(6);
+    expect(filterCatalog(entries, { quality: "community" })).toHaveLength(7);
   });
 });
