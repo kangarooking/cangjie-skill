@@ -1,0 +1,20 @@
+schema_version: 2
+slug: chatspss
+name: ChatSPSS
+summary: 原创统计分析 Skill，读取用户数据，在本地执行22类基础统计任务，完整展示结果表并解读；含信度与EFA，复杂方法先说明公开范围。
+source_type: github
+source_url: https://github.com/jessepwj/ChatSPSS
+output_mode: single
+skill_count: 1
+entrypoint_count: 1
+capability_count: 22
+domains: [统计分析, 问卷研究, 数据分析]
+language: [zh-CN, en]
+status: active
+quality: community
+featured: false
+use_cases:
+  - 分析CSV、Excel、SPSS或Stata数据并完整展示Markdown结果表
+  - 做组间比较、相关回归和基础分类预测
+  - 对问卷题项做Cronbach α信度及EFA并解释质量限制
+  - 识别CFA、SEM、中介调节和面板等需求并核对公开实现范围
